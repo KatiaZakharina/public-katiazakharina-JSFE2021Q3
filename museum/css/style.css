@@ -1,0 +1,251 @@
+/**
+*@prettier
+*/
+/* ----------------
+       General
+  ----------------- */
+:root {
+  --bg-dark: #030303;
+  --dark-red: #710707;
+  --font-gold: #9d8665;
+  --font1: 80px;
+  --font2: 32px;
+  --font3: 28px;
+  --font4: 22px;
+  --font5: 18px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}
+.container {
+  max-width: 1440px;
+  width: calc(100% - 40px);
+  margin: 0 auto;
+}
+
+/* ----------------
+      Typography
+  ----------------- */
+
+*[class$='_dark'] {
+  color: #000;
+}
+*[class$='_gold'] {
+  color: var(--font-gold);
+}
+*[class$='_light'] {
+  color: #fff;
+}
+*[class$='_bold'] {
+  font-weight: bold;
+}
+*[class$='_bg-dark'] {
+  background-color: var(--bg-dark);
+}
+.section-title {
+  margin: 0;
+  font-family: 'Forum', cursive;
+  font-size: var(--font1);
+  font-weight: 400;
+  letter-spacing: 5px;
+  line-height: 90px;
+  text-transform: uppercase;
+}
+.section-title_gold {
+  color: var(--font-gold);
+}
+.section-title_light {
+  color: #ffffff;
+}
+.section-subtitle {
+  font-size: var(--font3);
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+.card-title {
+  font-family: 'Forum', cursive;
+  font-size: var(--font2);
+}
+.link {
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--font4);
+  font-weight: 200;
+  letter-spacing: 2px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+.link:hover {
+  color: var(--font-gold);
+}
+.link_active {
+  color: #7e6c51;
+}
+
+/* ----------------
+        Header
+  ----------------- */
+
+.header {
+  background-color: var(--bg-dark);
+  padding: 49px 0;
+}
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  height: 30px;
+  width: 190px;
+  background-image: url('../assets/svg/logo.svg');
+  background-repeat: no-repeat;
+}
+.nav {
+  max-width: 770px;
+  width: calc(60%);
+  line-height: 50px;
+}
+.nav__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+.nav__item:not(:last-child) {
+  padding-right: 10px;
+}
+
+/* ----------------
+      Welcome
+  ----------------- */
+
+.welcome__container {
+  position: relative;
+  padding-bottom: 300px;
+}
+.welcome__section-title {
+  position: relative;
+  max-width: 600px;
+  padding: 150px 0 25px;
+}
+.welcome__section-subtitle {
+  position: relative;
+  margin-bottom: 100px;
+}
+.welcome__btn {
+  position: relative;
+  padding: 1em 3em;
+  margin-bottom: 300px;
+  font-size: 22px;
+  font-weight: 200;
+  line-height: 26px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  line-height: 26px;
+  text-decoration: none;
+  background-color: var(--dark-red);
+  border-radius: 10px;
+  transition: background-color 0.5s ease;
+}
+.welcome__btn:hover {
+  background-color: var(--font-gold);
+}
+
+/* ----------------
+      Slider
+  ----------------- */
+
+.welcome__slider {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.welcome__slider::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: transparent;
+  background-image: linear-gradient(
+    90deg,
+    #000000 0%,
+    rgba(0, 0, 0, 0.5) 16.19%,
+    rgba(0, 0, 0, 0) 30.73%
+  );
+}
+.welcome__slider-counter {
+  display: flex;
+  align-items: center;
+  width: 600px;
+  height: 120px;
+  margin-top: -60px;
+  z-index: 20;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 40px;
+  color: #ffffff;
+  background-color: var(--bg-dark);
+}
+.welcome__slider-wrapper {
+  width: 100%;
+}
+.welcome__slide {
+  width: 100%;
+  height: 750px;
+}
+.welcome__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.welcome__slider-num:first-child {
+  margin-left: 65px;
+}
+.welcome__slider-num {
+  padding: 0 10px;
+}
+.welcome__slider-prev {
+  margin-right: 10px;
+  cursor: pointer;
+}
+.welcome__slider-next {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.welcome__carousel-indicators {
+  z-index: 15;
+  display: flex;
+  justify-content: center;
+  margin-right: 32px;
+  margin-left: 25px;
+  list-style: none;
+}
+.welcome__carousel-dot {
+  margin-right: 13px;
+  margin-left: 13px;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: px;
+  cursor: pointer;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transition: opacity 0.6s ease;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;500;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Museum</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__container container">
+        <div class="logo"></div>
+        <nav class="nav">
+          <ul class="nav__inner">
+            <li class="nav__item"><a class="link nav__link" href="#visiting">Visiting</a></li>
+            <li class="nav__item"><a class="link nav__link" href="#explore">Explore</a></li>
+            <li class="nav__item"><a class="link nav__link" href="#video">Video</a></li>
+            <li class="nav__item"><a class="link nav__link" href="#galery">Gallery</a></li>
+            <li class="nav__item"><a class="link nav__link" href="#tickets">Tickets</a></li>
+            <li class="nav__item"><a class="link nav__link" href="#contacts">Contacts</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="welcome welcome_bg-dark">
+        <div class="welcome__container container ">
+          
+          <div class="welcome__slider">
+            <div class="welcome__slider-wrapper">
+              <div class="welcome__slider-inner">
+                <div class="welcome__slide">
+                  <img src="assets/img/welcome-slider/1.jpg" alt="picture">
+                </div>
+                <div class="welcome__slide">
+                  <img src="assets/img/welcome-slider/2.jpg" alt="picture">
+                </div>
+                <div class="welcome__slide">
+                  <img src="assets/img/welcome-slider/3.jpg" alt="picture">
+                </div>
+                <div class="welcome__slide">
+                  <img src="assets/img/welcome-slider/4.jpg" alt="picture">
+                </div>
+                <div class="welcome__slide">
+                  <img src="assets/img/welcome-slider/5.jpg" alt="picture">
+                </div>
+              </div>
+            </div>
+            
+            <div class="welcome__slider-counter">
+              <span class="welcome__slider-num" id="current">03</span>
+              |
+              <span class="welcome__slider-num" id="total">04</span>
+              <ul class="welcome__carousel-indicators"></ul>
+              <div class="welcome__slider-prev">
+                <img src="assets/svg/before.svg" alt="prev" data-arrow>
+              </div>
+              <div class="welcome__slider-next">
+                <img src="assets/svg/after.svg" alt="next" data-arrow>
+              </div>
+            </div>
+          </div>
+
+            <h1 class="welcome__section-title section-title section-title_light">
+              Welcome to&nbsp;the&nbsp;Louvre
+            </h1>
+            <p class="welcome__section-subtitle section-subtitle section-subtitle_light">
+              From the castle to the museum
+            </p>
+            <a
+              class="welcome__btn btn"
+              href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736">
+              Discover the Louvre
+            </a>
+        </div>
+      </section>
+    </main>
+    <script src="js/index.js"></script>
+  </body>
+</html>
