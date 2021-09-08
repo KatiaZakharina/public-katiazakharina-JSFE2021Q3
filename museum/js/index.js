@@ -4,16 +4,16 @@ window.addEventListener('DOMContentLoaded',()=>{
         let offset = 0;
         let slideIndex = 1;
       
-        const slides = document.querySelectorAll('.welcome__slide'),
-          slider = document.querySelector('.welcome__slider'),
-          prev = document.querySelector('.welcome__slider-prev'),
-          next = document.querySelector('.welcome__slider-next'),
+        const slides = document.querySelectorAll('.slider__slide'),
+          slider = document.querySelector('.slider'),
+          prev = document.querySelector('.slider__prev'),
+          next = document.querySelector('.slider__next'),
           total = document.querySelector('#total'),
           current = document.querySelector('#current'),
-          slidesWrapper = document.querySelector('.welcome__slider-wrapper'),
+          slidesWrapper = document.querySelector('.slider__wrapper'),
           width = window.getComputedStyle(slidesWrapper).width,
-          slidesField = document.querySelector('.welcome__slider-inner'),
-          indicators=document.querySelector('.welcome__carousel-indicators');
+          slidesField = document.querySelector('.slider__inner'),
+          indicators=document.querySelector('.slider__carousel-indicators');
       
         if (slides.length < 10) {
           total.textContent = `0${slides.length}`;
@@ -37,12 +37,11 @@ window.addEventListener('DOMContentLoaded',()=>{
         const dots = [];
         for (let i = 0; i < slides.length; i++) {
           const dot = document.createElement('li');
-          dot.innerText="■";
           dot.setAttribute('data-slide-to', i + 1);
-          dot.classList.add('welcome__carousel-dot');
+          dot.classList.add('slider__carousel-dot');
 
           if (i == 0) {
-            dot.style.color = "#9d8665";
+            dot.style.backgroundColor="#9d8665";
           }
           indicators.append(dot);
           dots.push(dot);
@@ -69,8 +68,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             current.textContent = slideIndex;
           }
       
-          dots.forEach((dot) => (dot.style.color = '#ffffff'));
-          dots[slideIndex - 1].style.color = '#9d8665';
+          dots.forEach((dot) => (dot.style.backgroundColor = '#ffffff'));
+          dots[slideIndex - 1].style.backgroundColor = '#9d8665';
         });
       
         prev.addEventListener('click', () => {
@@ -94,8 +93,8 @@ window.addEventListener('DOMContentLoaded',()=>{
             current.textContent = slideIndex;
           }
       
-          dots.forEach((dot) => (dot.style.color = '#ffffff'));
-          dots[slideIndex - 1].style.color = '#9d8665';
+          dots.forEach((dot) => (dot.style.backgroundColor = '#ffffff'));
+          dots[slideIndex - 1].style.backgroundColor = '#9d8665';
         });
       
         dots.forEach((dot) => {
@@ -113,8 +112,8 @@ window.addEventListener('DOMContentLoaded',()=>{
               current.textContent = slideIndex;
             }
       
-            dots.forEach((dot) => (dot.style.color = '#ffffff'));
-            dots[slideIndex - 1].style.color = '#9d8665';
+            dots.forEach((dot) => (dot.style.backgroundColor = '#ffffff'));
+            dots[slideIndex - 1].style.backgroundColor = '#9d8665';
           });
         });
       })();
