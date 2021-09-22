@@ -7,6 +7,8 @@
     <link rel="icon" href="assets/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;500;700&display=swap"
       rel="stylesheet">
@@ -151,6 +153,107 @@
               <div class="resizer"></div>
           </div>
         </div>
+      </section>
+      <section class="video" id="video">
+        <div class="container video__container">
+          <div class="video__heading">
+            <h2 class="title video__title title_gold">Video&nbsp;journey</h2>
+            <p class="text video__text">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
+          </div>
+
+          <div class="video__player player">
+            <div class="player__wrapper player__wrapper-before"></div>
+            <video class="player__video" src="assets/video/video0.mp4" poster="assets/video/poster0.jpg" preload="metadata"></video>
+            <div class="player__panel">
+                <img class="player__play-button" src="assets/svg/play.svg" alt="play"></img>
+                <input class="player__range-time" type="range" min="0" step="0.01" value="0">
+                <img class="player__volume-button" src="assets/svg/volume.svg" alt="volume">
+                <input class="player__range-volume" type="range" step="0.1" min="0" max="1" value="0.5">
+                <img class="player__expand-button" src="assets/svg/expand.svg" alt="expand">
+            </div>
+          </div>
+          <div class="video__slider slider">
+            <div class="splide">
+              <div class="splide__track">
+                <ul class="splide__list">
+                  <li class="splide__slide"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                  <li class="splide__slide"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                  <li class="splide__slide"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="gallery gallery_bg-dark" id="gallery">
+        <div class="container gallery__container">
+          <h2 class="title gallery__title title_light">Art gallery</h2>
+          <div class="picture">
+            <div class="picture__inner">
+            <img src="assets/img/galery/galery1.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery2.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery3.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery4.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery5.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery6.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery7.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery8.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery9.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery10.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery11.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery12.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery13.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery14.jpg" alt="" class="picture__item">
+            <img src="assets/img/galery/galery15.jpg" alt="" class="picture__item">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="tickets" id="tickets">
+        <div class="container tickets__container">
+          <h2 class="title tickets__title title_gold underline">Buy tickets</h2>
+          <div class="tickets__inner">
+            <img src="assets/img/picture.jpg" alt="" class="tickets__img">
+            <form action="" class="tickets__booking booking">
+              <fieldset class="booking__type">
+              <legend class="booking__title">Ticket Type</legend>
+              <label class="booking__radio-label">Permanent exhibition
+                <input type="radio" class="booking__radio" name="radio">
+                <span class="booking__checkmark"></span>
+              </label>
+              <label class="booking__radio-label">Temporary exhibition
+                <input type="radio" class="booking__radio" name="radio">
+                <span class="booking__checkmark"></span>
+              </label>
+              <label class="booking__radio-label">Combined Admission
+                <input type="radio" class="booking__radio" name="radio">
+                <span class="booking__checkmark"></span>
+              </label>           
+             </fieldset>
+              <fieldset class="booking__amount">
+                <legend class="booking__title">Amount</legend>
+
+                <label class="booking__legend" for="basic-input">Basic 18+</label>
+                <div class="number-input booking__number-input">
+                  <button class="number-input__minus" type="button">–</button>
+                  <input class="number-input__input" id="basic-input" type="number" min="0" max="20" value="1" readonly>
+                  <button class="number-input__plus" type="button">+</button>
+                </div>
+
+                <label class="booking__legend" for="senior-input">Senior 65+</label>
+                <div class="number-input booking__number-input">
+                  <button class="number-input__minus" type="button">–</button>
+                  <input class="number-input__input" id="senior-input" type="number" min="0" max="20" value="1" readonly>
+                  <button class="number-input__plus" type="button">+</button>
+                </div>
+
+                <div class="booking__total booking__title">Total €220</div>
+                <button class="booking__submit" type="submit">Buy Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="tickets__parallax"></div>
       </section>
     </main>
     <script src="js/index.js"></script>

@@ -131,14 +131,12 @@ window.addEventListener('DOMContentLoaded', () => {
     //Sort overflow out for Overlay Image
     document.addEventListener('DOMContentLoaded', function () {
       let width = slider.offsetWidth;
-      console.log(width);
       beforeImage.style.width = width + 'px';
     });
 
     //Adjust width of image on resize
     window.addEventListener('resize', function () {
       let width = slider.offsetWidth;
-      console.log(width);
       beforeImage.style.width = width + 'px';
     });
 
@@ -209,5 +207,155 @@ window.addEventListener('DOMContentLoaded', () => {
       e.returnValue = false;
       return false;
     }
+  })();
+
+  //----------------------------------------Video
+  (function video() {
+    const video = document.querySelector('.player__video'),
+      rangeTime = document.querySelector('.player__range-time'),
+      rangeVolume = document.querySelector('.player__range-volume'),
+      playButton = document.querySelector('.player__play-button'),
+      expandButton = document.querySelector('.player__expand-button'),
+      volumeButton = document.querySelector('.player__volume-button'),
+      playButtonWrapper = document.querySelector('.player__wrapper');
+
+    playButtonWrapper.addEventListener('click', () => {
+      playButtonWrapper.classList.remove('player__wrapper-before');
+      playButton.src = '../assets/svg/stop.svg';
+      video.play();
+    });
+
+    video.addEventListener('click', () => {
+      playButtonWrapper.classList.add('player__wrapper-before');
+      playButton.src = '../assets/svg/play.svg';
+      video.pause();
+    });
+
+    video.volume = 0.5;
+    volumeButton.addEventListener('click', e => {
+      if (video.muted) {
+        video.muted = false;
+        e.target.src = '../assets/svg/volume.svg';
+        rangeVolume.value = video.volume || 0.5;
+        video.volume = rangeVolume.value;
+      } else {
+        video.muted = true;
+        e.target.src = '../assets/svg/novolume.svg';
+        rangeVolume.value = 0;
+      }
+    });
+
+    playButton.addEventListener('click', e => {
+      if (video.paused) {
+        video.play();
+        playButtonWrapper.classList.remove('player__wrapper-before');
+        playButton.src = '../assets/svg/stop.svg';
+      } else {
+        video.pause();
+        playButtonWrapper.classList.add('player__wrapper-before');
+        playButton.src = '../assets/svg/play.svg';
+      }
+    });
+
+    expandButton.addEventListener('click', () => {
+      video.requestFullscreen();
+    });
+
+    rangeTime.setAttribute('min', 0);
+    video.addEventListener('loadedmetadata', function () {
+      rangeTime.setAttribute('max', video.duration);
+    });
+
+    rangeTime.addEventListener('input', function () {
+      video.currentTime = rangeTime.value;
+    });
+
+    rangeTime.addEventListener(
+      'input',
+      function () {
+        video.currentTime = rangeTime.value;
+      },
+      false,
+    );
+
+    function runnableTrack() {
+      const input = document.querySelectorAll('input[type="range"]');
+      input.forEach(input => {
+        function setBackgroundSize(input) {
+          input.style.setProperty('--background-size', `${getBackgroundSize(input)}%`);
+        }
+
+        setBackgroundSize(input);
+
+        input.addEventListener('input', () => setBackgroundSize(input));
+
+        function getBackgroundSize(input) {
+          const min = +input.min || 0;
+          const max = +input.max || 100;
+          const value = +input.value;
+
+          const size = ((value - min) / (max - min)) * 100;
+
+          return size;
+        }
+      });
+    }
+    runnableTrack();
+
+    video.addEventListener('playing', () => {
+      setInterval(() => {
+        rangeTime.value = video.currentTime;
+        runnableTrack();
+      }, 10);
+    });
+
+    video.addEventListener(
+      'ended',
+      function () {
+        video.currentTime = 0;
+        rangeTime.value = 0;
+        video.load();
+        playButton.src = '../assets/svg/play.svg';
+      },
+      false,
+    );
+
+    rangeVolume.addEventListener(
+      'input',
+      function () {
+        video.muted = false;
+        video.volume = rangeVolume.value;
+        if (video.volume == 0) {
+          volumeButton.src = '../assets/svg/novolume.svg';
+          video.muted = true;
+        } else {
+          volumeButton.src = '../assets/svg/volume.svg';
+          video.muted = false;
+        }
+      },
+      false,
+    );
+  })();
+
+  // new Splide
+
+  new Splide('.splide', {
+    type: 'loop',
+    perPage: 3,
+    focus: 'center',
+  }).mount();
+
+  (function numberInput() {
+    document.querySelectorAll('.number-input__minus').forEach(i =>
+      i.addEventListener('click', e => {
+        e.target.nextElementSibling.stepDown();
+      }),
+    );
+
+    document.querySelectorAll('.number-input__plus').forEach(i =>
+      i.addEventListener('click', e => {
+        e.target.previousElementSibling.stepUp();
+      }),
+    );
   })();
 });

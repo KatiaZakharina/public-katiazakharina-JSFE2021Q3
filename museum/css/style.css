@@ -192,6 +192,10 @@ body {
 .welcome__btn:hover {
   background-color: var(--font-gold);
 }
+.booking__title {
+  font-size: var(--font3);
+  font-weight: bold;
+}
 
 /* ----------------
       Slider
@@ -315,6 +319,7 @@ body {
 /* ----------------
       Explore
   ----------------- */
+
 .explore__container {
   display: flex;
 }
@@ -340,8 +345,10 @@ body {
 }
 
 .compare__img {
-  width: 100%;
   display: block;
+  width: 100%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .compare__slider {
@@ -390,3 +397,289 @@ body {
   border-radius: 50%;
   border: 4px solid white;
 }
+
+/* ----------------
+      Video
+  ----------------- */
+
+.video__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.video__text {
+  max-width: 720px;
+  line-height: 38px;
+}
+.player__video {
+  object-fit: cover;
+  height: 650px;
+  width: 100%;
+  margin: 75px 0 -5px;
+}
+.player__panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px;
+  background-color: #000;
+}
+.video__player {
+  position: relative;
+}
+
+.player__wrapper-before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/svg/play-big.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 1000;
+}
+
+.player__play-button {
+  height: 31px;
+  width: 21px;
+}
+.player__volume-button {
+  height: 31px;
+  width: 38px;
+  object-fit: cover;
+}
+.player__range-time {
+  /* padding-left: -5px; */
+  width: 70%;
+  max-width: 929px;
+  height: 8px;
+  -webkit-appearance: none;
+  background: #c4c4c4;
+  outline: none;
+}
+.player__range-time::-webkit-slider-runnable-track {
+  height: 8px;
+  background-color: var(--dark-red);
+}
+.player__range-time::-webkit-slider-thumb {
+  margin-top: -3px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+.player__range-volume {
+  width: 155px;
+  -webkit-appearance: none;
+  height: 8px;
+  background: #c4c4c4;
+  outline: none;
+}
+.player__range-volume::-webkit-slider-thumb {
+  margin-top: -3px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+.player__range-time::-webkit-slider-runnable-track,
+.player__range-volume::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(to right, #710707, #710707), #d7d7d7;
+  background-size: var(--background-size, 0%) 100%;
+  background-repeat: no-repeat;
+}
+
+.video__slider {
+  margin-top: 40px;
+}
+
+/* ----------------
+      Gallery
+  ----------------- */
+
+.gallery__title {
+  margin-bottom: 75px;
+}
+
+.picture {
+  position: relative;
+  height: 1960px;
+  overflow-y: hidden;
+}
+.picture::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 85%, #000000 100%);
+}
+.picture__inner {
+  height: 3020px;
+  column-count: 3;
+  column-gap: 36px;
+  width: 100%;
+}
+
+.picture__item {
+  break-inside: avoid;
+  margin-bottom: 24px;
+}
+
+/* ----------------
+      Tickets
+  ----------------- */
+
+.tickets__inner {
+  display: flex;
+  justify-content: space-between;
+}
+.tickets__booking {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.booking__amount,
+.booking__type {
+  padding: 0;
+  border: 0;
+}
+.booking__type {
+  margin-left: 60px;
+}
+.booking__amount {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+/* ---------------------
+  Tickets radio input
+  --------------------- */
+
+.booking__radio-label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.booking__radio {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.booking__checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 17px;
+  width: 17px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid #000;
+}
+.booking__radio-label:hover .booking__radio ~ .booking__checkmark {
+  background-color: #ccc;
+}
+.booking__radio-label .booking__radio:checked ~ .booking__checkmark {
+  background-color: #eee;
+}
+.booking__checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.booking__radio-label .booking__radio:checked ~ .booking__checkmark:after {
+  display: block;
+}
+.booking__radio-label .booking__checkmark:after {
+  top: 3px;
+  left: 3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #000;
+}
+
+.booking__legend {
+  font-size: var(--font4);
+  font-weight: 300;
+}
+.booking__type .booking__title {
+  margin-bottom: 50px;
+}
+.booking__amount .booking__title {
+  text-align: right;
+}
+.booking__radio-label {
+  margin-bottom: 25px;
+}
+
+
+/* ---------------------
+  Tickets number input
+  --------------------- */
+
+.number-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  width: 150px;
+  padding: 6px 14px;
+  font-size: var(--font4);
+  font-weight: 300;
+  border: 3px #000 solid;
+}
+.number-input__input {
+  all: unset;
+  width: 3em;
+  text-align: center;
+}
+.number-input__plus,
+.number-input__minus {
+  font-size: var(--font2);
+  font-weight: 400;
+  border: 0;
+  background-color: #fff;
+}
+.booking__submit {
+  padding: 12px 38px;
+  font-size: var(--font4);
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #fff;
+  background-color: #000;
+}
+
+/* ----------------
+      Parallax
+  ---------------- */
+
+.tickets__parallax{
+  width: 100%;
+  height: 400px;
+  background-image: url(../assets/img/parallax.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* ----------------
+      Contacts
+  ---------------- */
