@@ -358,4 +358,111 @@ window.addEventListener('DOMContentLoaded', () => {
       }),
     );
   })();
+
+  //------ripple effect
+
+  (function buttonClick() {
+    let btn = document.querySelector('.ripple');
+
+    function ripple(e) {
+      e.preventDefault();
+      let posX = this.offsetLeft;
+      let posY = this.offsetTop;
+      let buttonWidth = this.offsetWidth;
+      let buttonHeight = this.offsetHeight;
+
+      let ripple = document.createElement('span');
+      ripple.classList.add('ripple__span');
+
+      this.appendChild(ripple);
+
+      if (buttonWidth >= buttonHeight) {
+        buttonHeight = buttonWidth;
+      } else {
+        buttonWidth = buttonHeight;
+      }
+
+      var x = e.pageX - posX - buttonWidth / 2;
+      var y = e.pageY - posY - buttonHeight / 2;
+
+      ripple.style.width = `${buttonWidth}px`;
+      ripple.style.height = `${buttonHeight}px`;
+      ripple.style.top = `${y}px`;
+      ripple.style.left = `${x}px`;
+
+      ripple.classList.add('rippleAnimation');
+
+      setTimeout(() => {
+        this.removeChild(ripple);
+      }, 1000);
+    }
+
+    btn.addEventListener('click', ripple);
+  })();
+
+  //-------modal
+  (function createModal() {
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+      modal = document.querySelector('.modal'),
+      modalContainer = document.querySelector('.modal__container'),
+      modalCloseBtn = document.querySelector('[data-close]');
+
+    modalTrigger.forEach(btn => {
+      btn.addEventListener('click', showModal);
+    });
+
+    modalCloseBtn.addEventListener('click', hideModal);
+
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        hideModal();
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (e.code == 'Escape' && modal.classList.contains('show')) {
+        hideModal();
+      }
+    });
+
+    function showModal() {
+      modal.classList.add('show');
+      modalContainer.classList.add('fadeIn');
+      modal.classList.remove('hide');
+      modalContainer.classList.remove('fadeOut');
+      // document.body.style.overflow = 'hidden';
+    }
+
+    function hideModal() {
+      modalContainer.classList.remove('fadeIn');
+      modalContainer.classList.add('fadeOut');
+      setTimeout(() => {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+      }, 1000);
+      // document.body.style.overflow = '';
+    }
+  })();
+
+  //----------------------gallery
+  (function appendGalleryImages() {
+    const gallery = document.querySelector('.picture__inner');
+    let random = severalRandom(1, 15, 15);
+    for (let i = 0; i < 15; i++) {
+      let img = document.createElement('img');
+      img.classList.add('picture__item');
+      img.setAttribute('alt', 'picture');
+      img.src = `assets/img/galery/galery${random[i]}.jpg`;
+      gallery.append(img);
+    }
+
+    function severalRandom(min, max, num) {
+      let i,
+        arr = [],
+        res = [];
+
+      for (i = min; i <= max; i++) arr.push(i);
+      for (i = 0; i < num; i++) res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
+      return res;
+    }
+  })();
 });
