@@ -65,10 +65,18 @@
               <span class="slider__num" id="total">04</span>
               <ul class="slider__carousel-indicators"></ul>
               <div class="slider__prev">
-                <button class="slider__button"><img src="assets/svg/before.svg" alt="prev" data-arrow></button>
+                <button class="slider__button" data-arrow>
+                  <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.7741 8C3.93688 6.31339 2.01219 5.08262 0 4.30769V3.69231C2.01219 2.89459 3.93688 1.66382 5.7741 0H7.30511C6.43024 1.4359 5.58454 2.52991 4.768 3.28205H30.2703V4.71795H4.768C5.58454 5.47009 6.43024 6.5641 7.30511 8H5.7741Z" fill="white"/>
+                  </svg>                    
+                </button>
               </div>
               <div class="slider__next">
-                <button class="slider__button"><img src="assets/svg/after.svg" alt="next" data-arrow></button>
+                <button class="slider__button" data-arrow>
+                  <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.2259 -4.15048e-07C27.0631 1.68661 28.9878 2.91738 31 3.69231L31 4.30769C28.9878 5.10541 27.0631 6.33618 25.2259 8L23.6949 8C24.5698 6.5641 25.4155 5.47009 26.232 4.71795L0.729731 4.71795L0.729731 3.28205L26.232 3.28205C25.4155 2.52991 24.5698 1.4359 23.6949 -5.25098e-07L25.2259 -4.15048e-07Z" fill="white"/>
+                  </svg>                    
+                </button>
               </div>
             </div>
           </div>
@@ -169,7 +177,7 @@
                 <img class="player__play-button" src="assets/svg/play.svg" alt="play">
                 <input class="player__range-time" type="range" min="0" step="0.01" value="0">
                 <img class="player__volume-button" src="assets/svg/volume.svg" alt="volume">
-                <input class="player__range-volume" type="range" step="0.1" min="0" max="1" value="0.5">
+                <input class="player__range-volume" type="range" step="0.01" min="0" max="1" value="0.45">
                 <img class="player__expand-button" src="assets/svg/expand.svg" alt="expand">
             </div>
           </div>
@@ -200,7 +208,7 @@
           <h2 class="title tickets__title underline title_gold">Buy tickets</h2>
           <div class="tickets__inner">
             <img src="assets/img/picture.jpg" alt="" class="tickets__img">
-            <form class="tickets__booking booking">
+            <form class="tickets__booking booking" method="GET">
               <fieldset class="booking__type">
               <legend class="booking__title">Ticket Type</legend>
               <label class="booking__radio-label">Permanent exhibition
@@ -223,7 +231,7 @@
                   <label class="booking__legend" for="basic-input">Basic 18+</label>
                   <div class="number-input booking__number-input">
                     <button class="number-input__minus" type="button">–</button>
-                    <input class="number-input__input" id="basic-input" type="number" min="0" max="20" value="1" readonly>
+                    <input class="number-input__input input-number_arrow_false" id="basic-input" type="number" min="0" max="20" value="1" readonly>
                     <button class="number-input__plus" type="button">+</button>
                   </div>
                 </div>
@@ -232,7 +240,7 @@
                   <label class="booking__legend" for="senior-input">Senior 65+</label>
                   <div class="number-input booking__number-input">
                     <button class="number-input__minus" type="button">–</button>
-                    <input class="number-input__input" id="senior-input" type="number" min="0" max="20" value="1" readonly>
+                    <input class="number-input__input input-number_arrow_false" id="senior-input" type="number" min="0" max="20" value="1" readonly>
                     <button class="number-input__plus" type="button">+</button>
                   </div>
                 </div>
@@ -329,7 +337,7 @@
     <section class="modal">
       <div class="container modal__container">
           <div class="modal__content">
-              <form class="modal__form" action="#">
+              <div class="modal__form" >
                   <div class="modal__close" data-close>&times;</div>
                   <fieldset class="modal__booking">
                     <div class="logo modal__logo"></div>
@@ -337,12 +345,28 @@
                     <h2 class="title modal__title title_gold">Booking tickets</h2>
                     <h3 class="modal__subtitle underline modal__subtitle_red">Tour to Louvre</h3>
                     <div class="modal__inputs">
-                      <input class="modal__date" placeholder="Date" type="date">
-                      <input class="modal__time" placeholder="Date" type="time">
-                      <input class="modal__name" placeholder="Name" type="text">
-                      <input class="modal__email" placeholder="Email" type="email">
-                      <input class="modal__phone" placeholder="Phone" type="tel">
-                      <select name="" id=""></select>
+                      <div class="modal__when">
+                        <input class="modal__date modal__input" type="date">
+                        <input class="modal__time modal__input" type="time">
+                      </div>
+
+                      <div class="modal__name-input">
+                        <span class='modal__name-icon '></span>
+                        <input class="modal__name modal__input" placeholder="Name" type="text">
+                      </div>
+
+                      <div class="modal__email-input">
+                        <span class='modal__email-icon '></span>
+                        <input class="modal__email modal__input" placeholder="E-mail" type="email">
+                      </div>
+
+                      <input class="modal__phone modal__input" placeholder="Phone" type="tel">
+                      <select class="modal__select modal__input">
+                        <option disabled selected>Ticket Type</option> 
+                        <option>Permanent exhibition</option> 
+                        <option>Temporary exhibition</option> 
+                        <option>Combined Admission</option>
+                      </select>
                     </div>
 
                     <div class="modal__data data">
@@ -351,21 +375,83 @@
                         <label class="data__label" for="basic">Basic 18+ (20 €)</label>
                         <div class="number-input data__number-input">
                           <button class="number-input__minus" type="button">–</button>
-                          <input class="number-input__input" id="senior-input" type="number" min="0" max="20" value="2" readonly>
+                          <input class="number-input__input input-number_arrow_false" id="basic" type="number" min="0" max="20" value="2" readonly>
                           <button class="number-input__plus" type="button">+</button>
                         </div>
   
                         <label class="data__label" for="senior">Senior 65+ (10 €)</label>
                         <div class="number-input data__number-input">
                           <button class="number-input__minus" type="button">–</button>
-                          <input class="number-input__input" id="senior-input" type="number" min="0" max="20" value="2" readonly>
+                          <input class="number-input__input input-number_arrow_false" id="senior" type="number" min="0" max="20" value="2" readonly>
                           <button class="number-input__plus" type="button">+</button>
                         </div>
                       </div>
                     </div>
                   </fieldset>
-                  <fieldset class="modal__overview"></fieldset>
-              </form>
+                  <fieldset class="modal__overview overview">
+                    <h3 class="overview__title">Overview</h3>
+                    <h4 class="overview__subtitle overview__subtitle_red">Tour to Louvre</h4>
+                    <img class="overview__img" src="assets/svg/form/overview.jpg" alt="overview">
+
+                    <div class="overview__info">
+                      <div class="overview__info-item">
+                        <img src="assets/svg/form/date.svg" alt="date-icon" class="overview__icon">
+                        <input type="text" value="Friday, August 19" readonly>
+                      </div>
+                      <div class="overview__info-item">
+                        <img src="assets/svg/form/time.svg" alt="date-icon" class="overview__icon">
+                        <input type="text" value="16 : 30" readonly>
+                      </div>
+                      <div class="overview__info-item">
+                        <img src="assets/svg/form/check_circle.svg" alt="date-icon" class="overview__icon">
+                        <input type="text" value="Temporary exhibition" readonly>
+                      </div>
+                    </div>
+              
+                    <div class="overview__number">
+                      <div class="overview__number-item">
+                        <label><input class="tickets-number" type="number" value="2" readonly>Basic (20 €)</label>
+                        <input class="tickets-cost" type="text" value="40 €" readonly>
+                      </div>
+                      <div class="overview__number-item">
+                        <label><input class="tickets-number" type="number" value="2" readonly>Senior (10 €)</label>
+                        <input class="tickets-cost" type="text" value="20 €" readonly>
+                      </div>
+                    </div>
+                    <div class="underline overline overview__total">
+                      <span class="overview__total-title">Total:</span>
+                      <input class="overview__total-sum" type="text" value="60 €" readonly>
+                    </div>
+
+                    <form class="overview__credits credits" method="post">
+                      <div class="credits__face">
+                        <div class="credits__acceptable">
+                          <img class="credits__type" src="assets/svg/form/visa.svg" alt="visa">
+                          <img class="credits__type" src="assets/svg/form/mastercard.svg" alt="mastercard">
+                        </div>
+                        <label class="credits__label">Card number</label>
+                        <input class="credits__input credits__card-number" type="tel" pattern="[0-9\s]{13,19}" maxlength="19">
+
+                        <label class="credits__label">Expiration date</label>
+                        <input class="credits__input credits__date-input input-number" type="number" value="03">
+                        <input class="credits__input credits__date-input input-number" type="number" value="2024">
+
+                        <label class="credits__label">Cardholder name</label>
+                        <input class="credits__input credits__cardholder" type="text">
+                      </div>
+                      <div class="credits__back">
+                        <label class="credits__label">CVC/CVV</label>
+                        <input class="credits__input credits__cvc input-number_arrow_false" type="number">
+                        <p class="credits__instruction">The last 
+                          3&nbsp;or 4 digits
+                          on back
+                          of the card</p>
+                      </div>
+                    </form>
+
+                    <button class="overview__btn btn">Book</button>
+                  </fieldset>
+              </div>
           </div>
       </div>
   </section>

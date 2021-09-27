@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
       dot.classList.add('slider__carousel-dot');
 
       if (i == 0) {
-        dot.style.backgroundColor = '#9d8665';
+        dot.style.backgroundColor = '#D2B183';
       }
       indicators.append(dot);
       dots.push(dot);
@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
-      dots[slideIndex - 1].style.backgroundColor = '#9d8665';
+      dots[slideIndex - 1].style.backgroundColor = '#D2B183';
     });
 
     prev.addEventListener('click', () => {
@@ -95,7 +95,7 @@ window.addEventListener('DOMContentLoaded', () => {
       }
 
       dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
-      dots[slideIndex - 1].style.backgroundColor = '#9d8665';
+      dots[slideIndex - 1].style.backgroundColor = '#D2B183';
     });
 
     dots.forEach(dot => {
@@ -114,7 +114,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
-        dots[slideIndex - 1].style.backgroundColor = '#9d8665';
+        dots[slideIndex - 1].style.backgroundColor = '#D2B183';
       });
     });
   })();
@@ -264,6 +264,8 @@ window.addEventListener('DOMContentLoaded', () => {
     rangeTime.setAttribute('min', 0);
     video.addEventListener('loadedmetadata', function () {
       rangeTime.setAttribute('max', video.duration);
+      rangeTime.setAttribute('value', video.duration *0.54);
+      runnableTrack();
     });
 
     rangeTime.addEventListener('input', function () {
