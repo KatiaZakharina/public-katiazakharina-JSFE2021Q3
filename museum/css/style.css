@@ -250,7 +250,8 @@ button {
   transition: background-color 0.5s ease;
 }
 .welcome__btn:hover,
-.booking__submit:hover {
+.booking__submit:hover,
+.overview__btn:hover {
   background-color: var(--font-gold);
 }
 .booking__title {
