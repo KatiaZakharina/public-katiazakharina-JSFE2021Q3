@@ -503,7 +503,6 @@ button {
 .video__player {
   position: relative;
 }
-
 .player__wrapper:hover {
   opacity: 0.7;
 }

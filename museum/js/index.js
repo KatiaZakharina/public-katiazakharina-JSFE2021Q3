@@ -319,13 +319,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     playButtonWrapper.addEventListener('click', () => {
       playButtonWrapper.classList.remove('player__wrapper-before');
-      playButton.src = '../assets/svg/stop.svg';
+      playButton.src = 'assets/svg/stop.svg';
       video.play();
     });
 
     video.addEventListener('click', () => {
       playButtonWrapper.classList.add('player__wrapper-before');
-      playButton.src = '../assets/svg/play.svg';
+      playButton.src = 'assets/svg/play.svg';
       video.pause();
     });
 
@@ -333,12 +333,12 @@ window.addEventListener('DOMContentLoaded', () => {
     volumeButton.addEventListener('click', e => {
       if (video.muted) {
         video.muted = false;
-        e.target.src = '../assets/svg/volume.svg';
+        e.target.src = 'assets/svg/volume.svg';
         rangeVolume.value = video.volume || 0.5;
         video.volume = rangeVolume.value;
       } else {
         video.muted = true;
-        e.target.src = '../assets/svg/novolume.svg';
+        e.target.src = 'assets/svg/novolume.svg';
         rangeVolume.value = 0;
       }
     });
@@ -347,11 +347,11 @@ window.addEventListener('DOMContentLoaded', () => {
       if (video.paused) {
         video.play();
         playButtonWrapper.classList.remove('player__wrapper-before');
-        playButton.src = '../assets/svg/stop.svg';
+        playButton.src = 'assets/svg/stop.svg';
       } else {
         video.pause();
         playButtonWrapper.classList.add('player__wrapper-before');
-        playButton.src = '../assets/svg/play.svg';
+        playButton.src = 'assets/svg/play.svg';
       }
     });
 
@@ -415,7 +415,7 @@ window.addEventListener('DOMContentLoaded', () => {
         video.currentTime = 0;
         rangeTime.value = 0;
         video.load();
-        playButton.src = '../assets/svg/play.svg';
+        playButton.src = 'assets/svg/play.svg';
       },
       false,
     );
@@ -426,10 +426,10 @@ window.addEventListener('DOMContentLoaded', () => {
         video.muted = false;
         video.volume = rangeVolume.value;
         if (video.volume == 0) {
-          volumeButton.src = '../assets/svg/novolume.svg';
+          volumeButton.src = 'assets/svg/novolume.svg';
           video.muted = true;
         } else {
-          volumeButton.src = '../assets/svg/volume.svg';
+          volumeButton.src = 'assets/svg/volume.svg';
           video.muted = false;
         }
       },
