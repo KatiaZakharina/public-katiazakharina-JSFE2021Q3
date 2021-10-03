@@ -319,13 +319,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     playButtonWrapper.addEventListener('click', () => {
       playButtonWrapper.classList.remove('player__wrapper-before');
-      playButton.src = '../assets/svg/stop.svg';
+      playButton.src = 'assets/svg/stop.svg';
       video.play();
     });
 
     video.addEventListener('click', () => {
       playButtonWrapper.classList.add('player__wrapper-before');
-      playButton.src = '../assets/svg/play.svg';
+      playButton.src = 'assets/svg/play.svg';
       video.pause();
     });
 
@@ -333,12 +333,12 @@ window.addEventListener('DOMContentLoaded', () => {
     volumeButton.addEventListener('click', e => {
       if (video.muted) {
         video.muted = false;
-        e.target.src = '../assets/svg/volume.svg';
+        e.target.src = 'assets/svg/volume.svg';
         rangeVolume.value = video.volume || 0.5;
         video.volume = rangeVolume.value;
       } else {
         video.muted = true;
-        e.target.src = '../assets/svg/novolume.svg';
+        e.target.src = 'assets/svg/novolume.svg';
         rangeVolume.value = 0;
       }
     });
@@ -347,11 +347,11 @@ window.addEventListener('DOMContentLoaded', () => {
       if (video.paused) {
         video.play();
         playButtonWrapper.classList.remove('player__wrapper-before');
-        playButton.src = '../assets/svg/stop.svg';
+        playButton.src = 'assets/svg/stop.svg';
       } else {
         video.pause();
         playButtonWrapper.classList.add('player__wrapper-before');
-        playButton.src = '../assets/svg/play.svg';
+        playButton.src = 'assets/svg/play.svg';
       }
     });
 
@@ -415,7 +415,7 @@ window.addEventListener('DOMContentLoaded', () => {
         video.currentTime = 0;
         rangeTime.value = 0;
         video.load();
-        playButton.src = '../assets/svg/play.svg';
+        playButton.src = 'assets/svg/play.svg';
       },
       false,
     );
@@ -426,10 +426,10 @@ window.addEventListener('DOMContentLoaded', () => {
         video.muted = false;
         video.volume = rangeVolume.value;
         if (video.volume == 0) {
-          volumeButton.src = '../assets/svg/novolume.svg';
+          volumeButton.src = 'assets/svg/novolume.svg';
           video.muted = true;
         } else {
-          volumeButton.src = '../assets/svg/volume.svg';
+          volumeButton.src = 'assets/svg/volume.svg';
           video.muted = false;
         }
       },
@@ -499,18 +499,21 @@ window.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', ripple);
   })();
 
+  createModal('a-nav', true,true);
+  createModal('reservation');
+
   //-------modal
-  (function createModal() {
-    const modalTrigger = document.querySelectorAll('[data-modal]'),
-      modal = document.querySelector('.modal'),
-      modalContainer = document.querySelector('.modal__container'),
-      modalCloseBtn = document.querySelector('[data-close]');
+  function createModal(elementName, scroolBehavior=false, changeTrigger=false) {
+    const modalTrigger = document.querySelectorAll(`[data-${elementName}][data-modal]`),
+      modal = document.querySelector(`[data-${elementName}][data-modal-window]`),
+      modalContainer = document.querySelector(`[data-${elementName}].modal__container`),
+      modalCloseBtn = document.querySelector(`[data-${elementName}][data-close]`);
 
     modalTrigger.forEach(btn => {
-      btn.addEventListener('click', showModal);
+      btn.addEventListener('click', ()=>changeTrigger&&btn.classList.contains('data-close')?hideModal():showModal());
     });
 
-    modalCloseBtn.addEventListener('click', hideModal);
+    if(modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
 
     modal.addEventListener('click', e => {
       if (e.target === modal) {
@@ -519,16 +522,33 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     document.addEventListener('keydown', e => {
       if (e.code == 'Escape' && modal.classList.contains('show')) {
-        hideModal();
+        hideModal();                                                                              
       }
     });
+
+  //---------------adaptive nav
+  function changeModalTrigger(){
+    const trigger=document.querySelector(`[data-${elementName}][data-trigger]`),
+          img=document.querySelector(`[data-${elementName}][data-trigger-image]`)
+      if(trigger.classList.contains('data-open')){
+        img.src='assets/svg/nav-close.svg';
+        trigger.classList.toggle('data-open');
+        trigger.classList.toggle('data-close');
+      } else{
+        img.src='assets/svg/nav-open.svg';
+        trigger.classList.toggle('data-open');
+        trigger.classList.toggle('data-close');
+      }
+  };
 
     function showModal() {
       modal.classList.add('show');
       modalContainer.classList.add('fadeIn');
       modal.classList.remove('hide');
       modalContainer.classList.remove('fadeOut');
-      // document.body.style.overflow = 'hidden';
+      if(scroolBehavior) document.body.style.overflow = 'hidden';
+      if(changeTrigger) changeModalTrigger();
+      if(elementName=='a-nav') document.querySelector('.welcome__info').classList.add='welcome__info_md_hide';
     }
 
     function hideModal() {
@@ -538,9 +558,14 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('hide');
         modal.classList.remove('show');
       }, 1000);
-      // document.body.style.overflow = '';
+      if(scroolBehavior) document.body.style.overflow = '';
+      if(changeTrigger) changeModalTrigger();
+      if(elementName=='a-nav') document.querySelector('.welcome__info').classList.remove='welcome__info_md_hide';
     }
-  })();
+
+  };
+
+
 
   //----------------------gallery
   (function appendGalleryImages() {

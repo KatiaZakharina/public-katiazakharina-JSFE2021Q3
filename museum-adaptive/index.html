@@ -30,13 +30,45 @@
             <li class="nav__item"><a class="link nav__link" href="#tickets">Tickets</a></li>
             <li class="nav__item"><a class="link nav__link" href="#contacts">Contacts</a></li>
           </ul>
+          <button class="nav__toggle a-nav data-open" data-modal data-a-nav data-trigger><img src="assets/svg/nav-open.svg" alt="menu" data-a-nav data-trigger-image></button>
         </nav>
       </div>
     </header>
 
+      
+    <section class="a-nav__modal modal" data-modal-window data-a-nav>
+      <div class="container modal__container a-nav__container" data-a-nav>
+          <div class="modal__content a-nav__content">
+              <nav class="a-nav__nav" >
+                  <ul class="a_nav__inner">
+                    <li class="a-nav__item"><a class="a-nav__link link" href="#visiting">Visiting</a></li>
+                    <li class="a-nav__item"><a class="a-nav__link link" href="#explore">Explore</a></li>
+                    <li class="a-nav__item"><a class="a-nav__link link" href="#video">Video</a></li>
+                    <li class="a-nav__item"><a class="a-nav__link link" href="#gallery">Gallery</a></li>
+                    <li class="a-nav__item"><a class="a-nav__link link" href="#tickets">Tickets</a></li>
+                    <li class="a-nav__item"><a class="a-nav__link link" href="#contacts">Contacts</a></li>
+                  </ul>
+              </nav>
+          </div>
+      </div>
+  </section>
+
     <main class="main">
       <section class="welcome welcome_bg-dark">
         <div class="welcome__container container ">
+          <div class="welcome__info">
+            <h2 class="welcome__title title title_light">
+              Welcome to&nbsp;the&nbsp;Louvre
+            </h2>
+            <p class="welcome__subtitle subtitle subtitle_light">
+              From the castle to the museum
+            </p>
+            <a
+              class="welcome__btn welcome__btn_s_hide"
+              href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736">
+              Discover the Louvre
+            </a>
+          </div>
           
           <div class="slider welcome__slider">
             <div class="slider__wrapper">
@@ -60,38 +92,29 @@
             </div>
             
             <div class="slider__counter">
-              <span class="slider__num" id="current">03</span>
-              |
-              <span class="slider__num" id="total">04</span>
-              <ul class="slider__carousel-indicators"></ul>
-              <div class="slider__prev">
-                <button class="slider__button" data-arrow>
-                  <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.7741 8C3.93688 6.31339 2.01219 5.08262 0 4.30769V3.69231C2.01219 2.89459 3.93688 1.66382 5.7741 0H7.30511C6.43024 1.4359 5.58454 2.52991 4.768 3.28205H30.2703V4.71795H4.768C5.58454 5.47009 6.43024 6.5641 7.30511 8H5.7741Z" fill="white"/>
-                  </svg>                    
-                </button>
-              </div>
-              <div class="slider__next">
-                <button class="slider__button" data-arrow>
-                  <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25.2259 -4.15048e-07C27.0631 1.68661 28.9878 2.91738 31 3.69231L31 4.30769C28.9878 5.10541 27.0631 6.33618 25.2259 8L23.6949 8C24.5698 6.5641 25.4155 5.47009 26.232 4.71795L0.729731 4.71795L0.729731 3.28205L26.232 3.28205C25.4155 2.52991 24.5698 1.4359 23.6949 -5.25098e-07L25.2259 -4.15048e-07Z" fill="white"/>
-                  </svg>                    
-                </button>
+              <div class="slider__counter-inner">
+                <div class="slider__position">
+                  <span class="slider__num" id="current">03</span>
+                  |
+                  <span class="slider__num" id="total">04</span>
+                </div>
+                <ul class="slider__carousel-indicators"></ul>
+                    <div class="slider__arrows">
+                      <button class="slider__prev" data-arrow>
+                        <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5.7741 8C3.93688 6.31339 2.01219 5.08262 0 4.30769V3.69231C2.01219 2.89459 3.93688 1.66382 5.7741 0H7.30511C6.43024 1.4359 5.58454 2.52991 4.768 3.28205H30.2703V4.71795H4.768C5.58454 5.47009 6.43024 6.5641 7.30511 8H5.7741Z" fill="white"/>
+                        </svg>                    
+                      </button>
+
+                      <button class="slider__next" data-arrow>
+                        <svg width="31" height="8" viewBox="0 0 31 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M25.2259 -4.15048e-07C27.0631 1.68661 28.9878 2.91738 31 3.69231L31 4.30769C28.9878 5.10541 27.0631 6.33618 25.2259 8L23.6949 8C24.5698 6.5641 25.4155 5.47009 26.232 4.71795L0.729731 4.71795L0.729731 3.28205L26.232 3.28205C25.4155 2.52991 24.5698 1.4359 23.6949 -5.25098e-07L25.2259 -4.15048e-07Z" fill="white"/>
+                        </svg>                    
+                      </button>
+                    </div>
               </div>
             </div>
           </div>
-
-            <h2 class="welcome__title title title_light">
-              Welcome to&nbsp;the&nbsp;Louvre
-            </h2>
-            <p class="welcome__subtitle subtitle subtitle_light">
-              From the castle to the museum
-            </p>
-            <a
-              class="welcome__btn btn"
-              href="https://www.google.com/maps/@48.8618159,2.3366818,3a,75y,81.55h,73.4t/data=!3m7!1e1!3m5!1sAF1QipOVxZQuSy3Bx9T_HpH_7FtBHDTXvI6SF-A10ocT!2e10!3e12!7i5472!8i2736">
-              Discover the Louvre
-            </a>
         </div>
       </section>
 
@@ -142,11 +165,11 @@
         <div class="container explore__container">
           <div class="explore__description">
             <h2 class="title explore__title underline title_light">Picture explore</h2>
-            <p class="text explore__text">
+            <p class="text explore__text explore__text_s_hide">
               Las Meninas is a 1656 painting by Diego Velázquez, the leading artist&nbsp;of the Spanish Golden Age.
             </p>
-            <p class="text explore__text">It was cleaned in 1984 to remove a <span class="explore__text_yellow">"yellow veil"</span> of dust that had gathered since the previous restoration in the 19th century.</p>
-            <p class="text explore__text">The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
+            <p class="text explore__text explore__text_s_hide">It was cleaned in 1984 to remove a <span class="explore__text_yellow">"yellow veil"</span> of dust that had gathered since the previous restoration in the 19th century.</p>
+            <p class="text explore__text explore__text_md_hide explore__text_s_hide">The cleaning provoked furious protests, not because the picture had been damaged in any way, but because it looked different.</p>
           </div>
 
           <div class="compare">
@@ -167,7 +190,7 @@
         <div class="container video__container">
           <div class="video__heading">
             <h2 class="title video__title title_gold">Video&nbsp;journey</h2>
-            <p class="text video__text">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
+            <p class="text video__text video__text_md_hide">Enter and visit one of the most famous museums in the world and enjoy masterpieces such as Mona Lisa or Hammurabi's Code</p>
           </div>
 
           <div class="video__player player">
@@ -183,9 +206,9 @@
           </div>
           <div class="video__slider vslider">
             <div class="vslider__videos">
-              <iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <!-- <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
             </div>
             <div class="vslider__control">
               <button class="vslider__prev">
@@ -234,7 +257,7 @@
           <div class="tickets__inner">
             <img src="assets/img/picture.jpg" alt="" class="tickets__img">
             <form class="tickets__booking booking" method="GET">
-              <fieldset class="booking__type">
+              <fieldset class="booking__type booking__type_md_hide">
               <legend class="booking__title">Ticket Type</legend>
               <label class="booking__radio-label">Permanent exhibition
                 <input type="radio" class="booking__radio" name="radio">
@@ -271,7 +294,7 @@
                 </div>
 
                 <div class="booking__total booking__title">Total €220</div>
-                <button class="booking__submit ripple" data-modal type="submit">Buy Now</button>
+                <button class="booking__submit ripple" data-modal data-reservation="" type="submit">Buy Now</button>
               </fieldset>
             </form>
           </div>
@@ -291,7 +314,7 @@
                 <li class="information__item"><a class="information__link" href="mailto:info@louvre.fr"> mail: info@louvre.fr</a></li>
               </ul>
             </div>
-            <img src="assets/img/cart.jpg" alt="cart">
+            <img class="contacts__map" src="assets/img/cart.jpg" alt="cart">
           </div>
         </div>
       </section>
@@ -353,40 +376,40 @@
       </div>
       <hr class="footer__hr">
       <div class="container footer-bottom">
-          <div class="footer__date date">&copy;2021</div>
+          <div class="footer__date date">&copy; 2021</div>
           <a class="footer__school link" href="https://rs.school/js/">The Rolling Scopes School</a>
-          <a class="footer__author link">Katia Zakharina</a>
+          <a class="footer__author link" href="https://github.com/KatiaZakharina">Katia Zakharina</a>
       </div>
     </footer>
 
-    <section class="modal">
-      <div class="container modal__container">
-          <div class="modal__content">
-              <div class="modal__form" >
-                  <div class="modal__close" data-close>&times;</div>
-                  <fieldset class="modal__booking">
-                    <div class="logo modal__logo"></div>
+    <section class="modal reservation" data-reservation data-modal-window>
+      <div class="container modal__container reservation__container" data-reservation>
+          <div class="modal__content reservation__content">
+              <div class="reservation__form">
+                  <div class="modal__close reservation__close" data-close data-reservation>&times;</div>
+                  <fieldset class="reservation__booking">
+                    <div class="logo reservation__logo"></div>
                     
-                    <h2 class="title modal__title title_gold">Booking tickets</h2>
-                    <h3 class="modal__subtitle underline modal__subtitle_red">Tour to Louvre</h3>
-                    <div class="modal__inputs">
-                      <div class="modal__when">
-                        <input class="modal__date modal__input" type="date">
-                        <input class="modal__time modal__input" type="time">
+                    <h2 class="title reservation__title title_gold">Booking tickets</h2>
+                    <h3 class="reservation__subtitle underline reservation__subtitle_red">Tour to Louvre</h3>
+                    <div class="reservation__inputs">
+                      <div class="reservation__when">
+                        <input class="reservation__date reservation__input" type="date">
+                        <input class="reservation__time reservation__input" type="time">
                       </div>
 
-                      <div class="modal__name-input">
-                        <span class='modal__name-icon '></span>
-                        <input class="modal__name modal__input" placeholder="Name" type="text">
+                      <div class="reservation__name-input">
+                        <span class='reservation__name-icon '></span>
+                        <input class="reservation__name reservation__input" placeholder="Name" type="text">
                       </div>
 
-                      <div class="modal__email-input">
-                        <span class='modal__email-icon '></span>
-                        <input class="modal__email modal__input" placeholder="E-mail" type="email">
+                      <div class="reservation__email-input">
+                        <span class='reservation__email-icon '></span>
+                        <input class="reservation__email reservation__input" placeholder="E-mail" type="email">
                       </div>
 
-                      <input class="modal__phone modal__input" placeholder="Phone" type="tel">
-                      <select class="modal__select modal__input">
+                      <input class="reservation__phone reservation__input" placeholder="Phone" type="tel">
+                      <select class="reservation__select reservation__input">
                         <option disabled selected>Ticket Type</option> 
                         <option>Permanent exhibition</option> 
                         <option>Temporary exhibition</option> 
@@ -394,8 +417,8 @@
                       </select>
                     </div>
 
-                    <div class="modal__data data">
-                      <h3 class="modal__subtitle underline modal__subtitle_gold" >Entry Ticket</h3>
+                    <div class="reservation__data data">
+                      <h3 class="reservation__subtitle underline reservation__subtitle_gold" >Entry Ticket</h3>
                       <div class="date__inner">
                         <label class="data__label" for="basic">Basic 18+ (20 €)</label>
                         <div class="number-input data__number-input">
@@ -413,7 +436,7 @@
                       </div>
                     </div>
                   </fieldset>
-                  <fieldset class="modal__overview overview">
+                  <fieldset class="reservation__overview overview">
                     <h3 class="overview__title">Overview</h3>
                     <h4 class="overview__subtitle overview__subtitle_red">Tour to Louvre</h4>
                     <img class="overview__img" src="assets/svg/form/overview.jpg" alt="overview">
