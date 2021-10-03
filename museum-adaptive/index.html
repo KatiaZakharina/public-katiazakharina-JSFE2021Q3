@@ -196,9 +196,10 @@
           <div class="video__player player">
             <button class="player__wrapper player__wrapper-before"></button>
             <video class="player__video" src="assets/video/video0.mp4" poster="assets/video/poster0.jpg" preload="metadata"></video>
+            <input class="player__range-time player__range-time_s_show" type="range" min="0" step="0.01" value="0">
             <div class="player__panel">
                 <img class="player__play-button" src="assets/svg/play.svg" alt="play">
-                <input class="player__range-time" type="range" min="0" step="0.01" value="0">
+                <input class="player__range-time player__range-time_s_hide" type="range" min="0" step="0.01" value="0">
                 <img class="player__volume-button" src="assets/svg/volume.svg" alt="volume">
                 <input class="player__range-volume" type="range" step="0.01" min="0" max="1" value="0.45">
                 <img class="player__expand-button" src="assets/svg/expand.svg" alt="expand">
@@ -206,9 +207,22 @@
           </div>
           <div class="video__slider vslider">
             <div class="vslider__videos">
-              <!-- <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+              <!-- <div class="vvideo">
+                <a class="video__link" href="https://youtu.be/neHA4MJwpnY">
+                    <picture>
+                        <source srcset="https://i.ytimg.com/vi_webp/neHA4MJwpnY/maxresdefault.webp" type="image/webp">
+                        <img class="video__media" src="https://i.ytimg.com/vi/neHA4MJwpnY/maxresdefault.jpg" alt="1. Пилот, разборы, ответы и лайвы">
+                    </picture>
+                </a>
+                <button class="video__button" aria-label="Запустить видео">
+                    <svg width="68" height="48" viewBox="0 0 68 48"><path class="video__button-shape" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path><path class="video__button-icon" d="M 45,24 27,14 27,34"></path></svg>
+                </button>
+            </div> -->
+
+              <!-- <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/zp1BXPX8jcU" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
               <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              <iframe class="vslider__video" loading="lazy" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+              <iframe class="vslider__video vslider__video_s_hide" loading="lazy" src="https://www.youtube.com/embed/NOhDysLnTvY" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="vslider__control">
               <button class="vslider__prev">
