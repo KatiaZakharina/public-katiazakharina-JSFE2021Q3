@@ -222,20 +222,23 @@ window.addEventListener('DOMContentLoaded', () => {
     const slider = document.querySelector('.compare__slider');
     const before = document.querySelector('.compare__before-image');
     const beforeImage = before.querySelector('.compare__img');
+    const after = document.querySelector('.compare__after-image');
+    const afterImage = after.querySelector('.compare__img');
     const resizer = document.querySelector('.resizer');
 
     let active = false;
 
-    //Sort overflow out for Overlay Image
-    document.addEventListener('DOMContentLoaded', function () {
-      let width = slider.offsetWidth;
-      beforeImage.style.width = width + 'px';
-    });
+    let width = slider.offsetWidth;
+    beforeImage.style.width = width + 'px';
+    afterImage.style.width = width + 'px';
+    // resizer.style.height
+
 
     //Adjust width of image on resize
     window.addEventListener('resize', function () {
       let width = slider.offsetWidth;
       beforeImage.style.width = width + 'px';
+      afterImage.style.width = width + 'px';
     });
 
     resizer.addEventListener('mousedown', function () {
