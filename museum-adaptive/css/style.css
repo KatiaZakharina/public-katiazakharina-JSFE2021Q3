@@ -1730,7 +1730,7 @@ button {
 .footer__school {
   font-size: 22px;
 }
-.footer__socials_s_show{
+.footer__socials_s_show {
   display: none;
 }
 @media (max-width: 1150px) {
@@ -1759,7 +1759,7 @@ button {
   }
 }
 @media (max-width: 930px) {
-  .footer__socials_s_show{
+  .footer__socials_s_show {
     display: none;
   }
   .footer-top {
