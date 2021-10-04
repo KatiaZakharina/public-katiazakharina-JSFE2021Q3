@@ -544,6 +544,12 @@ window.addEventListener('DOMContentLoaded', () => {
       }
   };
 
+  if(elementName=='a-nav'){
+    console.log('dd');
+    const navLinks=document.querySelectorAll('.a-nav__item');
+    navLinks.forEach(i=>i.addEventListener('click',hideModal));
+  }
+
     function showModal() {
       modal.classList.add('show');
       modalContainer.classList.add('fadeIn');
@@ -551,7 +557,8 @@ window.addEventListener('DOMContentLoaded', () => {
       modalContainer.classList.remove('fadeOut');
       if(scroolBehavior) document.body.style.overflow = 'hidden';
       if(changeTrigger) changeModalTrigger();
-      if(elementName=='a-nav') document.querySelector('.welcome__info').classList.add='welcome__info_md_hide';
+      // if(elementName=='a-nav') 
+      document.querySelector('.welcome__info').classList.add('welcome__info_md_hide');
     }
 
     function hideModal() {
@@ -563,7 +570,8 @@ window.addEventListener('DOMContentLoaded', () => {
       }, 1000);
       if(scroolBehavior) document.body.style.overflow = '';
       if(changeTrigger) changeModalTrigger();
-      if(elementName=='a-nav') document.querySelector('.welcome__info').classList.remove='welcome__info_md_hide';
+      // if(elementName=='a-nav')
+       document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
     }
 
   };

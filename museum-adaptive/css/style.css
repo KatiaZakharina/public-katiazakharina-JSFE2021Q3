@@ -1164,6 +1164,7 @@ button {
   .vslider__video {
     width: calc((100% - 20px) / 2);
     max-height: 200px; /**/
+    height: 200px;
   }
   .vslider__dot {
     height: 10px;
@@ -1729,6 +1730,9 @@ button {
 .footer__school {
   font-size: 22px;
 }
+.footer__socials_s_show{
+  display: none;
+}
 @media (max-width: 1150px) {
   .footer__nav {
     justify-content: start;
@@ -1755,6 +1759,9 @@ button {
   }
 }
 @media (max-width: 930px) {
+  .footer__socials_s_show{
+    display: none;
+  }
   .footer-top {
     padding-top: 43px;
     padding-bottom: 30px;
@@ -1828,7 +1835,7 @@ button {
     padding-bottom: 20px;
   }
 }
-@media (max-width: 420px) {
+@media (max-width: 415px) {
   .footer .nav__inner {
     width: 290px;
   }
