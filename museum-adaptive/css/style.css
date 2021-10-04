@@ -388,6 +388,24 @@ button {
     display: flex;
   }
 }
+@media (max-width: 660px) {
+  .a-nav__link {
+    font-size: 20px;
+  }
+  .a-nav__content {
+    padding: 14px 0;
+  }
+  .a-nav__images {
+    flex-wrap: nowrap;
+  }
+  .a-nav__image {
+    height: 95px;
+    width: calc(33% - 7px);
+  }
+  .a-nav__hr {
+    margin-top: 0px;
+  }
+}
 
 /* ----------------
       Welcome
@@ -763,12 +781,15 @@ button {
     padding-bottom: 80px;
   }
 }
-@media (max-width: 7680px) {
+@media (max-width: 768px) {
   .cards {
     gap: 39px 0;
   }
 }
 @media (max-width: 660px) {
+  .cards {
+    gap: 40px 0;
+  }
   .card__title {
     letter-spacing: 5px;
   }
@@ -1203,8 +1224,8 @@ button {
   .vslider__video {
     max-height: 100px;
   }
-  .vslider__prev,
-  .vslider__next {
+  .vslider__prev svg,
+  .vslider__next svg {
     width: 7px;
     height: 8px;
   }
@@ -1277,7 +1298,7 @@ button {
     height: 1040px;
   }
 }
-@media(max-width: 660px){
+@media (max-width: 660px) {
   .picture {
     height: 597px;
   }
@@ -1505,10 +1526,45 @@ button {
     height: 300px;
   }
 }
-@media(max-width: 660px){
+@media (max-width: 660px) {
   .tickets__img {
     height: 160px;
-}
+  }
+  .booking__title,
+  .booking__legend,
+  .booking__total,
+  .booking__submit {
+    font-size: 16px;
+  }
+  .booking__total {
+    letter-spacing: 0;
+  }
+  .booking__amount {
+    margin-top: 42px;
+    margin-right: 0;
+  }
+  .booking__submit {
+    padding: 16px 50px;
+    margin-top: 17px;
+  }
+  .booking__title {
+    margin-bottom: 20px;
+  }
+  .booking__total {
+    padding-top: 20px;
+  }
+  .tickets__inner {
+    flex-direction: column;
+  }
+  .tickets__img {
+    width: 100%;
+  }
+  .tickets__booking {
+    justify-content: center;
+  }
+  .booking__amount .booking__title {
+    text-align: center;
+  }
 }
 
 /* ----------------
@@ -1577,6 +1633,22 @@ button {
   }
   .contacts__container {
     margin-bottom: 35px;
+  }
+}
+@media (max-width: 660px) {
+  .contacts__title {
+    max-width: 130px;
+    line-height: 19px;
+  }
+  .information__item {
+    margin-bottom: 9px;
+  }
+  .contacts__map {
+    margin-top: 27px;
+    width: 100%;
+  }
+  .contacts__container {
+    margin-bottom: 2px;
   }
 }
 
@@ -1706,24 +1778,13 @@ button {
   }
 }
 @media (max-width: 660px) {
-  .tickets__inner {
-    flex-direction: column;
-  }
-  .tickets__img {
-    width: 100%;
-  }
-  .tickets__booking {
-    justify-content: center;
-  }
-  .booking__amount .booking__title {
-    text-align: center;
-  }
   .footer .nav__inner {
+    margin-top: 25px;
     width: 400px;
     height: 100px;
   }
   .footer .nav__item {
-    margin-right: 100px;
+    margin-right: 85px;
   }
   .footer__school_xs_hide {
     display: none;
@@ -1752,6 +1813,31 @@ button {
   }
   .slider__carousel-indicators {
     padding-right: 20px;
+  }
+  .footer-top {
+    padding-top: 34px;
+  }
+  .footer__socials {
+    padding-right: 65px;
+    margin-top: 13px;
+  }
+  .socials__link {
+    margin: 24px 15px;
+  }
+  .footer-top {
+    padding-bottom: 20px;
+  }
+}
+@media (max-width: 420px) {
+  .footer .nav__inner {
+    width: 290px;
+  }
+  .footer .nav__item {
+    margin-right: 0;
+  }
+  .footer__socials {
+    padding-right: 0;
+    margin-right: auto;
   }
 }
 /* ----------------
@@ -2124,9 +2210,6 @@ button {
   background-color: var(--dark-red);
   border: 0;
 }
-/* .main {
-  overflow: hidden;
-} */
 @media (max-width: 1024px) {
   .reservation__content {
     padding-top: 75px;
@@ -2169,6 +2252,20 @@ button {
   }
   .overview__img {
     right: 15px;
+  }
+  .modal {
+    overflow: scroll;
+  }
+}
+@media (max-width: 660px) {
+  .credits__back {
+    margin-top: 25px;
+    margin-left: 0;
+  }
+}
+@media (max-width: 500px) {
+  .modal {
+    overflow: hidden;
   }
 }
 

@@ -231,7 +231,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let width = slider.offsetWidth;
     beforeImage.style.width = width + 'px';
     afterImage.style.width = width + 'px';
-    // resizer.style.height
+    resizer.style.height
 
 
     //Adjust width of image on resize
