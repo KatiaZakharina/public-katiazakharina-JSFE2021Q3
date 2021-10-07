@@ -1,100 +1,7 @@
+/**
+ * @prettier
+ */
 window.addEventListener('DOMContentLoaded', () => {
-
-  console.log(`
-  Ваша оценка - 149 баллов 
-Отзыв по пунктам ТЗ:
-Не выполненные/не засчитанные пункты:
-1) Результат проверки скорости сайта для мобильных устройств: 0 to 49 (red): Poor - не выполнено 0 ,баллов; 50 to 89 (orange): Needs Improvement - частично выполнено - 4 баллов; 90 to 100 (green): Good - выполнено полностью - 8 баллов 
-
-Частично выполненные пункты:
-1) Ни на одном из разрешений до 320px включительно не появляется горизонтальная полоса прокрутки,  элементы не должны скрываться, обрезаться, наезжать друг на друга, если это не предусмотрено макетом. 
-
-Выполненные пункты:
-1) Блок header 
-
-2) Секция Welcome 
-
-3) Секция Visiting 
-
-4) Секция Explore 
-
-5) Секция Video 
-
-6) Секция Gallery 
-
-7) Секция Tickets 
-
-8) Форма покупки билетов 
-
-9) Секция Contacts 
-
-10) Блок footer  
-
-11) Блок header 
-
-12) Секция Welcome 
-
-13) Секция Visiting 
-
-14) Секция Explore 
-
-15) Секция Video 
-
-16) Секция Gallery 
-
-17) Секция Tickets 
-
-18) Форма покупки билетов 
-
-19) Секция Contacts 
-
-20) Блок footer  
-
-21) Блок header 
-
-22) Секция Welcome 
-
-23) Секция Visiting 
-
-24) Секция Explore 
-
-25) Секция Video 
-
-26) Секция Gallery 
-
-27) Секция Tickets 
-
-28) Форма покупки билетов 
-
-29) Секция Contacts 
-
-30) Блок footer  
-
-31) слайдера в секции Welcome 
-
-32) слайдера сравнения изображений в секции Explore 
-
-33) кастомного видеоплеера в секции Video 
-
-34) слайдера в секции Video 
-
-35) YouTube-видео в плейлисте в секции Video, маленькие видео выровнены по краям большого 
-
-36) галереи изображений и изображений в ней 
-
-37) карты 
-
-38) при нажатии на бургер-иконку меню появляется, плавно выдвигаясь слева, бургер-иконка изменяется на крестик. При нажатии на крестик меню исчезает, плавно возвращаясь назад, иконка крестика превращается в бургер-иконку 
-
-39) ссылки в меню работают, обеспечивая плавную прокрутку по якорям 
-
-40) при клике по ссылке в адаптивном меню, или при клике по любому месту сайта, кроме самого адаптивного меню, меню закрывается 
-
-41) вёрстка меню соответствует макету на всех проверяемых разрешениях 
-
-
-  `);
-
   (function slider() {
     let offset = 0;
     let slideIndex = 1;
@@ -119,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slidesField.style.width = 100 * slides.length + '%';
     slidesField.style.display = 'flex';
-    slidesField.style.transition = '0.5s all';
+    slidesField.style.transition = '0.2s all';
 
     slidesWrapper.style.overflow = 'hidden';
 
@@ -140,8 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
       dots.push(dot);
     }
 
-    next.addEventListener('click', () => {
-      if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
+    next.addEventListener('click', showNext);
+    function showNext() {
+      if (offset == parseFloat(slides[0].style.width) * (slides.length - 1)) {
         offset = 0;
       } else {
         offset += +width.slice(0, width.length - 2);
@@ -163,13 +71,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
       dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
       dots[slideIndex - 1].style.backgroundColor = '#D2B183';
-    });
+    }
 
-    prev.addEventListener('click', () => {
-      if (offset == 0) {
+    prev.addEventListener('click', showPrev);
+    function showPrev() {
+      if (offset <= 0) {
+        offset = 0;
         offset = +width.slice(0, width.length - 2) * (slides.length - 1);
       } else {
         offset -= +width.slice(0, width.length - 2);
+        offset = offset.toFixed(3);
       }
 
       slidesField.style.transform = `translateX(-${offset}px)`;
@@ -188,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
       dots[slideIndex - 1].style.backgroundColor = '#D2B183';
-    });
+    }
 
     dots.forEach(dot => {
       dot.addEventListener('click', e => {
@@ -209,6 +120,76 @@ window.addEventListener('DOMContentLoaded', () => {
         dots[slideIndex - 1].style.backgroundColor = '#D2B183';
       });
     });
+
+    const slider = document.querySelector('.welcome__slider');
+
+    let touchStart = null,
+      touchPosition = null,
+      sensitivity = 40;
+
+    slider.addEventListener('mousedown', e => {
+      mouseStart(e);
+    });
+    slider.addEventListener('mousemove', e => {
+      mouseMove(e);
+    });
+    slider.addEventListener('mouseup', e => {
+      TouchEnd(e);
+    });
+
+    slider.addEventListener('touchstart', e => {
+      TouchStart(e);
+    });
+    slider.addEventListener('touchmove', e => {
+      TouchMove(e);
+    });
+    slider.addEventListener('touchend', e => {
+      TouchEnd(e);
+    });
+    slider.addEventListener('touchcancel', e => {
+      TouchEnd(e);
+    });
+
+    function mouseStart(e) {
+      touchStart = { x: e.clientX, y: e.clientY };
+      touchPosition = { x: touchStart.x, y: touchStart.y };
+    }
+
+    function mouseMove(e) {
+      touchPosition = { x: e.clientX, y: e.clientY };
+    }
+
+    function TouchStart(e) {
+      touchStart = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+      touchPosition = { x: touchStart.x, y: touchStart.y };
+    }
+
+    function TouchMove(e) {
+      touchPosition = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+    }
+
+    function TouchEnd(e) {
+      CheckAction();
+      touchStart = null;
+      touchPosition = null;
+    }
+
+    function CheckAction() {
+      let diff = {
+        x: touchStart.x - touchPosition.x,
+        y: touchStart.y - touchPosition.y,
+      };
+
+      if (Math.abs(diff.x) > Math.abs(diff.y)) {
+        if (Math.abs(diff.x) > sensitivity) {
+          if (diff.x > 0) {
+            showNext();
+          } else {
+            showPrev();
+          }
+        }
+      }
+    }
   })();
 
   //--------------------------before-after
@@ -225,8 +206,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let width = slider.offsetWidth;
     beforeImage.style.width = width + 'px';
     afterImage.style.width = width + 'px';
-    resizer.style.height
-
+    resizer.style.height;
 
     //Adjust width of image on resize
     window.addEventListener('resize', function () {
@@ -496,21 +476,23 @@ window.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', ripple);
   })();
 
-  createModal('a-nav', true,true);
+  createModal('a-nav', true, true);
   createModal('reservation');
 
   //-------modal
-  function createModal(elementName, scroolBehavior=false, changeTrigger=false) {
+  function createModal(elementName, scroolBehavior = false, changeTrigger = false) {
     const modalTrigger = document.querySelectorAll(`[data-${elementName}][data-modal]`),
       modal = document.querySelector(`[data-${elementName}][data-modal-window]`),
       modalContainer = document.querySelector(`[data-${elementName}].modal__container`),
       modalCloseBtn = document.querySelector(`[data-${elementName}][data-close]`);
 
     modalTrigger.forEach(btn => {
-      btn.addEventListener('click', ()=>changeTrigger&&btn.classList.contains('data-close')?hideModal():showModal());
+      btn.addEventListener('click', () =>
+        changeTrigger && btn.classList.contains('data-close') ? hideModal() : showModal(),
+      );
     });
 
-    if(modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
 
     modal.addEventListener('click', e => {
       if (e.target === modal) {
@@ -519,38 +501,38 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     document.addEventListener('keydown', e => {
       if (e.code == 'Escape' && modal.classList.contains('show')) {
-        hideModal();                                                                              
+        hideModal();
       }
     });
 
-  //---------------adaptive nav
-  function changeModalTrigger(){
-    const trigger=document.querySelector(`[data-${elementName}][data-trigger]`),
-          img=document.querySelector(`[data-${elementName}][data-trigger-image]`)
-      if(trigger.classList.contains('data-open')){
-        img.src='assets/svg/nav-close.svg';
+    //---------------adaptive nav
+    function changeModalTrigger() {
+      const trigger = document.querySelector(`[data-${elementName}][data-trigger]`),
+        img = document.querySelector(`[data-${elementName}][data-trigger-image]`);
+      if (trigger.classList.contains('data-open')) {
+        img.src = 'assets/svg/nav-close.svg';
         trigger.classList.toggle('data-open');
         trigger.classList.toggle('data-close');
-      } else{
-        img.src='assets/svg/nav-open.svg';
+      } else {
+        img.src = 'assets/svg/nav-open.svg';
         trigger.classList.toggle('data-open');
         trigger.classList.toggle('data-close');
       }
-  };
+    }
 
-  if(elementName=='a-nav'){
-    const navLinks=document.querySelectorAll('.a-nav__item');
-    navLinks.forEach(i=>i.addEventListener('click',hideModal));
-  }
+    if (elementName == 'a-nav') {
+      const navLinks = document.querySelectorAll('.a-nav__item');
+      navLinks.forEach(i => i.addEventListener('click', hideModal));
+    }
 
     function showModal() {
       modal.classList.add('show');
       modalContainer.classList.add('fadeIn');
       modal.classList.remove('hide');
       modalContainer.classList.remove('fadeOut');
-      if(scroolBehavior) document.body.style.overflow = 'hidden';
-      if(changeTrigger) changeModalTrigger();
-      // if(elementName=='a-nav') 
+      if (scroolBehavior) document.body.style.overflow = 'hidden';
+      if (changeTrigger) changeModalTrigger();
+      // if(elementName=='a-nav')
       document.querySelector('.welcome__info').classList.add('welcome__info_md_hide');
     }
 
@@ -561,15 +543,12 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('hide');
         modal.classList.remove('show');
       }, 1000);
-      if(scroolBehavior) document.body.style.overflow = '';
-      if(changeTrigger) changeModalTrigger();
+      if (scroolBehavior) document.body.style.overflow = '';
+      if (changeTrigger) changeModalTrigger();
       // if(elementName=='a-nav')
-       document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
+      document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
     }
-
-  };
-
-
+  }
 
   //----------------------gallery
   (function appendGalleryImages() {
