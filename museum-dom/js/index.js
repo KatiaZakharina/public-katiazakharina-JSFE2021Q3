@@ -422,18 +422,118 @@ window.addEventListener('DOMContentLoaded', () => {
   //   focus: 'center',
   // }).mount();
 
-  (function numberInput() {
-    document.querySelectorAll('.number-input__minus').forEach(i =>
-      i.addEventListener('click', e => {
-        e.target.nextElementSibling.stepDown();
+  (function bookTickets() {
+    const SENIOR_BENEFIT = 0.5,
+      BASIC_BENEFIT = 1;
+    const ticketsType = document.querySelectorAll('.booking__radio'),
+      basicTickets = document.querySelector('#basic-input'),
+      seniorTickets = document.querySelector('#senior-input'),
+      ticketsTotal = document.querySelector('.booking__data-total'),
+      reservationBasic = document.querySelector('.reservation__basic'),
+      reservationSenior = document.querySelector('.reservation__senior'),
+      overviewBasic = document.querySelector('.tickets-number_basic'),
+      overviewSenior = document.querySelector('.tickets-number_senior'),
+      typeSelect = document.querySelector('.reservation__select'),
+      reservationDate = document.querySelector('.reservation__date'),
+      reservationTime = document.querySelector('.reservation__time'),
+      overviewDateOutput = document.querySelector('.overview__date-output'),
+      overviewTimeOutput = document.querySelector('.overview__time-output'),
+      overviewTypeOutput = document.querySelector('.overview__type-output'),
+      overviewTotalBasic = document.querySelector('.tickets-cost-basic'),
+      overviewTotalSenior = document.querySelector('.tickets-cost-senior'),
+      overviewTotalSum = document.querySelector('.overview__total-sum');
+
+    let type;
+
+    if (sessionStorage.length) {
+      basicTickets.value = +sessionStorage.getItem('basicNumber');
+      seniorTickets.value = +sessionStorage.getItem('seniorNumber');
+      ticketsType[+sessionStorage.getItem('typeIndex')].setAttribute('checked', 'checked');
+
+      calculateTotal();
+      setReservationData();
+    }
+
+    (function numberInput() {
+      document.querySelectorAll('.number-input__minus').forEach(i =>
+        i.addEventListener('click', e => {
+          e.target.nextElementSibling.stepDown();
+          calculateTotal();
+          if (i.classList.contains('booking__number-value')) {
+            console.log('hh');
+            setReservationData();
+          } else updateData();
+        }),
+      );
+
+      document.querySelectorAll('.number-input__plus').forEach(i =>
+        i.addEventListener('click', e => {
+          e.target.previousElementSibling.stepUp();
+          calculateTotal();
+          if (i.classList.contains('booking__number-value')) {
+            setReservationData();
+          } else updateData();
+        }),
+      );
+    })();
+
+    ticketsType.forEach(i =>
+      i.addEventListener('click', () => {
+        calculateTotal();
+        setReservationData();
       }),
     );
 
-    document.querySelectorAll('.number-input__plus').forEach(i =>
-      i.addEventListener('click', e => {
-        e.target.previousElementSibling.stepUp();
-      }),
-    );
+    function calculateTotal() {
+      ticketsType.forEach((i, index) => {
+        if (i.checked) {
+          type = i.getAttribute('data-cost');
+          radioIndex = index;
+        }
+      });
+
+      let totalSum =
+        (basicTickets.value * BASIC_BENEFIT + seniorTickets.value * SENIOR_BENEFIT) * type;
+      if (totalSum) ticketsTotal.innerText = totalSum;
+
+      sessionStorage.setItem('typeIndex', radioIndex);
+      sessionStorage.setItem('basicNumber', basicTickets.value);
+      sessionStorage.setItem('seniorNumber', seniorTickets.value);
+    }
+
+    function setReservationData() {
+      reservationBasic.value = basicTickets.value;
+      reservationSenior.value = seniorTickets.value;
+      overviewBasic.value = reservationBasic.value;
+      overviewSenior.value = reservationSenior.value;
+      typeSelect.options.selectedIndex = radioIndex + 1;
+      document.querySelectorAll('.overview__basic-price').forEach(i=>i.innerText = type * BASIC_BENEFIT);
+      document.querySelectorAll('.overview__senior-price').forEach(i=>i.innerText = type * SENIOR_BENEFIT);
+      updateData();
+    }
+    setReservationData();
+
+    reservationDate.addEventListener('input', updateData);
+    reservationTime.addEventListener('input', updateData);
+    typeSelect.addEventListener('input', updateData);
+
+    function updateData() {
+      let date = new Date(reservationDate.value);
+      if (reservationDate.value && date > Date.now())
+        overviewDateOutput.value = date.toDateString();
+      if (reservationTime.value) overviewTimeOutput.value = reservationTime.value;
+      overviewTypeOutput.value = typeSelect.value;
+      overviewBasic.value = reservationBasic.value;
+      overviewSenior.value = reservationSenior.value;
+      type = ticketsType[typeSelect.options.selectedIndex - 1].getAttribute('data-cost');
+      overviewTotalBasic.value = reservationBasic.value * type * BASIC_BENEFIT + ' €';
+      overviewTotalSenior.value = reservationSenior.value * type * SENIOR_BENEFIT + ' €';
+      overviewTotalSum.value =
+        (BASIC_BENEFIT * reservationBasic.value + SENIOR_BENEFIT * reservationSenior.value) * type +
+        ' €';
+        document.querySelectorAll('.overview__basic-price').forEach(i=>i.innerText = type * BASIC_BENEFIT);
+        document.querySelectorAll('.overview__senior-price').forEach(i=>i.innerText = type * SENIOR_BENEFIT);
+    }
   })();
 
   //------ripple effect
@@ -571,5 +671,44 @@ window.addEventListener('DOMContentLoaded', () => {
       for (i = 0; i < num; i++) res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
       return res;
     }
+  })();
+
+  //------map
+
+  (function createMap() {
+    const apiKey =
+      'pk.eyJ1IjoiYWxmcmVkMjAxNiIsImEiOiJja2RoMHkyd2wwdnZjMnJ0MTJwbnVmeng5In0.E4QbAFjiWLY8k3AFhDtErA';
+
+    const mymap = L.map('map').setView([48.86091, 2.3364], 17);
+
+    L.tileLayer(
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+      {
+        maxZoom: 18,
+        id: 'mapbox/light-v10',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: apiKey,
+      },
+    ).addTo(mymap);
+
+    var myIcon = L.icon({
+      iconUrl: '../assets/img/maps-and-flags.png',
+      iconSize: [35, 35],
+    });
+
+    const mainMarker = L.marker([48.86091, 2.3364], { icon: myIcon }).addTo(mymap);
+    document.querySelectorAll('.leaflet-marker-icon').forEach(i => (i.style.opacity = 0.4));
+
+    // Adding Marker
+    let mapPopup = [
+      [48.8602, 2.3333],
+      [48.8607, 2.3397],
+      [48.8619, 2.333],
+      [48.8625, 2.3365],
+    ];
+    mapPopup.forEach(point => {
+      const marker = L.marker(point, { icon: myIcon }).addTo(mymap);
+    });
   })();
 });

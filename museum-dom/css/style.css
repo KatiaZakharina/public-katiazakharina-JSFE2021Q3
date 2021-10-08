@@ -1628,6 +1628,7 @@ button {
 }
 .contacts__map {
   width: 66.5%;
+  min-height: 50vw;
 }
 @media (max-width: 1150px) {
   .contacts__map {
@@ -2093,7 +2094,7 @@ button {
 }
 .tickets-number {
   margin-right: 10px;
-  width: 32px;
+  width: 36px;
   height: 20px;
   font-size: 18px;
   color: #a4a4a3;
@@ -2103,7 +2104,7 @@ button {
   border-radius: 5px;
 }
 .tickets-cost {
-  width: 50px;
+  width: 125px;
   text-align: right;
   background-color: transparent;
   border: 0;
@@ -2118,7 +2119,7 @@ button {
   line-height: 38px;
 }
 .overview__total-sum {
-  width: 80px;
+  width: 125px;
   font-weight: 500;
   text-align: right;
   border: 0;
@@ -2250,6 +2251,9 @@ button {
   .reservation__time {
     max-width: none;
   }
+  .modal {
+    overflow: scroll;
+  }
 }
 @media (max-width: 768px) {
   .reservation__container {
@@ -2274,9 +2278,6 @@ button {
   }
   .overview__img {
     right: 15px;
-  }
-  .modal {
-    overflow: scroll;
   }
 }
 @media (max-width: 660px) {
