@@ -2,6 +2,31 @@
  * @prettier
  */
 window.addEventListener('DOMContentLoaded', () => {
+  let theme='light';
+  //--dark theme
+  document.querySelector('.header_theme-icon').addEventListener('click',()=>{
+    theme=='light'?darkTheme():lightTheme();
+  });
+  function darkTheme(){
+    document.documentElement.style.setProperty('--theme-light', '#000');
+    document.documentElement.style.setProperty('--theme-dark', '#fff');
+    document.documentElement.style.setProperty('--theme-bg-light', '#030303');
+    document.documentElement.style.setProperty('--theme-gold', '#fff');
+    document.documentElement.style.setProperty('--theme-border', '#fff');
+    // createMap();
+    theme='dark'
+  };
+
+  function lightTheme(){
+    document.documentElement.style.setProperty('--theme-light', '#fff');
+    document.documentElement.style.setProperty('--theme-dark', '#000');
+    document.documentElement.style.setProperty('--theme-bg-light', '#fff');
+    document.documentElement.style.setProperty('--theme-gold', '#9d8665');
+    document.documentElement.style.setProperty('--theme-border', '#000');
+    // createMap();
+    theme='light';
+  };
+
   (function slider() {
     let offset = 0;
     let slideIndex = 1;
@@ -675,7 +700,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   //------map
 
-  (function createMap() {
+  function createMap() {
     const apiKey =
       'pk.eyJ1IjoiYWxmcmVkMjAxNiIsImEiOiJja2RoMHkyd2wwdnZjMnJ0MTJwbnVmeng5In0.E4QbAFjiWLY8k3AFhDtErA';
 
@@ -685,7 +710,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
       {
         maxZoom: 18,
-        id: 'mapbox/light-v10',
+        id: `mapbox/${theme}-v10`,
         tileSize: 512,
         zoomOffset: -1,
         accessToken: apiKey,
@@ -710,5 +735,6 @@ window.addEventListener('DOMContentLoaded', () => {
     mapPopup.forEach(point => {
       const marker = L.marker(point, { icon: myIcon }).addTo(mymap);
     });
-  })();
+  };
+  createMap();
 });

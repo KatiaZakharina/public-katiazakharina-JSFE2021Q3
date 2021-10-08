@@ -8,6 +8,11 @@
   --bg-dark: #030303;
   --dark-red: #710707;
   --font-gold: #9d8665;
+  --theme-light: #fff;
+  --theme-dark: #000;
+  --theme-bg-light: #fff;
+  --theme-gold: #9d8665;
+  --theme-border: #000;
   --font1: 80px;
   --font2: 32px;
   --font3: 28px;
@@ -39,7 +44,14 @@ body {
   ----------------- */
 
 *[class$='_dark'] {
-  color: #000;
+  color: var(--black);
+}
+*[class$='_bg-light'] {
+  background-color: var(--theme-bg-light);
+  color: var(--theme-dark);
+}
+*[class$='_bg-light'] h2{
+  color: var(--theme-gold);
 }
 *[class$='_gold'] {
   color: var(--font-gold);
@@ -281,6 +293,13 @@ button {
   background-image: url('../assets/svg/logo.svg');
   background-repeat: no-repeat;
 }
+.header_theme-icon{
+  height: 35px;
+  width: 35px;
+}
+.header_theme-icon path{
+  fill: #fff;
+}
 .reservation__logo {
   height: 41px;
   width: 85px;
@@ -288,7 +307,7 @@ button {
 }
 .nav {
   max-width: 775px;
-  width: 100%;
+  width: 70%;
   line-height: 26px;
 }
 .nav__inner {
@@ -582,9 +601,6 @@ button {
   .header .nav__inner {
     display: none;
   }
-  .header .nav {
-    width: auto;
-  }
   .welcome__title {
     padding: 50px 0 25px;
     line-height: 90px;
@@ -619,6 +635,9 @@ button {
 @media (max-width: 930px) {
   .header {
     padding: 42px 0 34px;
+  }
+  .header .nav {
+    width: auto;
   }
   .welcome__title {
     padding-top: 0;
@@ -723,7 +742,7 @@ button {
 .card {
   display: block;
   text-decoration: none;
-  color: #000;
+  color: var(--theme-dark);
   transition: all 0.5s ease;
 }
 
@@ -1356,6 +1375,7 @@ button {
   align-items: end;
 }
 .booking__submit {
+  margin-top: 37px;
   transition: background-color 0.5s ease;
 }
 .booking__title {
@@ -1366,9 +1386,6 @@ button {
 .booking__total {
   letter-spacing: 1.65px;
   margin-top: 43px;
-}
-.booking__submit {
-  margin-top: 37px;
 }
 
 /* ---------------------
@@ -1446,11 +1463,10 @@ button {
   justify-content: space-between;
   height: 50px;
   width: 150px;
-  padding: 6px 14px;
   margin: 15px 0 10px;
   font-size: 22px;
   font-weight: 300;
-  border: 3px #000 solid;
+  border: 3px var(--theme-border) solid;
 }
 .number-input__input {
   all: unset;
@@ -1459,6 +1475,7 @@ button {
 }
 .number-input__plus,
 .number-input__minus {
+  padding: 6px 9px;
   font-size: 32px;
   font-weight: 400;
   border: 0;
@@ -1476,7 +1493,7 @@ button {
   letter-spacing: 2px;
   color: #fff;
   background-color: #000;
-  border: 0;
+  border: 1px var(--theme-border) solid;
   overflow: hidden;
   cursor: pointer;
 }
@@ -1597,7 +1614,7 @@ button {
 .contacts__inner {
   display: flex;
   justify-content: space-between;
-  color: #000;
+  color: var(--theme-dark);
 }
 .contacts__title {
   margin-bottom: 50px;
@@ -1622,13 +1639,13 @@ button {
   font-weight: 300;
   letter-spacing: 0;
   line-height: 26px;
-  color: #000;
+  color: var(--theme-dark);
   text-decoration: none;
   transition: color 0.5s ease;
 }
 .contacts__map {
   width: 66.5%;
-  min-height: 50vw;
+  min-height: 25vw;
 }
 @media (max-width: 1150px) {
   .contacts__map {
