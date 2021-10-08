@@ -101,6 +101,10 @@ body {
   text-decoration: none;
   transition: color 0.5s ease;
 }
+.footer__socials {
+  display: flex;
+}
+
 .link:hover,
 .information__link:hover,
 .socials__button:hover {
@@ -305,6 +309,7 @@ button {
   opacity: 1;
 }
 .a-nav__modal {
+  overflow: scroll;
   background-color: rgba(0, 0, 0, 0.2);
   z-index: 15;
 }
@@ -331,6 +336,11 @@ button {
 }
 .a-nav__item {
   margin-bottom: 22px;
+}
+.a-nav__socials {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
 }
 .a-nav__link {
   position: relative;
@@ -383,8 +393,14 @@ button {
   margin-bottom: 0;
   padding-right: 0;
 }
+.a-nav__socials_s_show {
+  display: none;
+}
 @media (max-width: 930px) {
   .a-nav__images_s_show {
+    display: flex;
+  }
+  .a-nav__socials_s_show {
     display: flex;
   }
 }
@@ -487,6 +503,7 @@ button {
 .slider__slide img {
   width: 100%;
   height: 100%;
+  user-select: none;
   object-fit: cover;
 }
 .slider__counter {
@@ -661,6 +678,11 @@ button {
     height: 20px;
     width: 131px;
     background-size: cover;
+  }
+  .reservation__logo {
+    height: 41px;
+    width: 85px;
+    background-image: url(../assets/svg/gold-logo.svg);
   }
   .header {
     padding: 34px 0 34px;
@@ -1606,6 +1628,7 @@ button {
 }
 .contacts__map {
   width: 66.5%;
+  min-height: 50vw;
 }
 @media (max-width: 1150px) {
   .contacts__map {
@@ -1690,7 +1713,6 @@ button {
   margin-right: 170px;
 }
 .footer__socials {
-  display: flex;
   align-items: end;
   margin-right: -10px;
   margin-bottom: 10px;
@@ -1730,9 +1752,6 @@ button {
 .footer__school {
   font-size: 22px;
 }
-.footer__socials_s_show {
-  display: none;
-}
 @media (max-width: 1150px) {
   .footer__nav {
     justify-content: start;
@@ -1759,9 +1778,6 @@ button {
   }
 }
 @media (max-width: 930px) {
-  .footer__socials_s_show {
-    display: none;
-  }
   .footer-top {
     padding-top: 43px;
     padding-bottom: 30px;
@@ -2078,7 +2094,7 @@ button {
 }
 .tickets-number {
   margin-right: 10px;
-  width: 32px;
+  width: 36px;
   height: 20px;
   font-size: 18px;
   color: #a4a4a3;
@@ -2088,7 +2104,7 @@ button {
   border-radius: 5px;
 }
 .tickets-cost {
-  width: 50px;
+  width: 125px;
   text-align: right;
   background-color: transparent;
   border: 0;
@@ -2103,7 +2119,7 @@ button {
   line-height: 38px;
 }
 .overview__total-sum {
-  width: 80px;
+  width: 125px;
   font-weight: 500;
   text-align: right;
   border: 0;
@@ -2235,6 +2251,9 @@ button {
   .reservation__time {
     max-width: none;
   }
+  .modal {
+    overflow: scroll;
+  }
 }
 @media (max-width: 768px) {
   .reservation__container {
@@ -2260,19 +2279,43 @@ button {
   .overview__img {
     right: 15px;
   }
-  .modal {
-    overflow: scroll;
-  }
 }
 @media (max-width: 660px) {
   .credits__back {
     margin-top: 25px;
     margin-left: 0;
   }
+  .reservation__date,
+  .reservation__time {
+    max-width: 190px;
+  }
 }
-@media (max-width: 500px) {
-  .modal {
-    overflow: hidden;
+@media (max-width: 450px) {
+  .data__number-input {
+    margin-left: 9%;
+  }
+  .overview__img {
+    display: none;
+  }
+  .reservation__date,
+  .reservation__time {
+    max-width: 150px;
+  }
+  .credits__cardholder {
+    width: 215px;
+  }
+  .credits__face,
+  .credits__back {
+    width: 285px;
+  }
+  .credits__acceptable {
+    display: none;
+  }
+  .credits__back::after {
+    width: 285px;
+  }
+  .credits__back {
+    padding: 85px 20px 15px 170px;
   }
 }
 

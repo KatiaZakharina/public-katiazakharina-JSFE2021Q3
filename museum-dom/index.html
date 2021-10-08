@@ -7,6 +7,11 @@
     <link rel="icon" href="assets/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
     <link
@@ -54,7 +59,7 @@
                     <div class="a-nav__image a-nav__image_3"></div>
                   </div>
                   <hr class="a-nav__hr a-nav__images_s_show">
-                  <ul class="socials footer__socials footer__socials_s_show">
+                  <ul class="socials a-nav__socials a-nav__socials_s_show">
                     <li class="socials__button">
                       <a class="link socials__link" href="https://www.youtube.com/user/louvre">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -321,15 +326,15 @@
               <fieldset class="booking__type booking__type_md_hide">
               <legend class="booking__title">Ticket Type</legend>
               <label class="booking__radio-label">Permanent exhibition
-                <input type="radio" class="booking__radio" name="radio">
+                <input type="radio" class="booking__radio" name="radio" data-cost="20">
                 <span class="booking__checkmark"></span>
               </label>
               <label class="booking__radio-label">Temporary exhibition
-                <input type="radio" class="booking__radio" name="radio">
+                <input type="radio" class="booking__radio" name="radio" data-cost="25">
                 <span class="booking__checkmark"></span>
               </label>
               <label class="booking__radio-label">Combined Admission
-                <input type="radio" class="booking__radio" name="radio">
+                <input type="radio" class="booking__radio" name="radio" data-cost="40">
                 <span class="booking__checkmark"></span>
               </label>           
              </fieldset>
@@ -339,23 +344,23 @@
                 <div class="booking__item">
                   <label class="booking__legend" for="basic-input">Basic 18+</label>
                   <div class="number-input booking__number-input">
-                    <button class="number-input__minus" type="button">–</button>
+                    <button class="number-input__minus booking__number-value" type="button">–</button>
                     <input class="number-input__input input-number_arrow_false" id="basic-input" type="number" min="0" max="20" value="1" readonly>
-                    <button class="number-input__plus" type="button">+</button>
+                    <button class="number-input__plus booking__number-value" type="button">+</button>
                   </div>
                 </div>
 
                 <div class="booking__item">
                   <label class="booking__legend" for="senior-input">Senior 65+</label>
                   <div class="number-input booking__number-input">
-                    <button class="number-input__minus" type="button">–</button>
+                    <button class="number-input__minus booking__number-value" type="button">–</button>
                     <input class="number-input__input input-number_arrow_false" id="senior-input" type="number" min="0" max="20" value="1" readonly>
-                    <button class="number-input__plus" type="button">+</button>
+                    <button class="number-input__plus booking__number-value" type="button">+</button>
                   </div>
                 </div>
 
-                <div class="booking__total booking__title">Total €220</div>
-                <button class="booking__submit ripple" data-modal data-reservation="" type="submit">Buy Now</button>
+                <div class="booking__total booking__title">Total €<span class="booking__data-total">0</span></div>
+                <button class="booking__submit ripple" data-modal data-reservation type="submit">Buy Now</button>
               </fieldset>
             </form>
           </div>
@@ -375,7 +380,8 @@
                 <li class="information__item"><a class="information__link" href="mailto:info@louvre.fr"> mail: info@louvre.fr</a></li>
               </ul>
             </div>
-            <img class="contacts__map" src="assets/img/cart.jpg" alt="cart">
+            <div class="contacts__map" id="map"></div>
+            <!-- <img class="contacts__map" src="assets/img/cart.jpg" alt="cart"> -->
           </div>
         </div>
       </section>
@@ -456,11 +462,11 @@
                     <div class="reservation__inputs">
                       <div class="reservation__when">
                         <input class="reservation__date reservation__input" type="date">
-                        <input class="reservation__time reservation__input" type="time">
+                        <input class="reservation__time reservation__input"  type="time" min="09:00" step="900"> <!--max="18:00" min="9:00" step="1800" type="time"-->
                       </div>
 
                       <div class="reservation__name-input">
-                        <span class='reservation__name-icon '></span>
+                        <span class='reservation__name-icon'></span>
                         <input class="reservation__name reservation__input" placeholder="Name" type="text">
                       </div>
 
@@ -472,26 +478,26 @@
                       <input class="reservation__phone reservation__input" placeholder="Phone" type="tel">
                       <select class="reservation__select reservation__input">
                         <option disabled selected>Ticket Type</option> 
-                        <option>Permanent exhibition</option> 
-                        <option>Temporary exhibition</option> 
-                        <option>Combined Admission</option>
+                        <option data-cost="20">Permanent exhibition</option> 
+                        <option data-cost="25">Temporary exhibition</option> 
+                        <option data-cost="40">Combined Admission</option>
                       </select>
                     </div>
 
                     <div class="reservation__data data">
                       <h3 class="reservation__subtitle underline reservation__subtitle_gold" >Entry Ticket</h3>
                       <div class="date__inner">
-                        <label class="data__label" for="basic">Basic 18+ (20 €)</label>
+                        <label class="data__label" for="basic">Basic 18+ (<span class="overview__basic-price">20</span> €)</label>
                         <div class="number-input data__number-input">
                           <button class="number-input__minus" type="button">–</button>
-                          <input class="number-input__input input-number_arrow_false" id="basic" type="number" min="0" max="20" value="2" readonly>
+                          <input class="number-input__input input-number_arrow_false reservation__basic" id="basic" type="number" min="0" max="20" value="2" readonly>
                           <button class="number-input__plus" type="button">+</button>
                         </div>
-  
-                        <label class="data__label" for="senior">Senior 65+ (10 €)</label>
+       
+                        <label class="data__label" for="senior">Senior 65+ (<span class="overview__senior-price">10</span> €)</label>
                         <div class="number-input data__number-input">
                           <button class="number-input__minus" type="button">–</button>
-                          <input class="number-input__input input-number_arrow_false" id="senior" type="number" min="0" max="20" value="2" readonly>
+                          <input class="number-input__input input-number_arrow_false reservation__senior" id="senior" type="number" min="0" max="20" value="2" readonly>
                           <button class="number-input__plus" type="button">+</button>
                         </div>
                       </div>
@@ -505,26 +511,26 @@
                     <div class="overview__info">
                       <div class="overview__info-item">
                         <img src="assets/svg/form/date.svg" alt="date-icon" class="overview__icon">
-                        <input type="text" value="Friday, August 19" readonly>
+                        <input class="overview__date-output" type="text" value="Select a date" readonly>
                       </div>
                       <div class="overview__info-item">
                         <img src="assets/svg/form/time.svg" alt="date-icon" class="overview__icon">
-                        <input type="text" value="16 : 30" readonly>
+                        <input class="overview__time-output" type="text" value="-- : --" readonly>
                       </div>
                       <div class="overview__info-item">
                         <img src="assets/svg/form/check_circle.svg" alt="date-icon" class="overview__icon">
-                        <input type="text" value="Temporary exhibition" readonly>
+                        <input class="overview__type-output" type="text" value="Temporary exhibition" readonly>
                       </div>
                     </div>
               
                     <div class="overview__number">
                       <div class="overview__number-item">
-                        <label><input class="tickets-number" type="number" value="2" readonly>Basic (20 €)</label>
-                        <input class="tickets-cost" type="text" value="40 €" readonly>
+                        <label><input class="tickets-number tickets-number_basic" type="number" value="2" readonly>Basic (<span class="overview__basic-price">20</span> €)</label>
+                        <input class="tickets-cost tickets-cost-basic" type="text" value="40 €" readonly>
                       </div>
                       <div class="overview__number-item">
-                        <label><input class="tickets-number" type="number" value="2" readonly>Senior (10 €)</label>
-                        <input class="tickets-cost" type="text" value="20 €" readonly>
+                        <label><input class="tickets-number tickets-number_senior" type="number" value="2" readonly>Senior (<span class="overview__senior-price">10</span> €)</label>
+                        <input class="tickets-cost tickets-cost-senior" type="text" value="20 €" readonly>
                       </div>
                     </div>
                     <div class="underline overline overview__total">
@@ -564,6 +570,6 @@
           </div>
       </div>
   </section>
-    <script src="js/index.js"></script>
+  <script src="js/index.js"></script>
   </body>
 </html>

@@ -1,100 +1,7 @@
+/**
+ * @prettier
+ */
 window.addEventListener('DOMContentLoaded', () => {
-
-  console.log(`
-  Ваша оценка - 149 баллов 
-Отзыв по пунктам ТЗ:
-Не выполненные/не засчитанные пункты:
-1) Результат проверки скорости сайта для мобильных устройств: 0 to 49 (red): Poor - не выполнено 0 ,баллов; 50 to 89 (orange): Needs Improvement - частично выполнено - 4 баллов; 90 to 100 (green): Good - выполнено полностью - 8 баллов 
-
-Частично выполненные пункты:
-1) Ни на одном из разрешений до 320px включительно не появляется горизонтальная полоса прокрутки,  элементы не должны скрываться, обрезаться, наезжать друг на друга, если это не предусмотрено макетом. 
-
-Выполненные пункты:
-1) Блок header 
-
-2) Секция Welcome 
-
-3) Секция Visiting 
-
-4) Секция Explore 
-
-5) Секция Video 
-
-6) Секция Gallery 
-
-7) Секция Tickets 
-
-8) Форма покупки билетов 
-
-9) Секция Contacts 
-
-10) Блок footer  
-
-11) Блок header 
-
-12) Секция Welcome 
-
-13) Секция Visiting 
-
-14) Секция Explore 
-
-15) Секция Video 
-
-16) Секция Gallery 
-
-17) Секция Tickets 
-
-18) Форма покупки билетов 
-
-19) Секция Contacts 
-
-20) Блок footer  
-
-21) Блок header 
-
-22) Секция Welcome 
-
-23) Секция Visiting 
-
-24) Секция Explore 
-
-25) Секция Video 
-
-26) Секция Gallery 
-
-27) Секция Tickets 
-
-28) Форма покупки билетов 
-
-29) Секция Contacts 
-
-30) Блок footer  
-
-31) слайдера в секции Welcome 
-
-32) слайдера сравнения изображений в секции Explore 
-
-33) кастомного видеоплеера в секции Video 
-
-34) слайдера в секции Video 
-
-35) YouTube-видео в плейлисте в секции Video, маленькие видео выровнены по краям большого 
-
-36) галереи изображений и изображений в ней 
-
-37) карты 
-
-38) при нажатии на бургер-иконку меню появляется, плавно выдвигаясь слева, бургер-иконка изменяется на крестик. При нажатии на крестик меню исчезает, плавно возвращаясь назад, иконка крестика превращается в бургер-иконку 
-
-39) ссылки в меню работают, обеспечивая плавную прокрутку по якорям 
-
-40) при клике по ссылке в адаптивном меню, или при клике по любому месту сайта, кроме самого адаптивного меню, меню закрывается 
-
-41) вёрстка меню соответствует макету на всех проверяемых разрешениях 
-
-
-  `);
-
   (function slider() {
     let offset = 0;
     let slideIndex = 1;
@@ -119,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     slidesField.style.width = 100 * slides.length + '%';
     slidesField.style.display = 'flex';
-    slidesField.style.transition = '0.5s all';
+    slidesField.style.transition = '0.2s all';
 
     slidesWrapper.style.overflow = 'hidden';
 
@@ -140,8 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
       dots.push(dot);
     }
 
-    next.addEventListener('click', () => {
-      if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
+    next.addEventListener('click', showNext);
+    function showNext() {
+      if (offset == parseFloat(slides[0].style.width) * (slides.length - 1)) {
         offset = 0;
       } else {
         offset += +width.slice(0, width.length - 2);
@@ -163,13 +71,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
       dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
       dots[slideIndex - 1].style.backgroundColor = '#D2B183';
-    });
+    }
 
-    prev.addEventListener('click', () => {
-      if (offset == 0) {
+    prev.addEventListener('click', showPrev);
+    function showPrev() {
+      if (offset <= 0) {
+        offset = 0;
         offset = +width.slice(0, width.length - 2) * (slides.length - 1);
       } else {
         offset -= +width.slice(0, width.length - 2);
+        offset = offset.toFixed(3);
       }
 
       slidesField.style.transform = `translateX(-${offset}px)`;
@@ -188,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
       dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
       dots[slideIndex - 1].style.backgroundColor = '#D2B183';
-    });
+    }
 
     dots.forEach(dot => {
       dot.addEventListener('click', e => {
@@ -209,6 +120,76 @@ window.addEventListener('DOMContentLoaded', () => {
         dots[slideIndex - 1].style.backgroundColor = '#D2B183';
       });
     });
+
+    const slider = document.querySelector('.welcome__slider');
+
+    let touchStart = null,
+      touchPosition = null,
+      sensitivity = 40;
+
+    slider.addEventListener('mousedown', e => {
+      mouseStart(e);
+    });
+    slider.addEventListener('mousemove', e => {
+      mouseMove(e);
+    });
+    slider.addEventListener('mouseup', e => {
+      TouchEnd(e);
+    });
+
+    slider.addEventListener('touchstart', e => {
+      TouchStart(e);
+    });
+    slider.addEventListener('touchmove', e => {
+      TouchMove(e);
+    });
+    slider.addEventListener('touchend', e => {
+      TouchEnd(e);
+    });
+    slider.addEventListener('touchcancel', e => {
+      TouchEnd(e);
+    });
+
+    function mouseStart(e) {
+      touchStart = { x: e.clientX, y: e.clientY };
+      touchPosition = { x: touchStart.x, y: touchStart.y };
+    }
+
+    function mouseMove(e) {
+      touchPosition = { x: e.clientX, y: e.clientY };
+    }
+
+    function TouchStart(e) {
+      touchStart = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+      touchPosition = { x: touchStart.x, y: touchStart.y };
+    }
+
+    function TouchMove(e) {
+      touchPosition = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+    }
+
+    function TouchEnd(e) {
+      CheckAction();
+      touchStart = null;
+      touchPosition = null;
+    }
+
+    function CheckAction() {
+      let diff = {
+        x: touchStart.x - touchPosition.x,
+        y: touchStart.y - touchPosition.y,
+      };
+
+      if (Math.abs(diff.x) > Math.abs(diff.y)) {
+        if (Math.abs(diff.x) > sensitivity) {
+          if (diff.x > 0) {
+            showNext();
+          } else {
+            showPrev();
+          }
+        }
+      }
+    }
   })();
 
   //--------------------------before-after
@@ -225,8 +206,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let width = slider.offsetWidth;
     beforeImage.style.width = width + 'px';
     afterImage.style.width = width + 'px';
-    resizer.style.height
-
+    resizer.style.height;
 
     //Adjust width of image on resize
     window.addEventListener('resize', function () {
@@ -442,18 +422,118 @@ window.addEventListener('DOMContentLoaded', () => {
   //   focus: 'center',
   // }).mount();
 
-  (function numberInput() {
-    document.querySelectorAll('.number-input__minus').forEach(i =>
-      i.addEventListener('click', e => {
-        e.target.nextElementSibling.stepDown();
+  (function bookTickets() {
+    const SENIOR_BENEFIT = 0.5,
+      BASIC_BENEFIT = 1;
+    const ticketsType = document.querySelectorAll('.booking__radio'),
+      basicTickets = document.querySelector('#basic-input'),
+      seniorTickets = document.querySelector('#senior-input'),
+      ticketsTotal = document.querySelector('.booking__data-total'),
+      reservationBasic = document.querySelector('.reservation__basic'),
+      reservationSenior = document.querySelector('.reservation__senior'),
+      overviewBasic = document.querySelector('.tickets-number_basic'),
+      overviewSenior = document.querySelector('.tickets-number_senior'),
+      typeSelect = document.querySelector('.reservation__select'),
+      reservationDate = document.querySelector('.reservation__date'),
+      reservationTime = document.querySelector('.reservation__time'),
+      overviewDateOutput = document.querySelector('.overview__date-output'),
+      overviewTimeOutput = document.querySelector('.overview__time-output'),
+      overviewTypeOutput = document.querySelector('.overview__type-output'),
+      overviewTotalBasic = document.querySelector('.tickets-cost-basic'),
+      overviewTotalSenior = document.querySelector('.tickets-cost-senior'),
+      overviewTotalSum = document.querySelector('.overview__total-sum');
+
+    let type;
+
+    if (sessionStorage.length) {
+      basicTickets.value = +sessionStorage.getItem('basicNumber');
+      seniorTickets.value = +sessionStorage.getItem('seniorNumber');
+      ticketsType[+sessionStorage.getItem('typeIndex')].setAttribute('checked', 'checked');
+
+      calculateTotal();
+      setReservationData();
+    }
+
+    (function numberInput() {
+      document.querySelectorAll('.number-input__minus').forEach(i =>
+        i.addEventListener('click', e => {
+          e.target.nextElementSibling.stepDown();
+          calculateTotal();
+          if (i.classList.contains('booking__number-value')) {
+            console.log('hh');
+            setReservationData();
+          } else updateData();
+        }),
+      );
+
+      document.querySelectorAll('.number-input__plus').forEach(i =>
+        i.addEventListener('click', e => {
+          e.target.previousElementSibling.stepUp();
+          calculateTotal();
+          if (i.classList.contains('booking__number-value')) {
+            setReservationData();
+          } else updateData();
+        }),
+      );
+    })();
+
+    ticketsType.forEach(i =>
+      i.addEventListener('click', () => {
+        calculateTotal();
+        setReservationData();
       }),
     );
 
-    document.querySelectorAll('.number-input__plus').forEach(i =>
-      i.addEventListener('click', e => {
-        e.target.previousElementSibling.stepUp();
-      }),
-    );
+    function calculateTotal() {
+      ticketsType.forEach((i, index) => {
+        if (i.checked) {
+          type = i.getAttribute('data-cost');
+          radioIndex = index;
+        }
+      });
+
+      let totalSum =
+        (basicTickets.value * BASIC_BENEFIT + seniorTickets.value * SENIOR_BENEFIT) * type;
+      if (totalSum) ticketsTotal.innerText = totalSum;
+
+      sessionStorage.setItem('typeIndex', radioIndex);
+      sessionStorage.setItem('basicNumber', basicTickets.value);
+      sessionStorage.setItem('seniorNumber', seniorTickets.value);
+    }
+
+    function setReservationData() {
+      reservationBasic.value = basicTickets.value;
+      reservationSenior.value = seniorTickets.value;
+      overviewBasic.value = reservationBasic.value;
+      overviewSenior.value = reservationSenior.value;
+      typeSelect.options.selectedIndex = radioIndex + 1;
+      document.querySelectorAll('.overview__basic-price').forEach(i=>i.innerText = type * BASIC_BENEFIT);
+      document.querySelectorAll('.overview__senior-price').forEach(i=>i.innerText = type * SENIOR_BENEFIT);
+      updateData();
+    }
+    setReservationData();
+
+    reservationDate.addEventListener('input', updateData);
+    reservationTime.addEventListener('input', updateData);
+    typeSelect.addEventListener('input', updateData);
+
+    function updateData() {
+      let date = new Date(reservationDate.value);
+      if (reservationDate.value && date > Date.now())
+        overviewDateOutput.value = date.toDateString();
+      if (reservationTime.value) overviewTimeOutput.value = reservationTime.value;
+      overviewTypeOutput.value = typeSelect.value;
+      overviewBasic.value = reservationBasic.value;
+      overviewSenior.value = reservationSenior.value;
+      type = ticketsType[typeSelect.options.selectedIndex - 1].getAttribute('data-cost');
+      overviewTotalBasic.value = reservationBasic.value * type * BASIC_BENEFIT + ' €';
+      overviewTotalSenior.value = reservationSenior.value * type * SENIOR_BENEFIT + ' €';
+      overviewTotalSum.value =
+        (BASIC_BENEFIT * reservationBasic.value + SENIOR_BENEFIT * reservationSenior.value) * type +
+        ' €';
+        document.querySelectorAll('.overview__basic-price').forEach(i=>i.innerText = type * BASIC_BENEFIT);
+        document.querySelectorAll('.overview__senior-price').forEach(i=>i.innerText = type * SENIOR_BENEFIT);
+    }
   })();
 
   //------ripple effect
@@ -496,21 +576,23 @@ window.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', ripple);
   })();
 
-  createModal('a-nav', true,true);
+  createModal('a-nav', true, true);
   createModal('reservation');
 
   //-------modal
-  function createModal(elementName, scroolBehavior=false, changeTrigger=false) {
+  function createModal(elementName, scroolBehavior = false, changeTrigger = false) {
     const modalTrigger = document.querySelectorAll(`[data-${elementName}][data-modal]`),
       modal = document.querySelector(`[data-${elementName}][data-modal-window]`),
       modalContainer = document.querySelector(`[data-${elementName}].modal__container`),
       modalCloseBtn = document.querySelector(`[data-${elementName}][data-close]`);
 
     modalTrigger.forEach(btn => {
-      btn.addEventListener('click', ()=>changeTrigger&&btn.classList.contains('data-close')?hideModal():showModal());
+      btn.addEventListener('click', () =>
+        changeTrigger && btn.classList.contains('data-close') ? hideModal() : showModal(),
+      );
     });
 
-    if(modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
 
     modal.addEventListener('click', e => {
       if (e.target === modal) {
@@ -519,38 +601,38 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     document.addEventListener('keydown', e => {
       if (e.code == 'Escape' && modal.classList.contains('show')) {
-        hideModal();                                                                              
+        hideModal();
       }
     });
 
-  //---------------adaptive nav
-  function changeModalTrigger(){
-    const trigger=document.querySelector(`[data-${elementName}][data-trigger]`),
-          img=document.querySelector(`[data-${elementName}][data-trigger-image]`)
-      if(trigger.classList.contains('data-open')){
-        img.src='assets/svg/nav-close.svg';
+    //---------------adaptive nav
+    function changeModalTrigger() {
+      const trigger = document.querySelector(`[data-${elementName}][data-trigger]`),
+        img = document.querySelector(`[data-${elementName}][data-trigger-image]`);
+      if (trigger.classList.contains('data-open')) {
+        img.src = 'assets/svg/nav-close.svg';
         trigger.classList.toggle('data-open');
         trigger.classList.toggle('data-close');
-      } else{
-        img.src='assets/svg/nav-open.svg';
+      } else {
+        img.src = 'assets/svg/nav-open.svg';
         trigger.classList.toggle('data-open');
         trigger.classList.toggle('data-close');
       }
-  };
+    }
 
-  if(elementName=='a-nav'){
-    const navLinks=document.querySelectorAll('.a-nav__item');
-    navLinks.forEach(i=>i.addEventListener('click',hideModal));
-  }
+    if (elementName == 'a-nav') {
+      const navLinks = document.querySelectorAll('.a-nav__item');
+      navLinks.forEach(i => i.addEventListener('click', hideModal));
+    }
 
     function showModal() {
       modal.classList.add('show');
       modalContainer.classList.add('fadeIn');
       modal.classList.remove('hide');
       modalContainer.classList.remove('fadeOut');
-      if(scroolBehavior) document.body.style.overflow = 'hidden';
-      if(changeTrigger) changeModalTrigger();
-      // if(elementName=='a-nav') 
+      if (scroolBehavior) document.body.style.overflow = 'hidden';
+      if (changeTrigger) changeModalTrigger();
+      // if(elementName=='a-nav')
       document.querySelector('.welcome__info').classList.add('welcome__info_md_hide');
     }
 
@@ -561,15 +643,12 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('hide');
         modal.classList.remove('show');
       }, 1000);
-      if(scroolBehavior) document.body.style.overflow = '';
-      if(changeTrigger) changeModalTrigger();
+      if (scroolBehavior) document.body.style.overflow = '';
+      if (changeTrigger) changeModalTrigger();
       // if(elementName=='a-nav')
-       document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
+      document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
     }
-
-  };
-
-
+  }
 
   //----------------------gallery
   (function appendGalleryImages() {
@@ -592,5 +671,44 @@ window.addEventListener('DOMContentLoaded', () => {
       for (i = 0; i < num; i++) res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
       return res;
     }
+  })();
+
+  //------map
+
+  (function createMap() {
+    const apiKey =
+      'pk.eyJ1IjoiYWxmcmVkMjAxNiIsImEiOiJja2RoMHkyd2wwdnZjMnJ0MTJwbnVmeng5In0.E4QbAFjiWLY8k3AFhDtErA';
+
+    const mymap = L.map('map').setView([48.86091, 2.3364], 17);
+
+    L.tileLayer(
+      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+      {
+        maxZoom: 18,
+        id: 'mapbox/light-v10',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: apiKey,
+      },
+    ).addTo(mymap);
+
+    var myIcon = L.icon({
+      iconUrl: '../assets/img/maps-and-flags.png',
+      iconSize: [35, 35],
+    });
+
+    const mainMarker = L.marker([48.86091, 2.3364], { icon: myIcon }).addTo(mymap);
+    document.querySelectorAll('.leaflet-marker-icon').forEach(i => (i.style.opacity = 0.4));
+
+    // Adding Marker
+    let mapPopup = [
+      [48.8602, 2.3333],
+      [48.8607, 2.3397],
+      [48.8619, 2.333],
+      [48.8625, 2.3365],
+    ];
+    mapPopup.forEach(point => {
+      const marker = L.marker(point, { icon: myIcon }).addTo(mymap);
+    });
   })();
 });
