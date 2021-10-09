@@ -50,7 +50,7 @@ body {
   background-color: var(--theme-bg-light);
   color: var(--theme-dark);
 }
-*[class$='_bg-light'] h2{
+*[class$='_bg-light'] h2 {
   color: var(--theme-gold);
 }
 *[class$='_gold'] {
@@ -276,10 +276,12 @@ button {
   ----------------- */
 
 .header {
-  position: relative;
+  /* position: relative; */
+  position: sticky;
+  top: 0;
   background-color: var(--bg-dark);
   padding: 59px 0 58px;
-  z-index: 16;
+  z-index: 1020;
 }
 .header__container {
   display: flex;
@@ -293,11 +295,11 @@ button {
   background-image: url('../assets/svg/logo.svg');
   background-repeat: no-repeat;
 }
-.header_theme-icon{
+.header_theme-icon {
   height: 35px;
   width: 35px;
 }
-.header_theme-icon path{
+.header_theme-icon path {
   fill: #fff;
 }
 .reservation__logo {
@@ -1179,6 +1181,9 @@ button {
     height: 328px;
     margin-top: 22px;
   }
+  .player__range-time {
+    width: 100%;
+  }
   .player__range-time_s_show {
     position: relative;
     display: block;
@@ -1338,6 +1343,9 @@ button {
   .picture {
     margin-top: -20px;
     height: 1040px;
+  }
+  .picture__item:nth-child(11) {
+    margin-top: 0;
   }
 }
 @media (max-width: 660px) {

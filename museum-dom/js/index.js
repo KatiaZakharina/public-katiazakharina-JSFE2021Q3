@@ -2,30 +2,30 @@
  * @prettier
  */
 window.addEventListener('DOMContentLoaded', () => {
-  let theme='light';
+  let theme = 'light';
   //--dark theme
-  document.querySelector('.header_theme-icon').addEventListener('click',()=>{
-    theme=='light'?darkTheme():lightTheme();
+  document.querySelector('.header_theme-icon').addEventListener('click', () => {
+    theme == 'light' ? darkTheme() : lightTheme();
   });
-  function darkTheme(){
+  function darkTheme() {
     document.documentElement.style.setProperty('--theme-light', '#000');
     document.documentElement.style.setProperty('--theme-dark', '#fff');
     document.documentElement.style.setProperty('--theme-bg-light', '#030303');
     document.documentElement.style.setProperty('--theme-gold', '#fff');
     document.documentElement.style.setProperty('--theme-border', '#fff');
     // createMap();
-    theme='dark'
-  };
+    theme = 'dark';
+  }
 
-  function lightTheme(){
+  function lightTheme() {
     document.documentElement.style.setProperty('--theme-light', '#fff');
     document.documentElement.style.setProperty('--theme-dark', '#000');
     document.documentElement.style.setProperty('--theme-bg-light', '#fff');
     document.documentElement.style.setProperty('--theme-gold', '#9d8665');
     document.documentElement.style.setProperty('--theme-border', '#000');
     // createMap();
-    theme='light';
-  };
+    theme = 'light';
+  }
 
   (function slider() {
     let offset = 0;
@@ -150,7 +150,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let touchStart = null,
       touchPosition = null,
-      sensitivity = 40;
+      sensitivity = 10;
 
     slider.addEventListener('mousedown', e => {
       mouseStart(e);
@@ -312,7 +312,7 @@ window.addEventListener('DOMContentLoaded', () => {
   //----------------------------------------Video
   (function video() {
     const video = document.querySelector('.player__video'),
-      rangeTime = document.querySelector('.player__range-time'),
+      rangeTime = document.querySelectorAll('.player__range-time'),
       rangeVolume = document.querySelector('.player__range-volume'),
       playButton = document.querySelector('.player__play-button'),
       expandButton = document.querySelector('.player__expand-button'),
@@ -361,23 +361,29 @@ window.addEventListener('DOMContentLoaded', () => {
       video.requestFullscreen();
     });
 
-    rangeTime.setAttribute('min', 0);
+    rangeTime.forEach(i => i.setAttribute('min', 0));
     video.addEventListener('loadedmetadata', function () {
-      rangeTime.setAttribute('max', video.duration);
-      rangeTime.setAttribute('value', video.duration * 0.54);
-      runnableTrack();
+      rangeTime.forEach(i => {
+        i.setAttribute('max', video.duration);
+        i.setAttribute('value', video.duration * 0.54);
+        runnableTrack();
+      });
     });
 
-    rangeTime.addEventListener('input', function () {
-      video.currentTime = rangeTime.value;
+    rangeTime.forEach(i => {
+      i.addEventListener('input', function () {
+        video.currentTime = i.value;
+      });
     });
 
-    rangeTime.addEventListener(
-      'input',
-      function () {
-        video.currentTime = rangeTime.value;
-      },
-      false,
+    rangeTime.forEach(i =>
+      i.addEventListener(
+        'input',
+        function () {
+          video.currentTime = i.value;
+        },
+        false,
+      ),
     );
 
     function runnableTrack() {
@@ -406,7 +412,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     video.addEventListener('playing', () => {
       setInterval(() => {
-        rangeTime.value = video.currentTime;
+        rangeTime.forEach(i => (i.value = video.currentTime));
         runnableTrack();
       }, 10);
     });
@@ -415,7 +421,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'ended',
       function () {
         video.currentTime = 0;
-        rangeTime.value = 0;
+        rangeTime.forEach(i => (i.value = 0));
         video.load();
         playButton.src = 'assets/svg/play.svg';
       },
@@ -440,12 +446,16 @@ window.addEventListener('DOMContentLoaded', () => {
   })();
   // new Splide
 
-  // new Splide('.splide', {
-  //   arrowPath: '../assets/video/arrow.svg',
-  //   type: 'loop',
-  //   perPage: 3,
-  //   focus: 'center',
-  // }).mount();
+  new Splide('.splide', {
+    // arrowPath: 'M0.348163 0.219168C0.748196 -0.125842 1.33192 -0.0559202 1.65195 0.375342L5.82586 6.00004L1.65194 11.6247C1.33192 12.056 0.748195 12.1259 0.348162 11.7809C-0.0518709 11.4359 -0.116729 10.8066 0.203297 10.3753L3.45008 6.00004L0.203298 1.62473C-0.116728 1.19347 -0.05187 0.564177 0.348163 0.219168ZM4.5223 0.219168C4.92234 -0.125841 5.50606 -0.0559197 5.82609 0.375342L10 6.00004L5.82609 11.6247C5.50606 12.056 4.92234 12.1259 4.5223 11.7809C4.12227 11.4359 4.05741 10.8066 4.37744 10.3753L7.62422 6.00004L4.37744 1.62473C4.05741 1.19347 4.12227 0.564178 4.5223 0.219168Z',
+    type: 'loop',
+    perPage: 3,
+    focus: 'center',
+    // classes: {
+    //   prev  : 'splide__arrow--prev vslider__prev',
+    //   next  : 'splide__arrow--next vslider__next',
+    // }
+  }).mount();
 
   (function bookTickets() {
     const SENIOR_BENEFIT = 0.5,
@@ -532,8 +542,12 @@ window.addEventListener('DOMContentLoaded', () => {
       overviewBasic.value = reservationBasic.value;
       overviewSenior.value = reservationSenior.value;
       typeSelect.options.selectedIndex = radioIndex + 1;
-      document.querySelectorAll('.overview__basic-price').forEach(i=>i.innerText = type * BASIC_BENEFIT);
-      document.querySelectorAll('.overview__senior-price').forEach(i=>i.innerText = type * SENIOR_BENEFIT);
+      document
+        .querySelectorAll('.overview__basic-price')
+        .forEach(i => (i.innerText = type * BASIC_BENEFIT));
+      document
+        .querySelectorAll('.overview__senior-price')
+        .forEach(i => (i.innerText = type * SENIOR_BENEFIT));
       updateData();
     }
     setReservationData();
@@ -556,8 +570,12 @@ window.addEventListener('DOMContentLoaded', () => {
       overviewTotalSum.value =
         (BASIC_BENEFIT * reservationBasic.value + SENIOR_BENEFIT * reservationSenior.value) * type +
         ' €';
-        document.querySelectorAll('.overview__basic-price').forEach(i=>i.innerText = type * BASIC_BENEFIT);
-        document.querySelectorAll('.overview__senior-price').forEach(i=>i.innerText = type * SENIOR_BENEFIT);
+      document
+        .querySelectorAll('.overview__basic-price')
+        .forEach(i => (i.innerText = type * BASIC_BENEFIT));
+      document
+        .querySelectorAll('.overview__senior-price')
+        .forEach(i => (i.innerText = type * SENIOR_BENEFIT));
     }
   })();
 
@@ -676,12 +694,23 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   //----------------------gallery
+  AOS.init({
+    delay: 300,
+    duration: 1000,
+    targetSelector: '.gallery',
+  });
+
   (function appendGalleryImages() {
     const gallery = document.querySelector('.picture__inner');
     let random = severalRandom(1, 15, 15);
+
     for (let i = 0; i < 15; i++) {
       let img = document.createElement('img');
       img.classList.add('picture__item');
+
+      img.setAttribute('data-aos', 'fade-up');
+      img.setAttribute('data-aos-anchor-placement', 'top-bottom');
+
       img.setAttribute('alt', 'picture');
       img.src = `assets/img/galery/galery${random[i]}.jpg`;
       gallery.append(img);
@@ -697,6 +726,13 @@ window.addEventListener('DOMContentLoaded', () => {
       return res;
     }
   })();
+
+  let scrollRef = 0;
+
+  window.addEventListener('scroll', function () {
+    //aus bug solution
+    scrollRef <= 10 ? scrollRef++ : AOS.refresh();
+  });
 
   //------map
 
@@ -735,6 +771,6 @@ window.addEventListener('DOMContentLoaded', () => {
     mapPopup.forEach(point => {
       const marker = L.marker(point, { icon: myIcon }).addTo(mymap);
     });
-  };
+  }
   createMap();
 });
