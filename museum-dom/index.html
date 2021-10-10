@@ -14,6 +14,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;500;700&display=swap"
       rel="stylesheet">
@@ -37,6 +40,29 @@
           </ul>
           <button class="nav__toggle a-nav data-open" data-modal data-a-nav data-trigger><img src="assets/svg/nav-open.svg" alt="menu" data-a-nav data-trigger-image></button>
         </nav>
+        <svg class="header_theme-icon"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        width="438.277px"
+        height="438.277px"
+        viewBox="0 0 438.277 438.277"
+      >
+        <path
+          d="M428.756,300.104c-0.664-3.81-2.334-7.047-4.996-9.713c-5.9-5.903-12.752-7.142-20.554-3.716
+         c-20.937,9.708-42.641,14.558-65.097,14.558c-28.171,0-54.152-6.94-77.943-20.838c-23.791-13.894-42.631-32.736-56.525-56.53
+         c-13.899-23.793-20.844-49.773-20.844-77.945c0-21.888,4.333-42.683,12.991-62.384c8.66-19.7,21.176-36.973,37.543-51.82
+         c6.283-5.898,7.713-12.752,4.287-20.557c-3.236-7.801-9.041-11.511-17.415-11.132c-29.121,1.141-56.72,7.664-82.797,19.556
+         C111.33,31.478,88.917,47.13,70.168,66.548c-18.747,19.414-33.595,42.399-44.54,68.95c-10.942,26.553-16.416,54.39-16.416,83.511
+         c0,29.694,5.806,58.054,17.416,85.082c11.613,27.028,27.218,50.344,46.824,69.949c19.604,19.599,42.92,35.207,69.951,46.822
+         c27.028,11.607,55.384,17.415,85.075,17.415c42.64,0,81.987-11.563,118.054-34.69c36.069-23.124,63.05-54.006,80.944-92.645
+         C429,307.519,429.427,303.906,428.756,300.104z M306.565,384.168c-24.646,11.711-50.676,17.562-78.087,17.562
+         c-24.743,0-48.39-4.853-70.947-14.558c-22.554-9.705-41.971-22.695-58.246-38.972c-16.271-16.272-29.259-35.686-38.97-58.241
+         c-9.707-22.556-14.561-46.203-14.561-70.948c0-40.922,12.135-77.466,36.403-109.636c24.266-32.165,55.531-53.959,93.788-65.379
+         c-19.795,31.405-29.694,65.379-29.694,101.926c0,34.644,8.564,66.715,25.697,96.223c17.128,29.499,40.446,52.811,69.95,69.948
+         c29.499,17.129,61.565,25.694,96.211,25.694c10.656,0,21.129-0.855,31.408-2.57C352.199,356.155,331.21,372.472,306.565,384.168z"
+        />
+      </svg></div>
       </div>
     </header>
 
@@ -170,8 +196,9 @@
         </div>
       </section>
 
-      <section class="visiting" id="visiting">
+      <section class="visiting visiting_bg-light" id="visiting">
         <div class="visiting__container container">
+
           <h2 class="visiting__title title underline title_gold">Virtual tour</h2>
           <div class="cards">
             <a href="./tours/tour1.html" class="card" target="_blank">
@@ -238,7 +265,7 @@
           </div>
         </div>
       </section>
-      <section class="video" id="video">
+      <section class="video video_bg-light" id="video">
         <div class="container video__container">
           <div class="video__heading">
             <h2 class="title video__title title_gold">Video&nbsp;journey</h2>
@@ -257,6 +284,51 @@
                 <img class="player__expand-button" src="assets/svg/expand.svg" alt="expand">
             </div>
           </div>
+                      
+            <div class="splide">
+              <div class="splide__track">
+                <ul class="splide__list">
+                  <li class="splide__slide vslider__video"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                  <li class="splide__slide vslider__video"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                  <li class="splide__slide vslider__video"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                </ul>
+              </div>
+              <div class="splide__arrows">
+                <button class="splide__arrow splide__arrow--prev vslider__prev">
+                  <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.4777 0.219168C5.87773 0.564178 5.94259 1.19347 5.62256 1.62473L2.37578 6.00004L5.62256 10.3753C5.94259 10.8066 5.87773 11.4359 5.4777 11.7809C5.07766 12.1259 4.49394 12.056 4.17391 11.6247L0 6.00004L4.17391 0.375342C4.49394 -0.0559202 5.07766 -0.125842 5.4777 0.219168ZM9.65184 0.219168C10.0519 0.564178 10.1167 1.19347 9.7967 1.62473L6.54992 6.00004L9.7967 10.3753C10.1167 10.8066 10.0519 11.4359 9.65184 11.7809C9.2518 12.1259 8.66808 12.056 8.34806 11.6247L4.17414 6.00004L8.34806 0.375342C8.66808 -0.0559202 9.2518 -0.125842 9.65184 0.219168Z" fill="#999999"/>
+                  </svg>                  
+                </button>
+                <button class="splide__arrow splide__arrow--next vslider__next">
+                  <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.348163 0.219168C0.748196 -0.125842 1.33192 -0.0559202 1.65195 0.375342L5.82586 6.00004L1.65194 11.6247C1.33192 12.056 0.748195 12.1259 0.348162 11.7809C-0.0518709 11.4359 -0.116729 10.8066 0.203297 10.3753L3.45008 6.00004L0.203298 1.62473C-0.116728 1.19347 -0.05187 0.564177 0.348163 0.219168ZM4.5223 0.219168C4.92234 -0.125841 5.50606 -0.0559197 5.82609 0.375342L10 6.00004L5.82609 11.6247C5.50606 12.056 4.92234 12.1259 4.5223 11.7809C4.12227 11.4359 4.05741 10.8066 4.37744 10.3753L7.62422 6.00004L4.37744 1.62473C4.05741 1.19347 4.12227 0.564178 4.5223 0.219168Z" fill="#999999"/>
+                  </svg>                  
+                </button>
+              </div>
+              <!-- <ul class="splide__pagination">
+                <li>
+                  <button
+                    class="splide__pagination__page is-active"
+                    type="button"
+                    aria-controls="splide01-slide01"
+                    aria-label="Go to slide 1"
+                    aria-current="true"
+                  >
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="splide__pagination__page"
+                    type="button"
+                    aria-controls="splide01-slide02"
+                    aria-label="Go to slide 2"
+                  >
+                  </button>
+                </li>
+              </ul> -->
+            
+            </div>
+
           <div class="video__slider vslider">
             <div class="vslider__videos">
 
@@ -295,16 +367,8 @@
                 </svg>                  
               </button>
             </div>
-            
-            <!-- <div class="splide">
-              <div class="splide__track">
-                <ul class="splide__list">
-                  <li class="splide__slide"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-                  <li class="splide__slide"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-                  <li class="splide__slide"><iframe loading="lazy" width="452" height="254" src="https://www.youtube.com/embed/Vi5D6FKhRmo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-                </ul>
-              </div>
-            </div> -->
+
+
           </div>
         </div>
       </section>
@@ -317,7 +381,7 @@
           </div>
         </div>
       </section>
-      <section class="tickets" id="tickets">
+      <section class="tickets tickets_bg-light" id="tickets">
         <div class="container tickets__container">
           <h2 class="title tickets__title underline title_gold">Buy tickets</h2>
           <div class="tickets__inner">
@@ -367,7 +431,7 @@
         </div>
         <div class="tickets__parallax"></div>
       </section>
-      <section class="contacts" id="contacts">
+      <section class="contacts contacts_bg-light" id="contacts">
         <div class="container contacts__container">
           <h2 class="title underline title_gold">Contacts</h2>
           <div class="contacts__inner">
@@ -461,21 +525,21 @@
                     <h3 class="reservation__subtitle underline reservation__subtitle_red">Tour to Louvre</h3>
                     <div class="reservation__inputs">
                       <div class="reservation__when">
-                        <input class="reservation__date reservation__input" type="date">
-                        <input class="reservation__time reservation__input"  type="time" min="09:00" step="900"> <!--max="18:00" min="9:00" step="1800" type="time"-->
+                        <input class="reservation__date reservation__input" type="date" required>
+                        <input class="reservation__time reservation__input"  type="time" min="09:00" step="900" required> <!--max="18:00" min="9:00" step="1800" type="time"-->
                       </div>
 
                       <div class="reservation__name-input">
                         <span class='reservation__name-icon'></span>
-                        <input class="reservation__name reservation__input" placeholder="Name" type="text">
+                        <input class="reservation__name reservation__input" placeholder="Name" type="text" required>
                       </div>
 
                       <div class="reservation__email-input">
                         <span class='reservation__email-icon '></span>
-                        <input class="reservation__email reservation__input" placeholder="E-mail" type="email">
+                        <input class="reservation__email reservation__input" placeholder="E-mail" type="email" required>
                       </div>
 
-                      <input class="reservation__phone reservation__input" placeholder="Phone" type="tel">
+                      <input class="reservation__phone reservation__input" placeholder="Phone" type="tel" required>
                       <select class="reservation__select reservation__input">
                         <option disabled selected>Ticket Type</option> 
                         <option data-cost="20">Permanent exhibition</option> 
@@ -545,18 +609,18 @@
                           <img class="credits__type" src="assets/svg/form/mastercard.svg" alt="mastercard">
                         </div>
                         <label class="credits__label">Card number</label>
-                        <input class="credits__input credits__card-number" type="tel" pattern="[0-9\s]{13,19}" maxlength="19">
+                        <input class="credits__input credits__card-number" type="tel" pattern="[0-9\s]{13,19}" maxlength="19" required>
 
                         <label class="credits__label">Expiration date</label>
-                        <input class="credits__input credits__date-input input-number" type="number" value="03">
-                        <input class="credits__input credits__date-input input-number" type="number" value="2024">
+                        <input class="credits__input credits__date-input input-number" type="number" value="03" required>
+                        <input class="credits__input credits__date-input input-number" type="number" value="2024" required>
 
                         <label class="credits__label">Cardholder name</label>
-                        <input class="credits__input credits__cardholder" type="text">
+                        <input class="credits__input credits__cardholder" type="text" required>
                       </div>
                       <div class="credits__back">
                         <label class="credits__label">CVC/CVV</label>
-                        <input class="credits__input credits__cvc input-number_arrow_false" type="number">
+                        <input class="credits__input credits__cvc input-number_arrow_false" type="number" required>
                         <p class="credits__instruction">The last 
                           3&nbsp;or 4 digits
                           on back
@@ -570,6 +634,7 @@
           </div>
       </div>
   </section>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script src="js/index.js"></script>
   </body>
 </html>
