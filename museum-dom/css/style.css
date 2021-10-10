@@ -1001,6 +1001,18 @@ button {
 .video__player {
   position: relative;
 }
+.video__speed {
+  display: block;
+  margin: 0 auto;
+  max-width: 80px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: rgb(112, 102, 102);
+  border-radius: 20px;
+}
+.player__wrapper {
+  position: absolute;
+}
 .player__wrapper:hover {
   opacity: 0.7;
 }
@@ -1083,21 +1095,41 @@ button {
 .video__slider {
   margin-top: 40px;
 }
-.vslider__videos {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.splide__arrow {
+  position: absolute;
+  top: 115%;
 }
-.vslider__video {
-  width: 31.5%;
-  height: 253px;
-  border: 0;
+.vslider__prev {
+  transform: rotate(-180deg);
 }
-.vslider__control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
+.splide__arrow--next {
+  right: 43%;
+}
+.splide__arrow--prev {
+  left: 43%;
+}
+.splide__pagination {
+  top: 113%;
+}
+.splide__pagination__page {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: #999;
+}
+.splide__pagination__page:not(:last-child) {
+  margin-right: 20px;
+}
+.splide__pagination__page.is-active {
+  background: #333;
+  transform: scale(1);
+}
+.splide__pagination__page:hover {
+  background-color: var(--dark-red);
+}
+.vslider__prev:hover path,
+.vslider__next:hover path {
+  fill: var(--dark-red);
 }
 .vslider__prev,
 .vslider__next {
@@ -1106,31 +1138,13 @@ button {
   background-color: transparent;
   border: 0;
 }
-.vslider__dots {
-  display: flex;
-  justify-content: space-between;
-  margin: 0 20px;
-}
-.vslider__dot {
-  height: 12px;
-  width: 12px;
-  border-radius: 50%;
-  background-color: #999;
-}
-.vslider__dot:not(:last-child) {
-  margin-right: 20px;
+.vslider__video {
+  width: 100%;
+  height: 253px;
+  margin: 0 15px;
+  border: 0;
 }
 
-.vslider__dot.active {
-  background-color: #333;
-}
-.vslider__dot:hover {
-  background-color: var(--dark-red);
-}
-.vslider__prev:hover path,
-.vslider__next:hover path {
-  fill: var(--dark-red);
-}
 @media (max-width: 1150px) {
   .video__text_md_hide {
     display: none;
@@ -2062,7 +2076,7 @@ button {
 .data .number-input__plus,
 .data .number-input__minus {
   width: 35px;
-  font-size: var(--font4);
+  font-size: 12px;
   color: #fff;
   background-color: var(--bg-dark);
 }
@@ -2381,6 +2395,21 @@ button {
   }
   to {
     transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.hiddenAnimation {
+  animation-name: hiddenAnimation;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+}
+@keyframes hiddenAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    display: none;
     opacity: 0;
   }
 }
