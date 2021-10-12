@@ -577,29 +577,31 @@ feedback: Добавленна темная тема
     );
     function keyboardControl() {
       document.addEventListener('keydown', function (event) {
-        if (event.code == 'Space') {
-          event.preventDefault();
-          toggleBigButton();
-        }
-        if (event.code == 'KeyM') {
-          event.preventDefault();
-          toggleVolume();
-        }
-        if (event.code == 'KeyF') {
-          toggleFullScreen();
-        }
-        if (event.code == 'Comma' && event.shiftKey && !video.paused) {
-          video.playbackRate += 0.25;
-          showVideoSpeed();
-        }
-        if (
-          event.code == 'Period' &&
-          event.shiftKey &&
-          video.playbackRate >= 0.5 &&
-          !video.paused
-        ) {
-          video.playbackRate -= 0.25;
-          showVideoSpeed();
+        if (document.documentElement.getBoundingClientRect().y >= -6140) {
+          if (event.code == 'Space') {
+            event.preventDefault();
+            toggleBigButton();
+          }
+          if (event.code == 'KeyM') {
+            event.preventDefault();
+            toggleVolume();
+          }
+          if (event.code == 'KeyF') {
+            toggleFullScreen();
+          }
+          if (event.code == 'Comma' && event.shiftKey && !video.paused) {
+            video.playbackRate += 0.25;
+            showVideoSpeed();
+          }
+          if (
+            event.code == 'Period' &&
+            event.shiftKey &&
+            video.playbackRate >= 0.5 &&
+            !video.paused
+          ) {
+            video.playbackRate -= 0.25;
+            showVideoSpeed();
+          }
         }
 
         function showVideoSpeed() {
