@@ -679,6 +679,7 @@ feedback: Добавленна темная тема
       overviewTotalBasic = document.querySelector('.tickets-cost-basic'),
       overviewTotalSenior = document.querySelector('.tickets-cost-senior'),
       overviewTotalSum = document.querySelector('.overview__total-sum');
+      let radioIndex;
 
     let type;
 
@@ -724,7 +725,7 @@ feedback: Добавленна темная тема
       ticketsType.forEach((i, index) => {
         if (i.checked) {
           type = i.getAttribute('data-cost');
-          radioIndex = index;
+           radioIndex = index;
         }
       });
 
