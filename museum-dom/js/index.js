@@ -1,7 +1,4 @@
-'use strict'
-/**
- * @prettier
- */
+'use strict';
 window.addEventListener('DOMContentLoaded', () => {
   console.log(`
   Ваша оценка - 139 баллов 
