@@ -970,7 +970,7 @@ feedback: Добавленна темная тема
     ).addTo(mymap);
 
     var myIcon = L.icon({
-      iconUrl: '../assets/img/maps-and-flags.png',
+      iconUrl: './assets/img/maps-and-flags.png',
       iconSize: [35, 35],
     });
 
