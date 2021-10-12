@@ -753,6 +753,7 @@ feedback: Добавленна темная тема
         .forEach(i => (i.innerText = type * SENIOR_BENEFIT));
       updateData();
     }
+    calculateTotal();
     setReservationData();
 
     let today = new Date(Date.now()),
