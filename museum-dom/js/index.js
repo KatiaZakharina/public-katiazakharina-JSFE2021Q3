@@ -1,7 +1,6 @@
 'use strict';
 window.addEventListener('DOMContentLoaded', () => {
-  console.log(`Пожалуйста, не проверяйте мою работу сегодня, я постараюсь ее доделать`);
-
+  
   console.log(`
   Ваша оценка - 139 баллов 
 Отзыв по пунктам ТЗ:
