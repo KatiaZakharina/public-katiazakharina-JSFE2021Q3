@@ -6,7 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   //--time and date
   const time = document.querySelector('.time'),
     date = document.querySelector('.date');
+  let dayPartName, randomNum;
 
+  function getRandomNum() {
+    randomNum = (~~(Math.random() * 20 + 1) + '').padStart(2, 0);
+  }
+  getRandomNum();
   function updateTime() {
     const dateNow = new Date();
     const currentTime = dateNow.toLocaleTimeString();
@@ -38,22 +43,52 @@ document.addEventListener('DOMContentLoaded', () => {
   updateDate();
 
   //--greeting
+
   const greeting = document.querySelector('.greeting'),
     nameField = document.querySelector('.name');
 
   function showGreeting() {
     greeting.textContent = `Good ${getTimeOfDay(new Date())}`;
-
-    function getTimeOfDay(date) {
-      const dayPart = ['morning', 'day', 'evening', 'night'],
-        hour = date.getHours();
-      if (hour > 4 && hour < 10) return dayPart[0];
-      else if (hour < 17) return dayPart[1];
-      else if (hour < 23) return dayPart[2];
-      else return dayPart[3];
-    }
   }
   showGreeting();
+
+  function getTimeOfDay(date) {
+    const dayPart = ['morning', 'day', 'evening', 'night'],
+      hour = date.getHours();
+    let active;
+    if (hour > 4 && hour < 10) active = 0;
+    else if (hour < 17) active = 1;
+    else if (hour < 23) active = 2;
+    else active = 3;
+    dayPartName = dayPart[active];
+    setBg();
+    return dayPartName;
+  }
+
+  function setBg() {
+    const bgNum = (randomNum + '').padStart(2, 0);
+    const img = new Image();
+    img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${dayPartName}/${bgNum}.jpg`;
+    img.onload = () => {
+      document.body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${dayPartName}/${bgNum}.jpg')`;
+    };
+  }
+
+
+  function getSlideNext() {
+    randomNum < 20 ? randomNum++ : (randomNum = 1);
+    setBg();
+  }
+  function getSlidePrev() {
+    randomNum > 1 ? randomNum-- : (randomNum = 20);
+    setBg();
+  }
+
+  const slidePrev = document.querySelector('.slide-prev'),
+    slideNext = document.querySelector('.slide-next');
+
+  slidePrev.addEventListener('click', getSlidePrev);
+  slideNext.addEventListener('click', getSlideNext);
 
   function setLocalStorage() {
     localStorage.setItem('name', nameField.value);
@@ -66,6 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   window.addEventListener('load', getLocalStorage);
-});
 
-//--slider
+  //--slider
+});
