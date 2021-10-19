@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-
   function getSlideNext() {
     randomNum < 20 ? randomNum++ : (randomNum = 1);
     setBg();
@@ -102,5 +101,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.addEventListener('load', getLocalStorage);
 
-  //--slider
+  //---weather
+//   const weatherIcon = document.querySelector('.weather-icon'),
+//     temperature = document.querySelector('.temperature'),
+//     weatherDescription = document.querySelector('.weather-description'),
+//     weatherCity = document.querySelector('.city');
+
+//   function createWeatherLink(city = 'Минск', lang = 'en', units = 'metric') {
+//     const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
+//     return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&appid=${WEATHER_KEY}&units=${units}`;
+//   }
+//   async function getWeather(city, lang, units) {
+//     const url = createWeatherLink(city);
+//     const res = await fetch(url);
+//     const data = await res.json();
+
+//     weatherIcon.className = 'weather-icon owf';
+//     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+//     temperature.textContent = `${data.main.temp}°C`;
+//     weatherDescription.textContent = data.weather[0].description;
+//   }
+//   getWeather();
+//   weatherCity.addEventListener('change', () => {
+//       console.log('h');
+//     getWeather(weatherCity.value);
+//   });
 });
