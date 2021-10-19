@@ -102,28 +102,43 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('load', getLocalStorage);
 
   //---weather
-//   const weatherIcon = document.querySelector('.weather-icon'),
-//     temperature = document.querySelector('.temperature'),
-//     weatherDescription = document.querySelector('.weather-description'),
-//     weatherCity = document.querySelector('.city');
+  //   const weatherIcon = document.querySelector('.weather-icon'),
+  //     temperature = document.querySelector('.temperature'),
+  //     weatherDescription = document.querySelector('.weather-description'),
+  //     weatherCity = document.querySelector('.city');
 
-//   function createWeatherLink(city = 'Минск', lang = 'en', units = 'metric') {
-//     const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
-//     return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&appid=${WEATHER_KEY}&units=${units}`;
-//   }
-//   async function getWeather(city, lang, units) {
-//     const url = createWeatherLink(city);
-//     const res = await fetch(url);
-//     const data = await res.json();
+  //   function createWeatherLink(city = 'Минск', lang = 'en', units = 'metric') {
+  //     const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
+  //     return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&appid=${WEATHER_KEY}&units=${units}`;
+  //   }
+  //   async function getWeather(city, lang, units) {
+  //     const url = createWeatherLink(city);
+  //     const res = await fetch(url);
+  //     const data = await res.json();
 
-//     weatherIcon.className = 'weather-icon owf';
-//     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-//     temperature.textContent = `${data.main.temp}°C`;
-//     weatherDescription.textContent = data.weather[0].description;
-//   }
-//   getWeather();
-//   weatherCity.addEventListener('change', () => {
-//       console.log('h');
-//     getWeather(weatherCity.value);
-//   });
+  //     weatherIcon.className = 'weather-icon owf';
+  //     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+  //     temperature.textContent = `${data.main.temp}°C`;
+  //     weatherDescription.textContent = data.weather[0].description;
+  //   }
+  //   getWeather();
+  //   weatherCity.addEventListener('change', () => {
+  //       console.log('h');
+  //     getWeather(weatherCity.value);
+  //   });
+
+  //--quotes
+  const quoteEl = document.querySelector('.quote'),
+    authorEl = document.querySelector('.author'),
+    changeQuoteBtn = document.querySelector('.change-quote');
+
+  async function getQuotes() {
+    const quotes = 'db/data_en.json';
+    const res = await fetch(quotes);
+    const data = await res.json();
+    quoteEl.textContent = data[~~(data.length * Math.random()) + 1].text;
+    authorEl.textContent = data[~~(data.length * Math.random()) + 1].author;
+  }
+  getQuotes();
+  changeQuoteBtn.addEventListener('click', getQuotes);
 });
