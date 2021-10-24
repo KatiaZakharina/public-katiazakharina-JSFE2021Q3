@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Arial-MT';
-  src: url("../assets/fonts/Arial-MT.woff"); /* Путь к файлу со шрифтом */
+  src: url("../assets/fonts/Arial-MT.woff");
  }
 
 * {
@@ -10,13 +10,14 @@
 }
 
 body {
-  /* min-width: 480px; */
   min-height: 100vh;
   font-family: 'Arial', sans-serif;
   font-size: 16px;
   color: #fff;
   text-align: center;
   background-blend-mode: multiply;
+  background-size: cover;
+  background-position: center;
   overflow-x: hidden;
   transition: background-image 1s ease-in-out;
 }

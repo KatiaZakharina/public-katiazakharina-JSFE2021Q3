@@ -1,12 +1,26 @@
 /*
  * @prettier
  */
-'use strict';
+import playList from './playList.js';
+
+('use strict');
 document.addEventListener('DOMContentLoaded', () => {
+  //--setting
+  const state = {
+    language: 'ru',
+    photoSource: 'unsplash',
+    blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio', 'todolist'],
+  };
+
   //--time and date
   const time = document.querySelector('.time'),
     date = document.querySelector('.date');
-  let dayPartName, randomNum;
+
+  let activePart = 0,
+    randomNum,
+    isPlay = false,
+    dayPart = ['morning', 'day', 'evening', 'night'],
+    url;
 
   function getRandomNum() {
     randomNum = (~~(Math.random() * 20 + 1) + '').padStart(2, 0);
@@ -31,13 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateDate() {
     const dateNow = new Date();
-    const options = {
+    const dateOptions = {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
       timeZone: 'UTC',
     };
-    const currentDate = dateNow.toLocaleDateString('en-US', options);
+    const currentDate = dateNow.toLocaleDateString(state.language, dateOptions);
     date.textContent = currentDate;
   }
   updateDate();
@@ -47,31 +61,84 @@ document.addEventListener('DOMContentLoaded', () => {
   const greeting = document.querySelector('.greeting'),
     nameField = document.querySelector('.name');
 
-  function showGreeting() {
-    greeting.textContent = `Good ${getTimeOfDay(new Date())}`;
+  function showGreeting(greetingHead = 'Good') {
+    greeting.textContent = `${greetingHead} ${dayPart[getTimeOfDay(new Date())]}`;
   }
   showGreeting();
 
   function getTimeOfDay(date) {
-    const dayPart = ['morning', 'day', 'evening', 'night'],
-      hour = date.getHours();
-    let active;
-    if (hour > 4 && hour < 10) active = 0;
-    else if (hour < 17) active = 1;
-    else if (hour < 23) active = 2;
-    else active = 3;
-    dayPartName = dayPart[active];
+    let hour = date.getHours();
+    let activePart;
+    if (hour > 4 && hour < 10) activePart = 0;
+    else if (hour < 17) activePart = 1;
+    else if (hour < 23) activePart = 2;
+    else activePart = 3;
+    //dayPartName = dayPart[activePart];
     setBg();
-    return dayPartName;
+    return activePart;
+  }
+  function createUnsplashLink(query = 'nature') {
+    const UNSPLASH_ACCESS_KEY = '3hixX6c7HipvKrVHHIL_sCxRtDnngeAiJUvUvPUySMw';
+    return `https://api.unsplash.com/photos/random?orientation=landscape&query=${query}&client_id=${UNSPLASH_ACCESS_KEY}`;
+  }
+
+  async function getLinkToUnsplashImage() {
+    const url = createUnsplashLink();
+    const res = await fetch(url);
+    const data = await res.json();
+    const link = await data.urls.regular;
+    return await link;
+  }
+
+  function createFlickrLink(query = 'nature') {
+    const FLICKR_ACCESS_KEY = '7ff6320ea5e1a8b7710aa02bad9765a8';
+    return `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${FLICKR_ACCESS_KEY}&tags=${query}&extras=url_l&format=json&nojsoncallback=1`;
+  }
+
+  async function getLinkToFlickrImage() {
+    const url = createFlickrLink();
+    const res = await fetch(url);
+    const data = await res.json();
+    const link = `https://farm${data.photos.photo[+randomNum].farm}.staticflickr.com/${
+      data.photos.photo[+randomNum].server
+    }/${data.photos.photo[+randomNum].id}_${data.photos.photo[+randomNum].secret}.jpg`;
+    return link;
   }
 
   function setBg() {
     const bgNum = (randomNum + '').padStart(2, 0);
     const img = new Image();
-    img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${dayPartName}/${bgNum}.jpg`;
-    img.onload = () => {
-      document.body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${dayPartName}/${bgNum}.jpg')`;
-    };
+    const dayEnPart = ['morning', 'day', 'evening', 'night'];
+
+    if (state.photoSource == 'github') {
+      url = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${dayEnPart[activePart]}/${bgNum}.jpg`;
+      img.src = url;
+      img.onload = () => {
+        document.body.style.backgroundImage = `url(${url})`;
+      };
+    } else if (state.photoSource == 'unsplash') {
+      getLinkToUnsplashImage()
+        .then(data => {
+          return (url = data);
+        })
+        .then(data => {
+          img.src = data;
+          img.onload = () => {
+            document.body.style.backgroundImage = `url(${data})`;
+          };
+        });
+    } else {
+      getLinkToFlickrImage()
+        .then(data => {
+          return (url = data);
+        })
+        .then(data => {
+          img.src = data;
+          img.onload = () => {
+            document.body.style.backgroundImage = `url(${data})`;
+          };
+        });
+    }
   }
 
   function getSlideNext() {
@@ -102,30 +169,29 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('load', getLocalStorage);
 
   //---weather
-  //   const weatherIcon = document.querySelector('.weather-icon'),
-  //     temperature = document.querySelector('.temperature'),
-  //     weatherDescription = document.querySelector('.weather-description'),
-  //     weatherCity = document.querySelector('.city');
+  // const weatherIcon = document.querySelector('.weather-icon'),
+  //   temperature = document.querySelector('.temperature'),
+  //   weatherDescription = document.querySelector('.weather-description'),
+  //   weatherCity = document.querySelector('.city');
 
-  //   function createWeatherLink(city = 'Минск', lang = 'en', units = 'metric') {
-  //     const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
-  //     return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&appid=${WEATHER_KEY}&units=${units}`;
-  //   }
-  //   async function getWeather(city, lang, units) {
-  //     const url = createWeatherLink(city);
-  //     const res = await fetch(url);
-  //     const data = await res.json();
+  // function createWeatherLink(city = 'Минск', units = 'metric') {
+  //   const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
+  //   return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${state.language}&appid=${WEATHER_KEY}&units=${units}`;
+  // }
+  // async function getWeather(city) {
+  //   const url = createWeatherLink(city);
+  //   const res = await fetch(url);
+  //   const data = await res.json();
 
-  //     weatherIcon.className = 'weather-icon owf';
-  //     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-  //     temperature.textContent = `${data.main.temp}°C`;
-  //     weatherDescription.textContent = data.weather[0].description;
-  //   }
-  //   getWeather();
-  //   weatherCity.addEventListener('change', () => {
-  //       console.log('h');
-  //     getWeather(weatherCity.value);
-  //   });
+  //   weatherIcon.className = 'weather-icon owf';
+  //   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+  //   temperature.textContent = `${data.main.temp}°C`;
+  //   weatherDescription.textContent = data.weather[0].description;
+  // }
+  // getWeather();
+  // weatherCity.addEventListener('change', () => {
+  //   getWeather(weatherCity.value);
+  // });
 
   //--quotes
   const quoteEl = document.querySelector('.quote'),
@@ -133,12 +199,81 @@ document.addEventListener('DOMContentLoaded', () => {
     changeQuoteBtn = document.querySelector('.change-quote');
 
   async function getQuotes() {
-    const quotes = 'db/data_en.json';
+    const quotes = `db/data_${state.language}.json`;
     const res = await fetch(quotes);
     const data = await res.json();
-    quoteEl.textContent = data[~~(data.length * Math.random()) + 1].text;
-    authorEl.textContent = data[~~(data.length * Math.random()) + 1].author;
+    quoteEl.textContent = data[~~(data.length * Math.random())].text;
+    authorEl.textContent = data[~~(data.length * Math.random())].author;
   }
   getQuotes();
   changeQuoteBtn.addEventListener('click', getQuotes);
+
+  //--audio
+  const audio = document.querySelector('.audio'),
+    playPrevBtn = document.querySelector('.play-prev'),
+    playNextBtn = document.querySelector('.play-next'),
+    playBtn = document.querySelector('.play'),
+    playListUl = document.querySelector('.play-list');
+  let playNum = 0;
+
+  playBtn.addEventListener('click', playAudio);
+  //console.log(playList[playNum].src);
+  function playAudio() {
+    console.log(isPlay);
+    audio.src = playList[playNum].src;
+    if (!isPlay) {
+      // audio.currentTime = 0;
+      audio.play();
+      isPlay = true;
+      playBtn.classList.toggle('pause');
+    } else {
+      audio.pause();
+      isPlay = false;
+      playBtn.classList.toggle('pause');
+    }
+  }
+  playPrevBtn.addEventListener('click', playPrev);
+  playNextBtn.addEventListener('click', playNext);
+
+  function playPrev() {
+    playNum > 0 ? playNum-- : (playNum = playList.length - 1);
+    //isPlay=false;
+    playAudio();
+  }
+  function playNext() {
+    playNum < playList.length - 1 ? playNum++ : (playNum = 0);
+    //isPlay=false;
+    playAudio();
+  }
+  playList.forEach(song => {
+    const li = document.createElement('li');
+    li.classList.add('play-item');
+    li.textContent = song.title;
+    playListUl.append(li);
+  });
+
+  //--trsnslate
+  translateApp();
+  function translateApp() {
+    if(state.language=='en') return;
+    translateWeather();
+    translateGreeting();
+    getQuotes();
+    updateDate();
+    translateSongs();
+  }
+  function translateWeather() {}
+  function translateGreeting() {
+    if (state.language == 'ru') {
+      dayPart = ['утро', 'день', 'вечер', 'ночи'];
+      const greeting =
+        getTimeOfDay(new Date()) == 0
+          ? 'Доброе'
+          : getTimeOfDay(new Date()) == 1
+          ? 'Добрый'
+          : 'Доброй';
+      showGreeting(greeting);
+    }
+  }
+  function translateSongs() {}
 });
