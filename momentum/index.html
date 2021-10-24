@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/owfont-regular.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
     <title>KatiaZakharina - momentum</title>
   </head>
   <body>
@@ -21,6 +25,100 @@
         </div>
         <ul class="play-list"></ul>
       </div>
+
+      <div class="set">
+        <img class="setting-icon" src="assets/svg/settings.svg" alt="setting-icon" data-open>
+        <div class="settings visually-hidden">
+          <div class="head">
+            <div class="user-info">
+              <h2 class="user-name">User name</h2>
+              <small class="user-location">Minsk</small>
+            </div>
+            <span class="alink close" data-close>
+              <i class="far fa-times-circle"></i>
+            </span>
+          </div>
+          <div class="body">
+            <dl class="setting">
+              <dd>
+                <li class="setting_item">
+                  <i class="fas fa-language"></i>
+                  <span class="item_options">Language</span>
+                  <span class="alink">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-images"></i>
+                  <span class="item_options">Image source</span>
+                  <span class="alink">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </li>
+              </dd>
+              <dd>
+                <li class="setting_item">
+                  <i class="fas fa-check-double"></i>
+                  <span class="item_options">Time</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-check-double"></i>
+                  <span class="item_options">Date</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-check-double"></i>
+                  <span class="item_options">Greeting</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-check-double"></i>
+                  <span class="item_options">Quote</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-check-double"></i>
+                  <span class="item_options">Weather</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-check-double"></i>
+                  <span class="item_options">Audio</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+                <li class="setting_item">
+                  <i class="fas fa-user-friends"></i>
+                  <span class="item_options">ToDo</span>
+                  <label class="label active">
+                    <input type="checkbox" class="label-input" />
+                    <div class="label-circle"></div>
+                  </label>
+                </li>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+
       <div class="weather">
         <input type="text" class="city" />
         <i class="weather-icon owf"></i>

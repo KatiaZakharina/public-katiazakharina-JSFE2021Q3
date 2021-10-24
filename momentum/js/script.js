@@ -8,9 +8,34 @@ document.addEventListener('DOMContentLoaded', () => {
   //--setting
   const state = {
     language: 'ru',
-    photoSource: 'unsplash',
+    photoSource: 'github',
     blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio', 'todolist'],
   };
+  function setSetting() {
+    const switchers = document.querySelectorAll('.label-input'),
+      settingOpenBtn = document.querySelector('[data-open]'),
+      settingCloseBtn = document.querySelector('[data-close]'),
+      settingEl = document.querySelector('.settings');
+
+    settingOpenBtn.addEventListener('click', ()=>{
+      settingOpenBtn.classList.add('visually-hidden');
+      settingEl.classList.remove('visually-hidden');
+    });
+    settingCloseBtn.addEventListener('click', ()=>{
+      settingOpenBtn.classList.remove('visually-hidden');
+      settingEl.classList.add('visually-hidden');
+    });
+
+    switchers.forEach(switcher => {
+      switcher.addEventListener('click', () => {
+        switcher.parentElement.classList.toggle('active');
+      });
+    });
+  }
+  setSetting();
+  function updateSetting() {
+    translateApp();
+  }
 
   //--time and date
   const time = document.querySelector('.time'),
@@ -90,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return await link;
   }
 
-  function createFlickrLink(query = 'nature') {
+  function createFlickrLink(query = 'sunset') {
     const FLICKR_ACCESS_KEY = '7ff6320ea5e1a8b7710aa02bad9765a8';
     return `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${FLICKR_ACCESS_KEY}&tags=${query}&extras=url_l&format=json&nojsoncallback=1`;
   }
@@ -255,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //--trsnslate
   translateApp();
   function translateApp() {
-    if(state.language=='en') return;
+    if (state.language == 'en') return;
     translateWeather();
     translateGreeting();
     getQuotes();
