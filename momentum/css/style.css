@@ -383,6 +383,34 @@ body {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+.select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background: url('../assets/svg/slider-next.svg') right 14px center no-repeat;
+  text-transform:capitalize;
+}
+.select::-webkit-expand {
+  background-image: url('../assets/svg/form/arrow.svg');
+}
+.select option {
+  padding: 12px 45px;
+  color: #000;
+  font-size: 18px;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+.input {
+  padding-left: 8px;
+  color: #fff;
+  flex-grow: 1;
+  font-size: 16px;
+  border: 0;
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+  background-size: 15px;
+}
 
 @media (max-width: 768px) {
   .time {

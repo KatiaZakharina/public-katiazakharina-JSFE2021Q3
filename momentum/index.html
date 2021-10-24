@@ -27,7 +27,7 @@
       </div>
 
       <div class="set">
-        <img class="setting-icon" src="assets/svg/settings.svg" alt="setting-icon" data-open>
+        <img class="setting-icon" src="assets/svg/settings.svg" alt="setting-icon" data-open />
         <div class="settings visually-hidden">
           <div class="head">
             <div class="user-info">
@@ -43,17 +43,20 @@
               <dd>
                 <li class="setting_item">
                   <i class="fas fa-language"></i>
-                  <span class="item_options">Language</span>
-                  <span class="alink">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
+                  <select class="select input" data-language-select data-select>
+                    <option disabled selected>language</option>
+                    <option>en</option>
+                    <option>ru</option>
+                  </select>
                 </li>
                 <li class="setting_item">
                   <i class="fas fa-images"></i>
-                  <span class="item_options">Image source</span>
-                  <span class="alink">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
+                  <select class="select input" data-source-select data-select>
+                    <option disabled selected>image sources</option>
+                    <option>github</option>
+                    <option>unsplash</option>
+                    <option>flickr</option>
+                  </select>
                 </li>
               </dd>
               <dd>
@@ -61,7 +64,7 @@
                   <i class="fas fa-check-double"></i>
                   <span class="item_options">Time</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="time" />
                     <div class="label-circle"></div>
                   </label>
                 </li>
@@ -69,7 +72,7 @@
                   <i class="fas fa-check-double"></i>
                   <span class="item_options">Date</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="date" />
                     <div class="label-circle"></div>
                   </label>
                 </li>
@@ -77,7 +80,7 @@
                   <i class="fas fa-check-double"></i>
                   <span class="item_options">Greeting</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="greeting" />
                     <div class="label-circle"></div>
                   </label>
                 </li>
@@ -85,7 +88,7 @@
                   <i class="fas fa-check-double"></i>
                   <span class="item_options">Quote</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="quote" />
                     <div class="label-circle"></div>
                   </label>
                 </li>
@@ -93,7 +96,7 @@
                   <i class="fas fa-check-double"></i>
                   <span class="item_options">Weather</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="weather" />
                     <div class="label-circle"></div>
                   </label>
                 </li>
@@ -101,7 +104,7 @@
                   <i class="fas fa-check-double"></i>
                   <span class="item_options">Audio</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="audio" />
                     <div class="label-circle"></div>
                   </label>
                 </li>
@@ -109,7 +112,7 @@
                   <i class="fas fa-user-friends"></i>
                   <span class="item_options">ToDo</span>
                   <label class="label active">
-                    <input type="checkbox" class="label-input" />
+                    <input type="checkbox" class="label-input" data-input="todolist" />
                     <div class="label-circle"></div>
                   </label>
                 </li>

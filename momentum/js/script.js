@@ -11,17 +11,44 @@ document.addEventListener('DOMContentLoaded', () => {
     photoSource: 'github',
     blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio', 'todolist'],
   };
+
+  const sourceSelect = document.querySelector('[data-source-select]'),
+    langSelect = document.querySelectorAll('[data-language-select]');
+
+  function setLocalStorage() {
+    localStorage.setItem('name', nameField.value);
+    localStorage.setItem('source', state.photoSource);
+    localStorage.setItem('lang', state.language);
+  }
+  window.addEventListener('beforeunload', setLocalStorage);
+
+  function getLocalStorage() {
+    if (localStorage.getItem('name')) {
+      nameField.value = localStorage.getItem('name');
+    }
+    if (localStorage.getItem('source')) {
+      state.photoSource = localStorage.getItem('source');
+      sourceSelect.value = state.photoSource;
+    }
+    if (localStorage.getItem('lang')) {
+      state.photoSource = localStorage.getItem('lang');
+      langSelect.value = state.language;
+    }
+  }
+  window.addEventListener('load', getLocalStorage);
+
   function setSetting() {
     const switchers = document.querySelectorAll('.label-input'),
+      selects = document.querySelectorAll('[data-select]'),
       settingOpenBtn = document.querySelector('[data-open]'),
       settingCloseBtn = document.querySelector('[data-close]'),
       settingEl = document.querySelector('.settings');
 
-    settingOpenBtn.addEventListener('click', ()=>{
+    settingOpenBtn.addEventListener('click', () => {
       settingOpenBtn.classList.add('visually-hidden');
       settingEl.classList.remove('visually-hidden');
     });
-    settingCloseBtn.addEventListener('click', ()=>{
+    settingCloseBtn.addEventListener('click', () => {
       settingOpenBtn.classList.remove('visually-hidden');
       settingEl.classList.add('visually-hidden');
     });
@@ -29,13 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
     switchers.forEach(switcher => {
       switcher.addEventListener('click', () => {
         switcher.parentElement.classList.toggle('active');
+        updateSetting();
       });
+    });
+    selects.forEach(select => {
+      select.addEventListener('input', updateSetting);
     });
   }
   setSetting();
   function updateSetting() {
-    translateApp();
+    sourceSelect.addEventListener('change', () => {
+      state.photoSource = sourceSelect.value.toLowerCase();
+      setBg();
+    });
+    // translateApp();
+    // showWidget();
   }
+  // function showWidget(){
+  //   const blocks=document.querySelectorAll('[data-input]');
+  //   blocks.forEach(item=>{
+  //     item.style.visibility='hidden';
+  //   });
+  //   state.blocks.forEach((block)=>{
+  //     console.log(document.querySelector(`[data-input=${block}]`));
+  //     document.querySelector(`[data-input=${block}]`).style.visibility='visible';
+  //   });
+  // }
 
   //--time and date
   const time = document.querySelector('.time'),
@@ -180,18 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   slidePrev.addEventListener('click', getSlidePrev);
   slideNext.addEventListener('click', getSlideNext);
-
-  function setLocalStorage() {
-    localStorage.setItem('name', nameField.value);
-  }
-  window.addEventListener('beforeunload', setLocalStorage);
-
-  function getLocalStorage() {
-    if (localStorage.getItem('name')) {
-      nameField.value = localStorage.getItem('name');
-    }
-  }
-  window.addEventListener('load', getLocalStorage);
 
   //---weather
   // const weatherIcon = document.querySelector('.weather-icon'),
