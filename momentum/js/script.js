@@ -7,13 +7,13 @@ import playList from './playList.js';
 document.addEventListener('DOMContentLoaded', () => {
   //--setting
   const state = {
-    language: 'ru',
+    language: 'en',
     photoSource: 'github',
     blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio', 'todolist'],
   };
 
   const sourceSelect = document.querySelector('[data-source-select]'),
-    langSelect = document.querySelectorAll('[data-language-select]');
+    langSelect = document.querySelector('[data-language-select]');
 
   function setLocalStorage() {
     localStorage.setItem('name', nameField.value);
@@ -25,21 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function getLocalStorage() {
     if (localStorage.getItem('name')) {
       nameField.value = localStorage.getItem('name');
+      document.querySelector('.user-name').textContent=localStorage.getItem('name');
     }
     if (localStorage.getItem('source')) {
       state.photoSource = localStorage.getItem('source');
+      console.log(state.photoSource);
       sourceSelect.value = state.photoSource;
     }
     if (localStorage.getItem('lang')) {
-      state.photoSource = localStorage.getItem('lang');
+      state.language = localStorage.getItem('lang');
       langSelect.value = state.language;
+      translateApp();
     }
   }
   window.addEventListener('load', getLocalStorage);
 
   function setSetting() {
     const switchers = document.querySelectorAll('.label-input'),
-      selects = document.querySelectorAll('[data-select]'),
       settingOpenBtn = document.querySelector('[data-open]'),
       settingCloseBtn = document.querySelector('[data-close]'),
       settingEl = document.querySelector('.settings');
@@ -59,16 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSetting();
       });
     });
-    selects.forEach(select => {
-      select.addEventListener('input', updateSetting);
-    });
-  }
-  setSetting();
-  function updateSetting() {
     sourceSelect.addEventListener('change', () => {
       state.photoSource = sourceSelect.value.toLowerCase();
       setBg();
     });
+    langSelect.addEventListener('change', () => {
+      state.language = langSelect.value.toLowerCase();
+      translateApp();
+    });
+  }
+  setSetting();
+
+  function updateSetting() {
     // translateApp();
     // showWidget();
   }
@@ -131,6 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const greeting = document.querySelector('.greeting'),
     nameField = document.querySelector('.name');
+
+    nameField.addEventListener('change',()=>{
+      document.querySelector('.user-name').textContent=nameField.value;
+    });
 
   function showGreeting(greetingHead = 'Good') {
     greeting.textContent = `${greetingHead} ${dayPart[getTimeOfDay(new Date())]}`;
@@ -311,15 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
     playListUl.append(li);
   });
 
-  //--trsnslate
-  translateApp();
+  // --trsnslate
+  // translateApp();
   function translateApp() {
-    if (state.language == 'en') return;
     translateWeather();
     translateGreeting();
     getQuotes();
     updateDate();
-    translateSongs();
   }
   function translateWeather() {}
   function translateGreeting() {
@@ -328,11 +334,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const greeting =
         getTimeOfDay(new Date()) == 0
           ? 'Доброе'
-          : getTimeOfDay(new Date()) == 1
-          ? 'Добрый'
-          : 'Доброй';
+          : getTimeOfDay(new Date()) == 3
+          ? 'Доброй'
+          : 'Добрый';
       showGreeting(greeting);
+    } else if (state.language == 'en') {
+      dayPart = ['morning', 'day', 'evening', 'night'];
+      showGreeting();
     }
   }
-  function translateSongs() {}
 });
