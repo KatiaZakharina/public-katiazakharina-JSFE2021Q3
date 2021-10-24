@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('source', state.photoSource);
     localStorage.setItem('lang', state.language);
     localStorage.setItem('blocks', JSON.stringify(state.blocks));
+    localStorage.setItem('location', state.location);
   }
   window.addEventListener('beforeunload', setLocalStorage);
 
@@ -42,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
       state.blocks = JSON.parse(localStorage.getItem('blocks'));
       showWidget();
       setSwitcher();
+    }
+    if (localStorage.getItem('location')) {
+      state.location = localStorage.getItem('location');
+      getWeather();
     }
   }
   window.addEventListener('load', getLocalStorage);
@@ -99,12 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function setSwitcher() {
     document.querySelectorAll('[data-input]').forEach(input => {
       input.parentElement.classList.remove('active');
-      input.checked=false;
+      input.checked = false;
     });
     state.blocks.forEach(block => {
-      let active=document.querySelector(`[data-input=${block}]`);
-      if(active){
-        active.checked=true;
+      let active = document.querySelector(`[data-input=${block}]`);
+      if (active) {
+        active.checked = true;
         active.parentElement.classList.add('active');
       }
     });
@@ -258,30 +263,32 @@ document.addEventListener('DOMContentLoaded', () => {
   slidePrev.addEventListener('click', getSlidePrev);
   slideNext.addEventListener('click', getSlideNext);
 
-  //---weather
-  // const weatherIcon = document.querySelector('.weather-icon'),
-  //   temperature = document.querySelector('.temperature'),
-  //   weatherDescription = document.querySelector('.weather-description'),
-  //   weatherCity = document.querySelector('.city');
+  // ---weather
+  const weatherIcon = document.querySelector('.weather-icon'),
+    temperature = document.querySelector('.temperature'),
+    weatherDescription = document.querySelector('.weather-description'),
+    weatherCity = document.querySelector('.city');
 
-  // function createWeatherLink(city = 'Минск', units = 'metric') {
-  //   const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
-  //   return `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${state.language}&appid=${WEATHER_KEY}&units=${units}`;
-  // }
-  // async function getWeather(city) {
-  //   const url = createWeatherLink(city);
-  //   const res = await fetch(url);
-  //   const data = await res.json();
+  function createWeatherLink(units = 'metric') {
+    const WEATHER_KEY = 'be9776d511cff858ce4a6a4cc20a43bf';
+    return `https://api.openweathermap.org/data/2.5/weather?q=${state.location}&lang=${state.language}&appid=${WEATHER_KEY}&units=${units}`;
+  }
+  async function getWeather() {
+    weatherCity.value = state.location;
+    const url = createWeatherLink();
+    const res = await fetch(url);
+    const data = await res.json();
 
-  //   weatherIcon.className = 'weather-icon owf';
-  //   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-  //   temperature.textContent = `${data.main.temp}°C`;
-  //   weatherDescription.textContent = data.weather[0].description;
-  // }
-  // getWeather();
-  // weatherCity.addEventListener('change', () => {
-  //   getWeather(weatherCity.value);
-  // });
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+  }
+  getWeather();
+  weatherCity.addEventListener('change', () => {
+    state.location = weatherCity.value;
+    getWeather();
+  });
 
   //--quotes
   const quoteEl = document.querySelector('.quote'),
@@ -345,12 +352,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // --trsnslate
   // translateApp();
   function translateApp() {
-    translateWeather();
     translateGreeting();
     getQuotes();
     updateDate();
   }
-  function translateWeather() {}
   function translateGreeting() {
     if (state.language == 'ru') {
       dayPart = ['утро', 'день', 'вечер', 'ночи'];
