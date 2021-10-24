@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     language: 'en',
     photoSource: 'github',
     blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio', 'todolist'],
+    location: 'Minsk',
   };
 
   const sourceSelect = document.querySelector('[data-source-select]'),
@@ -19,23 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('name', nameField.value);
     localStorage.setItem('source', state.photoSource);
     localStorage.setItem('lang', state.language);
+    localStorage.setItem('blocks', JSON.stringify(state.blocks));
   }
   window.addEventListener('beforeunload', setLocalStorage);
 
   function getLocalStorage() {
     if (localStorage.getItem('name')) {
       nameField.value = localStorage.getItem('name');
-      document.querySelector('.user-name').textContent=localStorage.getItem('name');
+      document.querySelector('.user-name').textContent = localStorage.getItem('name');
     }
     if (localStorage.getItem('source')) {
       state.photoSource = localStorage.getItem('source');
-      console.log(state.photoSource);
       sourceSelect.value = state.photoSource;
     }
     if (localStorage.getItem('lang')) {
       state.language = localStorage.getItem('lang');
       langSelect.value = state.language;
       translateApp();
+    }
+    if (localStorage.getItem('blocks')) {
+      state.blocks = JSON.parse(localStorage.getItem('blocks'));
+      showWidget();
+      setSwitcher();
     }
   }
   window.addEventListener('load', getLocalStorage);
@@ -58,7 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
     switchers.forEach(switcher => {
       switcher.addEventListener('click', () => {
         switcher.parentElement.classList.toggle('active');
-        updateSetting();
+        let index = state.blocks.indexOf(switcher.dataset.input);
+        if (index == -1) {
+          state.blocks.unshift(switcher.dataset.input);
+        } else {
+          state.blocks.splice(index, 1);
+        }
+        showWidget();
       });
     });
     sourceSelect.addEventListener('change', () => {
@@ -72,20 +84,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setSetting();
 
-  function updateSetting() {
-    // translateApp();
-    // showWidget();
+  function showWidget() {
+    const blocks = document.querySelectorAll('[data-element]');
+
+    blocks.forEach(item => {
+      item.style.visibility = 'hidden';
+    });
+    state.blocks.forEach(block => {
+      document
+        .querySelectorAll(`[data-element=${block}]`)
+        .forEach(element => (element.style.visibility = 'visible'));
+    });
   }
-  // function showWidget(){
-  //   const blocks=document.querySelectorAll('[data-input]');
-  //   blocks.forEach(item=>{
-  //     item.style.visibility='hidden';
-  //   });
-  //   state.blocks.forEach((block)=>{
-  //     console.log(document.querySelector(`[data-input=${block}]`));
-  //     document.querySelector(`[data-input=${block}]`).style.visibility='visible';
-  //   });
-  // }
+  function setSwitcher() {
+    document.querySelectorAll('[data-input]').forEach(input => {
+      input.parentElement.classList.remove('active');
+      input.checked=false;
+    });
+    state.blocks.forEach(block => {
+      let active=document.querySelector(`[data-input=${block}]`);
+      if(active){
+        active.checked=true;
+        active.parentElement.classList.add('active');
+      }
+    });
+  }
 
   //--time and date
   const time = document.querySelector('.time'),
@@ -136,9 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const greeting = document.querySelector('.greeting'),
     nameField = document.querySelector('.name');
 
-    nameField.addEventListener('change',()=>{
-      document.querySelector('.user-name').textContent=nameField.value;
-    });
+  nameField.addEventListener('change', () => {
+    document.querySelector('.user-name').textContent = nameField.value;
+  });
 
   function showGreeting(greetingHead = 'Good') {
     greeting.textContent = `${greetingHead} ${dayPart[getTimeOfDay(new Date())]}`;

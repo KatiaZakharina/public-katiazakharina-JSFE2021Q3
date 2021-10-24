@@ -16,7 +16,7 @@
   </head>
   <body>
     <header class="header">
-      <div class="player">
+      <div class="player" data-element="audio">
         <div class="player-controls">
           <button class="play-prev player-icon"></button>
           <button class="play player-icon"></button>
@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <div class="weather">
+      <div class="weather" data-element="weather">
         <input type="text" class="city" />
         <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
@@ -139,18 +139,18 @@
         <button class="slide-prev slider-icon"></button>
         <button class="slide-next slider-icon"></button>
       </div>
-      <time class="time"></time>
-      <date class="date"></date>
-      <div class="greeting-container">
+      <time class="time" data-element="time"></time>
+      <date class="date" data-element="date"></date>
+      <div class="greeting-container" data-element="greeting">
         <span class="greeting"></span>
         <input type="text" class="name" />
       </div>
     </main>
     <footer class="footer">
-      <button class="change-quote"></button>
+      <button class="change-quote" data-element="quote"></button>
       <div>
-        <div class="quote"></div>
-        <div class="author"></div>
+        <div class="quote" data-element="quote"></div>
+        <div class="author" data-element="quote"></div>
       </div>
     </footer>
     <script src="js/script.js" type="module"></script>
