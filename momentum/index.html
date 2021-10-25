@@ -21,8 +21,8 @@
           <button class="play-prev player-icon"></button>
           <button class="play player-icon"></button>
           <button class="play-next player-icon"></button>
-          <audio class="audio"></audio>
         </div>
+        <audio class="audio"></audio>
         <ul class="play-list"></ul>
       </div>
 
@@ -44,7 +44,6 @@
                 <li class="setting_item">
                   <i class="fas fa-language"></i>
                   <select class="select input" data-language-select data-select>
-                    <option disabled selected>language</option>
                     <option>en</option>
                     <option>ru</option>
                   </select>
@@ -52,7 +51,6 @@
                 <li class="setting_item">
                   <i class="fas fa-images"></i>
                   <select class="select input" data-source-select data-select>
-                    <option disabled selected>image sources</option>
                     <option>github</option>
                     <option>unsplash</option>
                     <option>flickr</option>
@@ -129,6 +127,7 @@
         <div class="description-container">
           <span class="temperature"></span>
           <span class="weather-description"></span>
+          <p class="wind-speed"></p>
         </div>
         <div class="wind"></div>
         <div class="humidity"></div>
@@ -143,7 +142,15 @@
       <date class="date" data-element="date"></date>
       <div class="greeting-container" data-element="greeting">
         <span class="greeting"></span>
-        <input type="text" class="name" />
+        <input type="text" class="name" placeholder="name"/>
+      </div>
+      <div class="toDo-container" data-element="todolist">
+        <div class="toDo-inputs">
+          <span class="toDo-title">What is your main focus for today?</span>
+          <input type="text" class="toDo-input" data-toDo />
+        </div>
+        <ul class="toDo-list">
+        </ul>
       </div>
     </main>
     <footer class="footer">
