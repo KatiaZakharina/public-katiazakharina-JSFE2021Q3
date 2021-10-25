@@ -16,6 +16,7 @@
   </head>
   <body>
     <header class="header">
+      <!-- <div style="width: 50px; height: 50px"></div> -->
       <div class="player" data-element="audio">
         <div class="player-controls">
           <button class="play-prev player-icon"></button>
@@ -23,6 +24,33 @@
           <button class="play-next player-icon"></button>
         </div>
         <audio class="audio" src="./assets/sounds/Aqua Caelestis.mp3"></audio>
+        <div class="audio-player">
+          <div class="timeline">
+            <div class="progress"></div>
+          </div>
+          <div class="controls">
+            <div class="play-container">
+              <div class="toggle-play song-play"></div>
+            </div>
+            <div class="song-time">
+              <div class="current">0:00</div>
+              <div class="divider">/</div>
+              <div class="length"></div>
+            </div>
+            <div class="song-name">Music Song</div>
+            <div class="volume-container">
+              <div class="volume-button">
+                <div class="volume icono-volumeMedium">
+                  <img class="volume-icon" src="assets/svg/volume.svg" alt="volume" />
+                </div>
+              </div>
+
+              <div class="volume-slider">
+                <div class="volume-percentage"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <ul class="play-list"></ul>
       </div>
 

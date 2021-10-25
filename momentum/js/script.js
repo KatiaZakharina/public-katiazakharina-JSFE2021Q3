@@ -328,24 +328,24 @@ document.addEventListener('DOMContentLoaded', () => {
       weatherCity.value = state.location;
     }
 
-    const url = createWeatherLink();
-    const res = await fetch(url);
-    if (!res.ok) {
-      document.querySelector('.weather-error').textContent = error;
-      document.querySelector('.description-container').classList.add('visually-hidden');
-      document.querySelector('.weather-icon').classList.add('visually-hidden');
-    } else {
-      document.querySelector('.description-container').classList.remove('visually-hidden');
-      document.querySelector('.weather-icon').classList.remove('visually-hidden');
-      const data = await res.json();
+    // const url = createWeatherLink();
+    // const res = await fetch(url);
+    // if (!res.ok) {
+    //   document.querySelector('.weather-error').textContent = error;
+    //   document.querySelector('.description-container').classList.add('visually-hidden');
+    //   document.querySelector('.weather-icon').classList.add('visually-hidden');
+    // } else {
+    //   document.querySelector('.description-container').classList.remove('visually-hidden');
+    //   document.querySelector('.weather-icon').classList.remove('visually-hidden');
+    //   const data = await res.json();
 
-      weatherIcon.className = 'weather-icon owf';
-      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-      temperature.textContent = `${~~data.main.temp}°C`;
-      weatherDescription.textContent = data.weather[0].description;
-      weatherHumidity.textContent = wind + data.main.humidity + ' %';
-      weatherWindSpeed.textContent = humidity + ~~data.wind.speed + windUnit;
-    }
+    //   weatherIcon.className = 'weather-icon owf';
+    //   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    //   temperature.textContent = `${~~data.main.temp}°C`;
+    //   weatherDescription.textContent = data.weather[0].description;
+    //   weatherHumidity.textContent = wind + data.main.humidity + ' %';
+    //   weatherWindSpeed.textContent = humidity + ~~data.wind.speed + windUnit;
+    // }
   }
   getWeather();
   weatherCity.addEventListener('change', () => {
@@ -419,6 +419,99 @@ document.addEventListener('DOMContentLoaded', () => {
     audio.play();
     playAudio();
   }
+
+  (function audio() {
+    const audioPlayer = document.querySelector('.audio-player');
+    const audio = new Audio('assets/sounds/Aqua Caelestis.mp3');
+    audio.addEventListener(
+      'loadeddata',
+      () => {
+        audioPlayer.querySelector('.song-time .length').textContent = getTimeCodeFromNum(
+          audio.duration,
+        );
+        audio.volume = 0.75;
+      },
+      false,
+    );
+
+    //click on timeline to skip around
+    const timeline = audioPlayer.querySelector('.timeline');
+    timeline.addEventListener(
+      'click',
+      e => {
+        const timelineWidth = window.getComputedStyle(timeline).width;
+        const timeToSeek = (e.offsetX / parseInt(timelineWidth)) * audio.duration;
+        audio.currentTime = timeToSeek;
+      },
+      false,
+    );
+
+    //click volume slider to change volume
+    const volumeSlider = audioPlayer.querySelector('.controls .volume-slider');
+    volumeSlider.addEventListener(
+      'click',
+      e => {
+        const sliderWidth = window.getComputedStyle(volumeSlider).width;
+        const newVolume = e.offsetX / parseInt(sliderWidth);
+        audio.volume = newVolume;
+        audioPlayer.querySelector('.controls .volume-percentage').style.width =
+          newVolume * 100 + '%';
+      },
+      false,
+    );
+
+    //check audio percentage and update time accordingly
+    setInterval(() => {
+      const progressBar = audioPlayer.querySelector('.progress');
+      progressBar.style.width = (audio.currentTime / audio.duration) * 100 + '%';
+      audioPlayer.querySelector('.song-time .current').textContent = getTimeCodeFromNum(
+        audio.currentTime,
+      );
+    }, 500);
+
+    //toggle between playing and pausing on button click
+    
+    const playBtn = audioPlayer.querySelector('.controls .toggle-play');
+    playBtn.addEventListener(
+      'click',
+      () => {
+        if (audio.paused) {
+          playBtn.classList.remove('song-play');
+          playBtn.classList.add('song-pause');
+          audio.play();
+        } else {
+          playBtn.classList.remove('song-pause');
+          playBtn.classList.add('song-play');
+          audio.pause();
+        }
+      },
+      false,
+    );
+
+    audioPlayer.querySelector('.volume-button').addEventListener('click', () => {
+      const volumeEl = audioPlayer.querySelector('.volume-container .volume');
+      audio.muted = !audio.muted;
+      if (audio.muted) {
+        volumeEl.classList.remove('icono-volumeMedium');
+        volumeEl.classList.add('icono-volumeMute');
+      } else {
+        volumeEl.classList.add('icono-volumeMedium');
+        volumeEl.classList.remove('icono-volumeMute');
+      }
+    });
+
+    //turn 128 seconds into 2:08
+    function getTimeCodeFromNum(num) {
+      let seconds = parseInt(num);
+      let minutes = parseInt(seconds / 60);
+      seconds -= minutes * 60;
+      const hours = parseInt(minutes / 60);
+      minutes -= hours * 60;
+
+      if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+      return `${String(hours).padStart(2, 0)}:${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+    }
+  })();
 
   //---toDo
   function createToDo() {
