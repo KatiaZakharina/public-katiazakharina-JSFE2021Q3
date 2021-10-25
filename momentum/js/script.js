@@ -144,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let activePart = 0,
     randomNum,
-    isPlay = false,
     dayPart = ['morning', 'day', 'evening', 'night'],
     url;
 
@@ -192,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function showGreeting(greetingHead = 'Good') {
-    greeting.textContent = `${greetingHead} ${dayPart[getTimeOfDay()]}`;
+    greeting.textContent = `${greetingHead} ${dayPart[getTimeOfDay()]},`;
   }
   showGreeting();
 
@@ -377,41 +376,49 @@ document.addEventListener('DOMContentLoaded', () => {
     playListUl = document.querySelector('.play-list');
   let playNum = 0;
 
-  playBtn.addEventListener('click', playAudio);
-  //console.log(playList[playNum].src);
-  function playAudio() {
-    console.log(isPlay);
-    audio.src = playList[playNum].src;
-    if (!isPlay) {
-      // audio.currentTime = 0;
-      audio.play();
-      isPlay = true;
-      playBtn.classList.toggle('pause');
-    } else {
-      audio.pause();
-      isPlay = false;
-      playBtn.classList.toggle('pause');
-    }
-  }
-  playPrevBtn.addEventListener('click', playPrev);
-  playNextBtn.addEventListener('click', playNext);
-
-  function playPrev() {
-    playNum > 0 ? playNum-- : (playNum = playList.length - 1);
-    //isPlay=false;
-    playAudio();
-  }
-  function playNext() {
-    playNum < playList.length - 1 ? playNum++ : (playNum = 0);
-    //isPlay=false;
-    playAudio();
-  }
   playList.forEach(song => {
     const li = document.createElement('li');
     li.classList.add('play-item');
     li.textContent = song.title;
     playListUl.append(li);
   });
+  const playListSongs = document.querySelectorAll('.play-item');
+
+  playBtn.addEventListener('click', () => {
+    toggleAudio();
+  });
+  audio.addEventListener('ended', playNext);
+
+  function playAudio() {
+    audio.src = playList[playNum].src;
+    audio.play();
+    playBtn.classList.add('pause');
+    playListSongs.forEach(song => song.classList.remove('item-active'));
+    playListSongs[playNum].classList.add('item-active');
+  }
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play();
+      playBtn.classList.toggle('pause');
+    } else {
+      audio.pause();
+      playBtn.classList.toggle('pause');
+    }
+  }
+
+  playPrevBtn.addEventListener('click', playPrev);
+  playNextBtn.addEventListener('click', playNext);
+
+  function playPrev() {
+    playNum > 0 ? playNum-- : (playNum = playList.length - 1);
+    audio.play();
+    playAudio();
+  }
+  function playNext() {
+    playNum < playList.length - 1 ? playNum++ : (playNum = 0);
+    audio.play();
+    playAudio();
+  }
 
   //---toDo
   function createToDo() {
