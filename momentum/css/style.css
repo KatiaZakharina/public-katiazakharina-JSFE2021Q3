@@ -472,11 +472,17 @@ body {
   pointer-events: none;
 }
 
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .audio-player {
   height: 50px;
-  width: 350px;
-  background: #444;
-  box-shadow: 0 0 20px 0 #000a;
+  min-width: 260px;
+  margin-bottom: 25px;
+  background: transparent;
+  box-shadow: 0 0 10px 0 #000a;
   font-family: arial;
   color: white;
   font-size: 0.75em;
@@ -508,53 +514,23 @@ body {
   justify-content: center;
   align-items: center;
 }
-.audio-player .controls .toggle-play.song-play {
-  cursor: pointer;
-  position: relative;
-  left: 0;
-  height: 0;
-  width: 0;
-  border: 7px solid #0000;
-  border-left: 13px solid white;
-}
-.audio-player .controls .toggle-play.song-play:hover {
-  transform: scale(1.1);
-}
-.audio-player .controls .toggle-play.song-pause {
-  height: 15px;
-  width: 20px;
-  cursor: pointer;
-  position: relative;
-}
-.audio-player .controls .toggle-play.song-pause:before {
-  position: absolute;
-  top: 0;
-  left: 0px;
-  background: white;
-  content: '';
-  height: 15px;
-  width: 3px;
-}
-.audio-player .controls .toggle-play.song-pause:after {
-  position: absolute;
-  top: 0;
-  right: 8px;
-  background: white;
-  content: '';
-  height: 15px;
-  width: 3px;
-}
-.audio-player .controls .toggle-play.song-pause:hover {
-  transform: scale(1.1);
-}
 .audio-player .controls .song-time {
   display: flex;
 }
 .audio-player .controls .song-time > * {
   padding: 2px;
 }
-.volume-icon {
+.volume {
   height: 25px;
+  width: 25px;
+}
+.icono-volumeMedium {
+  background-image: url('../assets/svg/volume.svg');
+  background-repeat: no-repeat;
+}
+.icono-volumeMute {
+  background-image: url('../assets/svg/mute.svg');
+  background-repeat: no-repeat;
 }
 .audio-player .controls .volume-container {
   cursor: pointer;
