@@ -16,13 +16,13 @@
   </head>
   <body>
     <header class="header">
-      <div class="player">
+      <div class="player" data-element="audio">
         <div class="player-controls">
           <button class="play-prev player-icon"></button>
           <button class="play player-icon"></button>
           <button class="play-next player-icon"></button>
-          <audio class="audio"></audio>
         </div>
+        <audio class="audio"></audio>
         <ul class="play-list"></ul>
       </div>
 
@@ -44,7 +44,6 @@
                 <li class="setting_item">
                   <i class="fas fa-language"></i>
                   <select class="select input" data-language-select data-select>
-                    <option disabled selected>language</option>
                     <option>en</option>
                     <option>ru</option>
                   </select>
@@ -52,7 +51,6 @@
                 <li class="setting_item">
                   <i class="fas fa-images"></i>
                   <select class="select input" data-source-select data-select>
-                    <option disabled selected>image sources</option>
                     <option>github</option>
                     <option>unsplash</option>
                     <option>flickr</option>
@@ -122,13 +120,14 @@
         </div>
       </div>
 
-      <div class="weather">
+      <div class="weather" data-element="weather">
         <input type="text" class="city" />
         <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
         <div class="description-container">
           <span class="temperature"></span>
           <span class="weather-description"></span>
+          <p class="wind-speed"></p>
         </div>
         <div class="wind"></div>
         <div class="humidity"></div>
@@ -139,18 +138,26 @@
         <button class="slide-prev slider-icon"></button>
         <button class="slide-next slider-icon"></button>
       </div>
-      <time class="time"></time>
-      <date class="date"></date>
-      <div class="greeting-container">
+      <time class="time" data-element="time"></time>
+      <date class="date" data-element="date"></date>
+      <div class="greeting-container" data-element="greeting">
         <span class="greeting"></span>
-        <input type="text" class="name" />
+        <input type="text" class="name" placeholder="name"/>
+      </div>
+      <div class="toDo-container" data-element="todolist">
+        <div class="toDo-inputs">
+          <span class="toDo-title">What is your main focus for today?</span>
+          <input type="text" class="toDo-input" data-toDo />
+        </div>
+        <ul class="toDo-list">
+        </ul>
       </div>
     </main>
     <footer class="footer">
-      <button class="change-quote"></button>
+      <button class="change-quote" data-element="quote"></button>
       <div>
-        <div class="quote"></div>
-        <div class="author"></div>
+        <div class="quote" data-element="quote"></div>
+        <div class="author" data-element="quote"></div>
       </div>
     </footer>
     <script src="js/script.js" type="module"></script>

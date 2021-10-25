@@ -143,6 +143,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   column-gap: 12px;
+  row-gap: 5px;
 }
 
 .weather-icon {
@@ -170,6 +171,7 @@ body {
 
 .main {
   position: relative;
+  top: -80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -209,6 +211,7 @@ body {
   min-height: 28px;
   font-size: 24px;
   margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
 .greeting-container {
@@ -317,10 +320,6 @@ body {
   background-color: #424d5b;
   border-radius: 5px;
 }
-.settings {
-  /* opacity: 0; */
-  /* visibility: hidden; */
-}
 
 .settings .head,
 .settings .body {
@@ -389,7 +388,7 @@ body {
   appearance: none;
   background-color: #fff;
   background: url('../assets/svg/slider-next.svg') right 14px center no-repeat;
-  text-transform:capitalize;
+  text-transform: capitalize;
 }
 .select::-webkit-expand {
   background-image: url('../assets/svg/form/arrow.svg');
@@ -411,7 +410,68 @@ body {
   background-position: 100% 50%;
   background-size: 15px;
 }
+.toDo-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 60px;
+}
+.toDo-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.toDo-title {
+  font-size: 24px;
+}
+.toDo-input {
+  width: 100%;
+  height: 34px;
+  padding: 5px;
+  font-size: 20px;
+  line-height: 24px;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+}
+.toDo-list {
+  margin-top: 20px;
+  list-style-type: none;
+  cursor: pointer;
+}
+.toDo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+.toDo.done {
+  text-decoration: line-through;
+}
+.toDo-remove {
+  display: block;
+  color: #fff;
+  background-color: transparent;
+  border: 0;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.toDo-check {
+  opacity: 0.5;
+}
+.toDo-check:hover,
+.toDo-check:active {
+  opacity: 1;
+}
+.toDo-remove:hover,
+.toDo-remove:active {
+  opacity: 1;
+}
 
+.far.fa-times-circle {
+  pointer-events: none;
+}
 @media (max-width: 768px) {
   .time {
     min-height: 80px;
@@ -430,5 +490,8 @@ body {
   .name {
     font-size: 32px;
     padding: 5px;
+  }
+  .toDo-input {
+    font-size: 14px;
   }
 }
