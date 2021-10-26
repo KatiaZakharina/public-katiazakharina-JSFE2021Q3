@@ -70,6 +70,7 @@ body {
 }
 
 .item-active::before {
+  content: '\2661';
   color: #c5b358;
 }
 
@@ -473,6 +474,8 @@ body {
 }
 
 .player {
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;

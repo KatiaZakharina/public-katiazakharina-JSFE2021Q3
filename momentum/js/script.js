@@ -417,26 +417,26 @@ document.addEventListener('DOMContentLoaded', () => {
       weatherCity.value = state.location;
     }
 
-    const url = createWeatherLink();
-    const res = await fetch(url);
-    if (!res.ok) {
-      document.querySelector('.weather-error').textContent = error;
-      // document.querySelector('.description-container').classList.add('visually-hidden');
-      document.querySelector('.description-container').style.display = 'none';
-      // document.querySelector('.weather-icon').classList.add('visually-hidden');
-      document.querySelector('.weather-icon').style.display = 'none';
-    } else {
-      document.querySelector('.description-container').classList.remove('visually-hidden');
-      document.querySelector('.weather-icon').classList.remove('visually-hidden');
-      const data = await res.json();
+    // const url = createWeatherLink();
+    // const res = await fetch(url);
+    // if (!res.ok) {
+    //   document.querySelector('.weather-error').textContent = error;
+    //   // document.querySelector('.description-container').classList.add('visually-hidden');
+    //   document.querySelector('.description-container').style.display = 'none';
+    //   // document.querySelector('.weather-icon').classList.add('visually-hidden');
+    //   document.querySelector('.weather-icon').style.display = 'none';
+    // } else {
+    //   document.querySelector('.description-container').classList.remove('visually-hidden');
+    //   document.querySelector('.weather-icon').classList.remove('visually-hidden');
+    //   const data = await res.json();
 
-      weatherIcon.className = 'weather-icon owf';
-      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-      temperature.textContent = `${~~data.main.temp}°C`;
-      weatherDescription.textContent = data.weather[0].description;
-      weatherHumidity.textContent = wind + data.main.humidity + ' %';
-      weatherWindSpeed.textContent = humidity + ~~data.wind.speed + windUnit;
-    }
+    //   weatherIcon.className = 'weather-icon owf';
+    //   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    //   temperature.textContent = `${~~data.main.temp}°C`;
+    //   weatherDescription.textContent = data.weather[0].description;
+    //   weatherHumidity.textContent = wind + data.main.humidity + ' %';
+    //   weatherWindSpeed.textContent = humidity + ~~data.wind.speed + windUnit;
+    // }
   }
   getWeather();
   weatherCity.addEventListener('change', () => {
@@ -537,6 +537,13 @@ document.addEventListener('DOMContentLoaded', () => {
       playListUl.append(li);
     });
     const playListSongs = document.querySelectorAll('.play-item');
+
+    playListSongs.forEach((song, index) => {
+      song.addEventListener('click', () => {
+        playNum = index;
+        playAudio();
+      });
+    });
 
     audio.addEventListener('ended', playNext);
 
