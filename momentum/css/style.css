@@ -11,6 +11,9 @@
   margin: 0;
   padding: 0;
 }
+[data-element] {
+  transition: opacity 0.3s linear;
+}
 
 body {
   min-height: 100vh;
@@ -54,7 +57,6 @@ body {
   list-style: none;
   opacity: 0.8;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .play-item:hover {
@@ -70,6 +72,7 @@ body {
 }
 
 .item-active::before {
+  content: '\2661';
   color: #c5b358;
 }
 
@@ -86,7 +89,6 @@ body {
   outline: 0;
   opacity: 0.8;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 .player-icon:hover,
@@ -276,8 +278,6 @@ body {
   border-radius: 9999px;
   height: 25px;
   width: 45px;
-
-  /* OFF status */
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
@@ -299,10 +299,7 @@ body {
 }
 
 .set {
-  /* position: absolute; */
   position: relative;
-  top: 10px;
-  /* left: calc(50% - 250px); */
   z-index: 5;
 }
 .setting-icon {
@@ -371,7 +368,9 @@ body {
   padding: 0 5px;
 }
 .visually-hidden {
-  position: absolute;
+  opacity: 0;
+}
+.visually-hiddenS {
   width: 1px;
   height: 1px;
   margin: -1px;
@@ -446,6 +445,9 @@ body {
   align-items: center;
   padding: 5px 0;
 }
+.toDo-text {
+  pointer-events: none;
+}
 .toDo.done {
   text-decoration: line-through;
 }
@@ -473,6 +475,8 @@ body {
 }
 
 .player {
+  position: relative;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -501,7 +505,6 @@ body {
   background: coral;
   width: 0%;
   height: 100%;
-  transition: 0.25s;
 }
 .audio-player .controls {
   display: flex;
@@ -554,7 +557,6 @@ body {
   height: 15px;
   background: white;
   box-shadow: 0 0 20px #000a;
-  transition: 0.25s;
 }
 .audio-player .controls .volume-container .volume-slider .volume-percentage {
   background: coral;
