@@ -146,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('toDo')) {
       state.toDo = JSON.parse(localStorage.getItem('toDo'));
       createToDo();
+    } else {
+      createToDo();
     }
   }
   window.addEventListener('load', getLocalStorage);
@@ -600,7 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
       toDoInput = document.querySelector('[data-toDo]');
 
     if (state.toDo.length) {
-      console.log(state.toDo);
       state.toDo.forEach(value => createToDoLi(value));
     }
 
@@ -617,14 +618,11 @@ document.addEventListener('DOMContentLoaded', () => {
       toDoLi.classList.add('toDo');
       toDoLi.innerHTML = `<button class="toDo-remove"><i class="far fa-times-circle"></i></button><span class="toDo-text">${value}</span><input class="toDo-check" type="checkbox" />`;
       toDoList.prepend(toDoLi);
-      console.log(state.toDo);
     }
     toDoList.addEventListener('click', e => {
       if (e.target.classList.contains('toDo-remove')) {
-        console.dir(e.target.parentElement);
         let index = state.toDo.indexOf(e.target.nextElementSibling.textContent);
         state.toDo.splice(index, 1);
-        console.log(state.toDo);
         e.target.parentElement.remove();
       } else if (e.target.classList.contains('toDo-check')) {
         e.target.parentElement.classList.toggle('done');
@@ -635,7 +633,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  createToDo();
 
   function translateToDo() {
     let question;

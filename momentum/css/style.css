@@ -447,6 +447,9 @@ body {
   align-items: center;
   padding: 5px 0;
 }
+.toDo-text{
+  pointer-events: none;
+}
 .toDo.done {
   text-decoration: line-through;
 }
