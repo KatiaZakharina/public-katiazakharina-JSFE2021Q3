@@ -2,17 +2,11 @@
  * @prettier
  */
 
-//ToDo переделать state.toDo  в объект
-//Ошибка погоды
-console.log('Пожалуйста, не проверяйте мою работу сегодня, я постараюсь ее доделать. Спасибо');
-
-/*console.log(`
+console.log(`
 Ваша оценка - 154 балла 
 Отзыв по пунктам ТЗ:
 Не выполненные/не засчитанные пункты:
 1) если источником получения фото указан API, в настройках приложения можно указать тег/теги, для которых API будет присылает фото 
-
-2) Скрытие и отображение блоков происходит плавно, не влияя на другие элементы, которые находятся на странице, или плавно смещая их 
 
 Выполненные пункты:
 1) время выводится в 24-часовом формате, например: 21:01:00 
@@ -25,6 +19,7 @@ console.log('Пожалуйста, не проверяйте мою работу
 
 5) пользователь может ввести своё имя. При перезагрузке страницы приложения имя пользователя сохраняется 
 feedback: Имя также отображается в настройках
+
 6) ссылка на фоновое изображение формируется с учётом времени суток и случайного номера изображения (от 01 до 20). Проверяем, что при перезагрузке страницы фоновое изображение изменилось. Если не изменилось, перезагружаем страницу ещё раз 
 
 7) изображения можно перелистывать кликами по стрелкам, расположенным по бокам экрана.Изображения перелистываются последовательно - после 18 изображения идёт 19 (клик по правой стрелке), перед 18 изображением идёт 17 (клик по левой стрелке) 
@@ -35,6 +30,7 @@ feedback: Имя также отображается в настройках
 
 10) при перезагрузке страницы приложения указанный пользователем город сохраняется, данные о нём хранятся в local storage 
 feedback: Дополнительно отображается в настройках
+
 11) для указанного пользователем населённого пункта выводятся данные о погоде, если их возвращает API. Данные о погоде включают в себя: иконку погоды, описание погоды, температуру в °C, скорость ветра в м/с, относительную влажность воздуха в %. Числовые параметры погоды округляются до целых чисел 
 
 12) выводится уведомление об ошибке при вводе некорректных значений, для которых API не возвращает погоду (пустая строка или бессмысленный набор символов) 
@@ -87,11 +83,13 @@ feedback: Работает, но очень медленно, и не смотр
 
 36) в настройках приложения можно скрыть/отобразить любой из блоков, которые находятся на странице: время, дата, приветствие, цитата дня, прогноз погоды, аудиоплеер, список дел/список ссылок/ваш собственный дополнительный функционал 
 
-37) настройки приложения сохраняются при перезагрузке страницы 
+37) Скрытие и отображение блоков происходит плавно, не влияя на другие элементы, которые находятся на странице, или плавно смещая их 
 
-38) ToDo List - список дел (как в оригинальном приложении) или Список ссылок (как в оригинальном приложении) или Свой собственный дополнительный функционал, по сложности аналогичный предложенным 
+38) настройки приложения сохраняются при перезагрузке страницы 
 
-`);*/
+39) ToDo List - список дел (как в оригинальном приложении) или Список ссылок (как в оригинальном приложении) или Свой собственный дополнительный функционал, по сложности аналогичный предложенным 
+
+`);
 
 import playList from './playList.js';
 
@@ -159,12 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
       settingEl = document.querySelector('.settings');
 
     settingOpenBtn.addEventListener('click', () => {
-      settingOpenBtn.classList.add('visually-hidden');
-      settingEl.classList.remove('visually-hidden');
+      settingOpenBtn.classList.add('visually-hiddenS');
+      settingEl.classList.remove('visually-hiddenS');
     });
     settingCloseBtn.addEventListener('click', () => {
-      settingOpenBtn.classList.remove('visually-hidden');
-      settingEl.classList.add('visually-hidden');
+      settingOpenBtn.classList.remove('visually-hiddenS');
+      settingEl.classList.add('visually-hiddenS');
     });
 
     switchers.forEach(switcher => {
@@ -207,12 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const blocks = document.querySelectorAll('[data-element]');
 
     blocks.forEach(item => {
-      item.style.visibility = 'hidden';
+      item.classList.add('visually-hidden');
     });
     state.blocks.forEach(block => {
       document
         .querySelectorAll(`[data-element=${block}]`)
-        .forEach(element => (element.style.visibility = 'visible'));
+        .forEach(element => element.classList.remove('visually-hidden')); // element.style.visibility = 'visible'
     });
   }
   function setSwitcher() {
@@ -294,8 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (hour < 17) activePart = 1;
     else if (hour < 23) activePart = 2;
     else activePart = 3;
-    // dayPartName = dayPart[activePart];
-    // setBg();
     return activePart;
   }
   setBg();
@@ -419,26 +415,26 @@ document.addEventListener('DOMContentLoaded', () => {
       weatherCity.value = state.location;
     }
 
-    // const url = createWeatherLink();
-    // const res = await fetch(url);
-    // if (!res.ok) {
-    //   document.querySelector('.weather-error').textContent = error;
-    //   // document.querySelector('.description-container').classList.add('visually-hidden');
-    //   document.querySelector('.description-container').style.display = 'none';
-    //   // document.querySelector('.weather-icon').classList.add('visually-hidden');
-    //   document.querySelector('.weather-icon').style.display = 'none';
-    // } else {
-    //   document.querySelector('.description-container').classList.remove('visually-hidden');
-    //   document.querySelector('.weather-icon').classList.remove('visually-hidden');
-    //   const data = await res.json();
+    const url = createWeatherLink();
+    const res = await fetch(url);
+    if (!res.ok) {
+      document.querySelector('.weather-error').classList.remove('visually-hidden');
+      document.querySelector('.weather-error').textContent = error;
+      document.querySelector('.description-container').classList.add('visually-hidden');
+      document.querySelector('.weather-icon').classList.add('visually-hidden');
+    } else {
+      document.querySelector('.weather-error').classList.add('visually-hidden');
+      document.querySelector('.description-container').classList.remove('visually-hidden');
+      document.querySelector('.weather-icon').classList.remove('visually-hidden');
+      const data = await res.json();
 
-    //   weatherIcon.className = 'weather-icon owf';
-    //   weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    //   temperature.textContent = `${~~data.main.temp}°C`;
-    //   weatherDescription.textContent = data.weather[0].description;
-    //   weatherHumidity.textContent = wind + data.main.humidity + ' %';
-    //   weatherWindSpeed.textContent = humidity + ~~data.wind.speed + windUnit;
-    // }
+      weatherIcon.className = 'weather-icon owf';
+      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+      temperature.textContent = `${~~data.main.temp}°C`;
+      weatherDescription.textContent = data.weather[0].description;
+      weatherHumidity.textContent = wind + data.main.humidity + ' %';
+      weatherWindSpeed.textContent = humidity + ~~data.wind.speed + windUnit;
+    }
   }
   getWeather();
   weatherCity.addEventListener('change', () => {

@@ -51,7 +51,7 @@
 
       <div class="set">
         <img class="setting-icon" src="assets/svg/settings.svg" alt="setting-icon" data-open />
-        <div class="settings visually-hidden">
+        <div class="settings visually-hiddenS">
           <div class="head">
             <div class="user-info">
               <h2 class="user-name">User name</h2>
@@ -145,15 +145,17 @@
 
       <div class="weather" data-element="weather">
         <input type="text" class="city" />
-        <i class="weather-icon owf"></i>
         <div class="weather-error"></div>
-        <div class="description-container">
-          <span class="temperature"></span>
-          <span class="weather-description"></span>
-          <p class="wind-speed"></p>
+        <div class="weather-inner">
+          <i class="weather-icon owf"></i>
+          <div class="description-container">
+            <span class="temperature"></span>
+            <span class="weather-description"></span>
+            <p class="wind-speed"></p>
+            <div class="wind"></div>
+            <div class="humidity"></div>
+          </div>
         </div>
-        <div class="wind"></div>
-        <div class="humidity"></div>
       </div>
     </header>
     <main class="main">
