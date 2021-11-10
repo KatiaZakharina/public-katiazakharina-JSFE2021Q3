@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Quattrocento Sans';
+  src: url('../assets/font/QuattrocentoSans-Italic.ttf');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Quattrocento Sans';
+  src: url('../assets/font/QuattrocentoSans-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quattrocento Sans';
+  src: url('../assets/font/QuattrocentoSans-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quattrocento Sans';
+  src: url('../assets/font/QuattrocentoSans-BoldItalic.ttf');
+  font-weight: bold;
+  font-style: italic;
+}
+
+$accent-color: #ffbca2;
+$bg-color: #010101;
+$main-color: #010101;
+$correct-color: #3dda69;
+$wrong-color: #ff7e7e;
+$fz1: 30px;
+$fz2: 28px;
+$fz3: 24px;
+$fz4: 22px;
+$fz5: 16px;
+$fz6: 14px;
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quattrocento Sans';
+  font-weight: normal;
+  color: #fff;
+  background-color: $bg-color;
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+  margin: 0 auto;
+  max-width: 1440px;
+  width: calc(100vw - 40px);
+}
+.main {
+  height: calc(100vh - 45px);
+}
+.btn {
+  padding: 10px 25px;
+  color: #fff;
+  font-weight: normal;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 100px;
+  &:hover {
+    color: $main-color;
+    background-color: #fff;
+  }
+  &:active {
+    color: $main-color;
+    background-color: $accent-color;
+    border: 1px solid $accent-color;
+    border: $accent-color 1px solid;
+  }
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100vw - 40px);
+  padding: 10px 0;
+  font-size: $fz6;
+}
