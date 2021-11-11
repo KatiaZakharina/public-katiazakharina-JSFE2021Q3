@@ -1,0 +1,37 @@
+<div class="settings">
+  <header class="settings__header">
+    <img class="settings__arrow icon" src="../assets/svg/eva_arrow-ios-back-fill.svg" alt="icon: back to main page">
+    <div class="settings__title">Settings</div>
+  </header>
+  <form class="settings__form">
+    <section class="settings__section">
+      <h2 class="settings__section-title">Volume</h2>
+      <input class="setting__volume range-input" type="range" min="0" step="10" value="40">
+      <div class="settings__volume-icons">
+        <img class="settings__volume-icon" src="../assets/svg/bi_volume-mute.svg" alt="">
+        <img class="settings__volume-icon" src="../assets/svg/bi_volume-down.svg" alt="">
+      </div>
+    </section>
+    <section class="settings__section">
+      <h2 class="settings__section-title">Time game</h2>
+      <label class="settings__btime" for="switcher"> On
+        <div class="switch-box">
+          <input type="checkbox" id="switcher" class="switcher" />
+          <label for="switcher" class="switch"></label>
+        </div>
+      </label>
+    </section>
+    <section class="settings__section">
+      <h2 class="settings__section-title">Time to answer</h2>
+      <div class="number-input">
+        <button class="number-input__minus" type="button">–</button>
+        <input class="number-input__input" type="number" min="5" max="30" value="5" readonly>
+        <button class="number-input__plus" type="button">+</button>
+      </div>
+    </section>
+  </form>
+  <div class="settings__buttons">
+    <button class="settings__btn btn">Default</button>
+    <button class="settings__btn btn btn_active">Save</button>
+  </div>
+</div>

@@ -23,18 +23,6 @@
   font-style: italic;
 }
 
-$accent-color: #ffbca2;
-$bg-color: #010101;
-$main-color: #010101;
-$correct-color: #3dda69;
-$wrong-color: #ff7e7e;
-$fz1: 30px;
-$fz2: 28px;
-$fz3: 24px;
-$fz4: 22px;
-$fz5: 16px;
-$fz6: 14px;
-
 *,
 *::after,
 *::before {
@@ -47,11 +35,11 @@ body {
   font-family: 'Quattrocento Sans';
   font-weight: normal;
   color: #fff;
+  // overflow: hidden;
   background-color: $bg-color;
 }
 .container {
   height: 100vh;
-  width: 100vw;
   margin: 0 auto;
   max-width: 1440px;
   width: calc(100vw - 40px);
@@ -59,6 +47,7 @@ body {
 .main {
   height: calc(100vh - 45px);
 }
+
 .btn {
   padding: 10px 25px;
   color: #fff;
@@ -66,20 +55,37 @@ body {
   background-color: transparent;
   border: 1px solid #fff;
   border-radius: 100px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+
   &:hover {
     color: $main-color;
     background-color: #fff;
   }
-  &:active {
+  &:active,
+  &.btn_active {
     color: $main-color;
     background-color: $accent-color;
     border: 1px solid $accent-color;
     border: $accent-color 1px solid;
+    opacity: 0.8;
+  }
+  &.btn_active:hover {
+    opacity: 1;
+  }
+}
+.icon {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+
+  &:hover {
+    opacity: 1;
   }
 }
 .footer {
-  position: fixed;
-  bottom: 0;
+  // position: fixed;
+  // bottom: 0;
   height: 45px;
   display: flex;
   align-items: center;

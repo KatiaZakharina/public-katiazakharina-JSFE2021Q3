@@ -1,3 +1,22 @@
 @import './normalize.css';
+
+$accent-color: #ffbca2;
+$bg-color: #010101;
+$main-color: #010101;
+$correct-color: #3dda69;
+$wrong-color: #ff7e7e;
+$fz1: 30px;
+$fz2: 28px;
+$fz3: 24px;
+$fz4: 22px;
+$fz5: 16px;
+$fz6: 14px;
+
+@mixin basic-trans {
+  transition: 200ms cubic-bezier(0.17, 0.67, 0.56, 0.84);
+  transition-delay: 50ms;
+}
+
 @import './base.scss';
 @import './entry.scss';
+@import './settings.scss';
