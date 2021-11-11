@@ -19,7 +19,6 @@ const config = {
     open: true,
     host: 'localhost',
   },
-  devtool: !isProduction ? 'source-map' : '',
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',

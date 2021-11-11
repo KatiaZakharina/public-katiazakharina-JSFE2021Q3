@@ -1,10 +1,12 @@
-function entry() {
+import entryTemp from '../components/entry.html';
+import routing from './routing';
+function entryRender() {
   document.querySelector('#root').innerHTML = entryTemp;
   document.body.classList.add('cover');
 
   document.querySelector('.entry__settings').addEventListener('click', () => {
     window.history.pushState({}, 'settings', window.location.origin + '/settings');
-    routing.render();
+      routing.render();
   });
 
   document.querySelector('.entry__inner').addEventListener('click', e => {
@@ -18,3 +20,4 @@ function entry() {
     }
   });
 }
+export default entryRender;

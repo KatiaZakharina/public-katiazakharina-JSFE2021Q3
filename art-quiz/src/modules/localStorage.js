@@ -1,18 +1,15 @@
-import Settings from '../modules/settings';
-
-let settings;
+import settings from '../modules/settings';
+import { artQuiz, paintingQuiz } from '../modules/quiz';
 
 function setLocalStorage() {
-  // window.history.pushState({}, '/', window.location.origin + '/');
-  localStorage.setItem('settings', JSON.stringify(settings.obj()));
+  // localStorage.setItem('settings-data', JSON.stringify(settings.setLocalStorage()));
+  // localStorage.setItem('quiz-data', JSON.stringify({ 'quiz[art][]': '' }));
 }
 window.addEventListener('beforeunload', setLocalStorage);
 
 (function getLocalStorage() {
   if (localStorage.getItem('settings')) {
-    settings = new Settings(JSON.parse(localStorage.getItem('setting')));
-  } else {
-    settings = new Settings();
+    settings.set(JSON.parse(localStorage.getItem('settings')));
   }
 })();
-export { settings };
+export { settings, artQuiz, paintingQuiz };

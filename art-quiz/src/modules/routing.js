@@ -1,16 +1,13 @@
-import entryTemp from '../components/entry.html';
-import settingsTemp from '../components/settings.html';
-import entry from '../modules/entry';
-import settings from './settings';
+import entryRender from './entryRender';
+import settingsRender from './settingsRender';
 
 class Routing {
   constructor() {
     this.list = {
-      // '/': entry,
-      '/': settings,
-      '/artist': artist,
-      '/painting': painting,
-      '/settings': settings,
+      '/artist': artistRender,
+      '/painting': paintingRender,
+      '/settings': settingsRender,
+      '/': entryRender,
     };
   }
   render() {
@@ -18,16 +15,15 @@ class Routing {
   }
 }
 const routing = new Routing();
-routing.render();
 
-function artist() {
+//----------------
+function artistRender() {
   console.log('Art');
-  // document.querySelector('#root').innerHTML = entryTemp;
-  // document.body.classList.add('cover');
 }
-function painting() {
+function paintingRender() {
   console.log('Painting');
-  // document.querySelector('#root').innerHTML = entryTemp;
-  // document.body.classList.add('cover');
 }
+////------------
+
+routing.render();
 export default routing;

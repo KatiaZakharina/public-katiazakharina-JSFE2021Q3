@@ -1,21 +1,23 @@
 import './scss/index.scss';
-
+import './modules/localStorage';
 import routing from './modules/routing';
-import { settings } from './modules/localStorage';
-import './modules/entry';
 
 window.addEventListener('DOMContentLoaded', () => {
-  window.addEventListener('resize', () => {
-    if (document.documentElement.clientHeight < 620) {
+  window.addEventListener('resize', hideFooter);
+  function hideFooter() {
+    if (
+      document.documentElement.clientHeight < document.querySelector('#root').scrollHeight + 40 ||
+      1
+    ) {
+      // TODO: если высота страницы больше высоты браузерного экрана
+      //FIXME:
       document.querySelector('.footer').style.display = 'none';
     } else {
       document.querySelector('.footer').style.display = 'flex';
     }
+  }
+  hideFooter();
+  window.addEventListener('popstate', () => {
+    routing.render();
   });
-  console.dir(settings);
-  console.dir(routing);
-
-  //делегирование нажатия на одну из кнопок вызывает создание
-  //addEventListener('click', (e)=>{factory.create(e.target.dataset.type)})
-  //const quiz=new QuizFactory()
 });
