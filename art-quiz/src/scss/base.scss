@@ -35,7 +35,7 @@ body {
   font-family: 'Quattrocento Sans';
   font-weight: normal;
   color: #fff;
-  // overflow: hidden;
+  overflow: hidden;
   background-color: $bg-color;
 }
 .container {
@@ -82,15 +82,4 @@ body {
   &:hover {
     opacity: 1;
   }
-}
-.footer {
-  // position: fixed;
-  // bottom: 0;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(100vw - 40px);
-  padding: 10px 0;
-  font-size: $fz6;
 }

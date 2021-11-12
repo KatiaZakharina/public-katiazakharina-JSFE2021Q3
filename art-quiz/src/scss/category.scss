@@ -1,0 +1,103 @@
+.category {
+  margin-top: 20px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+  }
+  &__logo {
+    margin-bottom: 10px;
+    height: 62px;
+    width: 160px;
+    background: center / contain no-repeat url('../assets/svg/art_quiz_accent.svg');
+  }
+}
+
+.content {
+  height: calc(100vh - 270px);
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    bottom: 75px;
+    left: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) 90%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+  &__inner {
+    column-count: 2;
+    gap: 20px;
+  }
+}
+
+.card {
+  &__painting {
+    margin-bottom: 25px;
+    height: auto;
+    width: 100%;
+    min-width: 155px;
+    border-radius: 15px;
+  }
+  &__header {
+    @include flex-space-between;
+    margin-bottom: 8px;
+  }
+  &__title {
+    font-size: $fz5;
+  }
+  &_inactive .card__painting {
+    filter: grayscale(100%);
+  }
+  &_inactive .card__score {
+    display: none;
+  }
+}
+
+.category {
+  &__title {
+    margin-bottom: 50px;
+    font-size: $fz3;
+  }
+  &__icon {
+    &_active path {
+      stroke: $accent-color;
+    }
+    &_active ~ span {
+      color: $accent-color;
+    }
+  }
+  &__nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+  }
+}
+
+.nav {
+  padding: 14px 0;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid #fff;
+  background-color: $bg-color;
+  &__inner {
+    @include flex-space-between;
+    max-width: 270px;
+    margin: 0 auto;
+  }
+  &__item {
+    @include flex-column;
+    list-style-type: none;
+  }
+}

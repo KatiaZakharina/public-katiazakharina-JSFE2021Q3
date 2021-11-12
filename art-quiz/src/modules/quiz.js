@@ -1,9 +1,12 @@
 //db async await fetch then data.json()
+//TODO: new Image
 
 class Quiz {
-  constructor(db) {
-    // this.category = new CategoryList(db);
-    // this.score = new Score();
+  constructor() {
+    this.category = new CategoryList();
+  }
+  static async getDataBase(path) {
+    return await fetch(path).then(data => data.json());
   }
   render() {}
   setLocalStorage() {
@@ -12,23 +15,21 @@ class Quiz {
       ...this.score.obj(),
     };
   }
-  getLocalStorage(){
-
-  }
+  getLocalStorage() {}
 }
-class ArtQuiz extends Quiz {
+class ArtistQuiz extends Quiz {
   constructor() {
     super();
   }
 }
 class PaintingQuiz extends Quiz {}
 
-// class CategoryList {
-//   constructor(db) {
-//     this.categories = setCategories(db);
-//   }
-//   setCategories(db) {}
-// }
+class CategoryList {
+  constructor() {
+    // this.categories = setCategories(db);
+  }
+  setCategories() {}
+}
 // class Category {
 //   constructor() {
 //     this.data = {};
@@ -45,7 +46,7 @@ class PaintingQuiz extends Quiz {}
 // }
 // class Score {}
 
-const artQuiz = new ArtQuiz(),
+const artistQuiz = new ArtistQuiz(),
   paintingQuiz = new PaintingQuiz();
 
-export { artQuiz, paintingQuiz };
+export { Quiz, artistQuiz, paintingQuiz };

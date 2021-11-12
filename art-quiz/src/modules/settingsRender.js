@@ -10,8 +10,7 @@ function settingsRender() {
   document.body.classList.remove('cover');
 
   document.querySelector('.settings__arrow').addEventListener('click', () => {
-    window.history.pushState({}, 'entry', window.location.origin);
-    routing.render();
+      window.location.hash = '';
   });
 
   (function numberInput() {

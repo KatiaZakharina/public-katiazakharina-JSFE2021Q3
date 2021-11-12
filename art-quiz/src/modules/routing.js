@@ -1,29 +1,30 @@
 import entryRender from './entryRender';
 import settingsRender from './settingsRender';
+import categoryRender from './categoryRender';
+import { artistQuiz, paintingQuiz } from './localStorage';
 
 class Routing {
   constructor() {
     this.list = {
-      '/artist': artistRender,
-      '/painting': paintingRender,
-      '/settings': settingsRender,
-      '/': entryRender,
+      '': entryRender,
+      artist: () => {
+        categoryRender(artistQuiz);
+      },
+      painting: () => {
+        categoryRender(paintingQuiz);
+      },
+      settings: settingsRender,
     };
   }
   render() {
-    this.list[window.location.pathname]();
+    this.list[window.location.hash.slice(1)](); //FIXME: параметры
   }
 }
 const routing = new Routing();
 
-//----------------
-function artistRender() {
-  console.log('Art');
-}
-function paintingRender() {
-  console.log('Painting');
-}
-////------------
+window.addEventListener('hashchange', () => {
+  routing.render();
+});
 
 routing.render();
 export default routing;
