@@ -13,17 +13,18 @@ window.addEventListener('beforeunload', setLocalStorage);
   }
   if (localStorage.getItem('db')) {
   } else {
-    const db = Quiz.getDataBase(
-      'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJC7A7R3MMHNKD2TXVZDBS7XPI',
-    );
-    const categoryName = Quiz.getDataBase(
+    const db = Promise.all([
+      Quiz.getDataBase(
         'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJC7A7R3MMHNKD2TXVZDBS7XPI',
-      );
+      ),
+      Quiz.getDataBase(
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJCZOJ5PM6ZMKCBEIAS3BTABY2',
+      ),
+    ]);
+    artistQuiz.setData(db);
+    paintingQuiz.setData(db);
+    //FIXME: refact!
 
-    artistQuiz.db = db;
-    artistQuiz.categoryName = categoryName.then(data => data.artists);
-    paintingQuiz.db = db;
-    paintingQuiz.categoryName = categoryName.then(data => data.painting);
   }
 })();
 export { settings, artistQuiz, paintingQuiz };

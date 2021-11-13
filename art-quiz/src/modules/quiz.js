@@ -1,5 +1,5 @@
-//db async await fetch then data.json()
-//TODO: new Image
+//TODO: refact: add component approach
+//TODO: refact: rename routing and localStorage, turn localStorage into class 
 
 class Quiz {
   constructor() {
@@ -8,27 +8,35 @@ class Quiz {
   static async getDataBase(path) {
     return await fetch(path).then(data => data.json());
   }
-  render() {}
-  setLocalStorage() {
-    return {
-      ...this.category.obj(),
-      ...this.score.obj(),
-    };
+  setData(db) {
+    db.then(db => {
+      this.imagesInfo = db[0];
+      this.category = db[1][this.type];
+      console.log(this.category);
+    });
   }
-  getLocalStorage() {}
+  renderCategories(categories) {
+
+  }
 }
 class ArtistQuiz extends Quiz {
   constructor() {
     super();
+    this.type = 'artists';
   }
 }
-class PaintingQuiz extends Quiz {}
+class PaintingQuiz extends Quiz {
+  constructor() {
+    super();
+    this.type = 'painting';
+  }
+}
 
 class CategoryList {
   constructor() {
     // this.categories = setCategories(db);
   }
-  setCategories() {}
+  setCategories(categories) {}
 }
 // class Category {
 //   constructor() {

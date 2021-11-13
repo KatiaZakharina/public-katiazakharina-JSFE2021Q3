@@ -1,5 +1,7 @@
 import categoryTemp from '../components/category.html';
 import routing from './routing';
+import {artistQuiz, paintingQuiz} from './localStorage';
+
 function category() {
   document.querySelector('#root').innerHTML = categoryTemp;
   document.body.classList.remove('cover');
@@ -19,8 +21,18 @@ function category() {
     window.location.hash = 'settings';
   });
 
-
-  
+  let currentQuiz;
+  if(window.location.hash.slice(1)=='artist'){
+    currentQuiz=artistQuiz;
+  }else if(window.location.hash.slice(1)=='painting'){
+    currentQuiz=paintingQuiz;
+  }
+  currentQuiz.categoryNames.then(names=>{
+    let temp='';
+    names.forEach(name => {
+      temp+=``;
+    });
+  });
 
 }
 export default category;
