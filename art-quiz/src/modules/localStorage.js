@@ -15,16 +15,15 @@ window.addEventListener('beforeunload', setLocalStorage);
   } else {
     const db = Promise.all([
       Quiz.getDataBase(
-        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJC7A7R3MMHNKD2TXVZDBS7XPI',
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJCYONXTCKLWIKTIL5SDBTFQY2',
       ),
       Quiz.getDataBase(
-        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJCZOJ5PM6ZMKCBEIAS3BTABY2',
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC35SPP2FN72KJXLD73BTFQXO',
       ),
     ]);
     artistQuiz.setData(db);
     paintingQuiz.setData(db);
     //FIXME: refact!
-
   }
 })();
 export { settings, artistQuiz, paintingQuiz };
