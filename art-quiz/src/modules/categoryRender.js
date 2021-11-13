@@ -27,12 +27,6 @@ function category() {
   }else if(window.location.hash.slice(1)=='painting'){
     currentQuiz=paintingQuiz;
   }
-  currentQuiz.categoryNames.then(names=>{
-    let temp='';
-    names.forEach(name => {
-      temp+=``;
-    });
-  });
-
+  currentQuiz.renderCategories();
 }
 export default category;

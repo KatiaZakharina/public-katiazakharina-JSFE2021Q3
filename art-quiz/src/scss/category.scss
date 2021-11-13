@@ -48,6 +48,7 @@
     width: 100%;
     min-width: 155px;
     border-radius: 15px;
+    transition: background-image 1s ease-in-out;
   }
   &__header {
     @include flex-space-between;
