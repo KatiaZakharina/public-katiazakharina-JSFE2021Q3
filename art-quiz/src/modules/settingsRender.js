@@ -32,7 +32,7 @@ function settingsRender() {
       }),
     );
   })();
-  console.log(timeMood);
+  // console.log(timeMood);
   // timeMood.addEventListener('input', () => {
   //   timer.setAttribute('disabled', 'true');  ///!
   // });

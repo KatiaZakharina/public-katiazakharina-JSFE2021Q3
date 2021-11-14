@@ -99,6 +99,12 @@
       }
     }
   }
+  &__picture-description{
+    @include flex-column;
+    height: 100px;
+    font-size: $fz4;
+    transform: translateY(130px);
+  }
 }
 
 .category {

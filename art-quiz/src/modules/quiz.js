@@ -20,40 +20,69 @@ class Quiz {
   }
   async setData() {
     return this.db.then(db => {
-      this.imagesInfo = db[0];
+      db[0].images.forEach(i => {
+        i.isGuessed = true;
+      });
+      this.imagesInfo = db[0].images;
       this.categories = db[1][this.type];
     });
   }
   async renderCategories() {
     //TODO: refact: move to categotiesRender, this method should return object
+
     if (!this.categories) await this.setData();
     let temp = '',
-      num = 0;
-    for (let category in this.categories) {
+      num = window.location.hash.slice(1) == 'artist' ? 0 : 119;
+    for (let category of this.categories) {
       //FIXME: smooth appearing by means back-image  //card_inactive
+      let categoryScore = 0;
+      for (let i = 0; i < 10; i++) {
+        categoryScore += this.imagesInfo[~~(num / 10) * i].isGuessed ? 1 : 0;
+      }
+
       temp += `
-      <div class="category__card card ${this.categories[category] ? '' : 'card_completed'}">
+      <div class="category__card card ${
+        categoryScore == 0 ? 'card_inactive' : categoryScore == 10 ? 'card_completed' : ''
+      }">
         <div class="card__header">
           <div class="card__title">${category}</div>
-          <div class="card__score">${this.categories[category]}/10</div>
+          <div class="card__score">${categoryScore}/10</div>
         </div>
         <div class="card__painting" style="background-image: url(../assets/img/${num}.jpg);"></div> 
         <div class="card__details">
         <img src="../assets/svg/radix-icons_reload.svg" alt="icon: reload">
-        <h5 class="card__title hover-effect">Play again</h5>
+        <h5 class="card__title">Play again</h5>
       </div>
       </div>
     `;
-      num++;
+      num += 10;
     }
     document.querySelector('.content__inner').innerHTML += temp;
   }
+
   async renderCategoryName() {
-    if (!this.categories) await this.setData();
+    let name = window.location.hash.slice(1).split('/')[1];
+    if (!this.imagesInfo) await this.setData();
     let temp = '',
-      num = 0;
-    console.log(this.categories.indexOf(window.location.hash.slice(1).split('/')[1]));
-    // Array(10)
+      num = window.location.hash.slice(1).split('/')[0] == 'artist' ? 0 : 12,
+      categoryNum = this.categories.indexOf(name[0].toUpperCase() + name.slice(1)) + num;
+
+    for (let i = 1; i <= 10; i++) {
+      let currentObj = this.imagesInfo[categoryNum * 10 + i - 1];
+      temp += `
+        <div class="category__card card ${
+          currentObj.isGuessed == false ? 'card_inactive' : 'card_completed'
+        }">
+          <div class="card__painting" style="background-image: url(../assets/img/${currentObj.imageNum}.jpg);"></div>
+          <div class="card__details card__picture-description">
+          <h5 class="card__picture-info">${currentObj.author}</h5>
+          <h5 class="card__picture-info">${currentObj.name}</h5>
+          <h5 class="card__picture-info">${currentObj.year}</h5>
+        </div>
+        </div>
+      `;
+    }
+    document.querySelector('.content__inner').innerHTML += temp;
   }
 }
 class ArtistQuiz extends Quiz {

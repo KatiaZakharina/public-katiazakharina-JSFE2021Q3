@@ -14,8 +14,6 @@ function category() {
       e.target.parentElement.tagName == 'LI' &&
       e.target.parentElement.dataset.redirection != 'none'
     ) {
-      console.log(e.target.parentElement);
-
       window.location.hash = e.target.parentElement.dataset.redirection;
     }
   });
@@ -38,7 +36,7 @@ function category() {
 
   currentQuiz.renderCategories();
   document.querySelector('.content__inner').addEventListener('click', e => {
-    if (e.target.className == 'card__title') {
+    if (e.target.className == 'card__title' && e.target.parentElement.parentElement.classList.contains('card_completed')) {
       window.location.hash =
         window.location.hash.slice(1) + '/' + e.target.textContent.toLowerCase();
     }
