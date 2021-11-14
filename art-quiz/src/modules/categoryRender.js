@@ -28,5 +28,8 @@ function category() {
     currentQuiz=paintingQuiz;
   }
   currentQuiz.renderCategories();
+  document.querySelector('.content__inner').addEventListener('click',(e)=>{
+    console.dir(e.target.className=='card__title');
+  });
 }
 export default category;

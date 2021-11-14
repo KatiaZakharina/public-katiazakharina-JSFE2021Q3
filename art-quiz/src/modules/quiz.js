@@ -19,14 +19,18 @@ class Quiz {
       num = 0;
     console.log(this.categories);
     for (let category in this.categories) {
-      //FIXME: smooth appearing by means back-image
+      //FIXME: smooth appearing by means back-image  //card_inactive
       temp += `
-      <div class="category__card card ${this.categories[category] ? '' : 'card_inactive'}">
+      <div class="category__card card ${this.categories[category] ? '' : 'card_completed'}">
         <div class="card__header">
           <div class="card__title">${category}</div>
           <div class="card__score">${this.categories[category]}/10</div>
         </div>
         <div class="card__painting" style="background-image: url(../assets/img/${num}.jpg);"></div> 
+        <div class="card__details">
+        <img src="../assets/svg/radix-icons_reload.svg" alt="icon: reload">
+        <h5 class="card__title hover-effect">Play again</h5>
+      </div>
       </div>
     `;
       num++;
