@@ -50,7 +50,7 @@ class Quiz {
         </div>
         <div class="card__painting" style="background-image: url(../assets/img/${num}.jpg);"></div> 
         <div class="card__details">
-        <img src="../assets/svg/radix-icons_reload.svg" alt="icon: reload">
+        <img src="./assets/svg/radix-icons_reload.svg" alt="icon: reload">
         <h5 class="card__title">Play again</h5>
       </div>
       </div>
