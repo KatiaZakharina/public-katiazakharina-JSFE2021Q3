@@ -1,30 +1,30 @@
 {
-  "artists": {
-    "Famous": 0,
-    "Russian": 0,
-    "Ancient": 0,
-    "European": 0,
-    "Little - known": 0,
-    "Contemporary": 0,
-    "Avant-garde": 0,
-    "Impressionism": 0,
-    "Minimalism": 0,
-    "Renaissance": 0,
-    "Expressionism": 0,
-    "Surrealism": 0
-  },
-  "painting": {
-    "Portrait": 0,
-    "Landscape": 0,
-    "Impressionism": 0,
-    "Expressionism": 0,
-    "Avant-garde": 0,
-    "Minimalism": 0,
-    "Surrealism": 0,
-    "Renaissance": 0,
-    "Nude": 0,
-    "Kitsch": 0,
-    "Still life": 0,
-    "Interior": 0
-  }
+  "artists": [
+    "Famous",
+    "Russian",
+    "Ancient",
+    "European",
+    "Little-known",
+    "Contemporary",
+    "Avant-garde",
+    "Impressionism",
+    "Minimalism",
+    "Renaissance",
+    "Expressionism",
+    "Classicism"
+  ],
+  "painting": [
+    "Portrait",
+    "Landscape",
+    "Impressionism",
+    "Expressionism",
+    "Avant-garde",
+    "Minimalism",
+    "Surrealism",
+    "Renaissance",
+    "Nude",
+    "Kitsch",
+    "Still life",
+    "Interior"
+  ]
 }

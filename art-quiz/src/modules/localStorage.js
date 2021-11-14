@@ -13,19 +13,8 @@ window.addEventListener('beforeunload', setLocalStorage);
   }
   if (localStorage.getItem('db')) {
   } else {
-    // const db = Promise.all([
-    //   Quiz.getDataBase(
-    //     'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJCYONXTCKLWIKTIL5SDBTFQY2',
-    //   ),
-    //   Quiz.getDataBase(
-    //     'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC35SPP2FN72KJXLD73BTFQXO',
-    //   ),
-    // ]);
-    // artistQuiz.db=db;
-    // paintingQuiz.db=db;
     artistQuiz.setData();
     paintingQuiz.setData();
-    //FIXME: refact!
   }
 })();
 export { settings, artistQuiz, paintingQuiz };

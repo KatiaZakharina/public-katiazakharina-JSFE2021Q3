@@ -1,6 +1,5 @@
 .category {
   margin-top: 20px;
-
   &__header {
     display: flex;
     align-items: center;
@@ -12,6 +11,11 @@
     height: 62px;
     width: 160px;
     background: center / contain no-repeat url('../assets/svg/art_quiz_accent.svg');
+  }
+  &__title{
+    display: flex;
+    align-items: center;
+    justify-content: start;
   }
 }
 

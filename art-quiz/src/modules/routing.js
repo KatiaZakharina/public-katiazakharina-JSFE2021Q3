@@ -1,6 +1,7 @@
 import entryRender from './entryRender';
 import settingsRender from './settingsRender';
 import categoryRender from './categoryRender';
+import categoryNameRender from './categoryNameRender';
 import { artistQuiz, paintingQuiz } from './localStorage';
 
 class Routing {
@@ -8,16 +9,17 @@ class Routing {
     this.list = {
       '': entryRender,
       artist: () => {
-        categoryRender(artistQuiz);
+        categoryRender();
       },
       painting: () => {
-        categoryRender(paintingQuiz);
+        categoryRender();
       },
       settings: settingsRender,
     };
   }
   render() {
-    this.list[window.location.hash.slice(1)](); //FIXME: параметры
+    let url = window.location.hash.slice(1).split('/');
+    this.list[url.shift(0)]();
   }
 }
 const routing = new Routing();

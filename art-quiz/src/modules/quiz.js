@@ -1,6 +1,9 @@
 //TODO: refact: add component approach
 //TODO: refact: rename routing and localStorage, turn localStorage into class
 
+//TODO: change structure of categories db :null
+//FIXME: use category db only for read name. To manage quiz use imageInfo
+
 class Quiz {
   constructor() {
     this.db = Promise.all([
@@ -22,11 +25,10 @@ class Quiz {
     });
   }
   async renderCategories() {
-    await this.setData();
-    console.log(this.imagesInfo);
+    //TODO: refact: move to categotiesRender, this method should return object
+    if (!this.categories) await this.setData();
     let temp = '',
       num = 0;
-    console.log(this.categories);
     for (let category in this.categories) {
       //FIXME: smooth appearing by means back-image  //card_inactive
       temp += `
@@ -45,6 +47,13 @@ class Quiz {
       num++;
     }
     document.querySelector('.content__inner').innerHTML += temp;
+  }
+  async renderCategoryName() {
+    if (!this.categories) await this.setData();
+    let temp = '',
+      num = 0;
+    console.log(this.categories.indexOf(window.location.hash.slice(1).split('/')[1]));
+    // Array(10)
   }
 }
 class ArtistQuiz extends Quiz {
