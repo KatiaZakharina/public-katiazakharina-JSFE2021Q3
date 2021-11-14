@@ -3,18 +3,27 @@
 
 class Quiz {
   constructor() {
-    // this.categoryList = new CategoryList();
+    this.db = Promise.all([
+      Quiz.getDataBase(
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJCYONXTCKLWIKTIL5SDBTFQY2',
+      ),
+      Quiz.getDataBase(
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC35SPP2FN72KJXLD73BTFQXO',
+      ),
+    ]);
   }
   static async getDataBase(path) {
     return await fetch(path).then(data => data.json());
   }
-  setData(db) {
-    db.then(db => {
+  async setData() {
+    return this.db.then(db => {
       this.imagesInfo = db[0];
-      this.categories = db[1][this.type]; //FIXME: promise
+      this.categories = db[1][this.type];
     });
   }
-  renderCategories() {
+  async renderCategories() {
+    await this.setData();
+    console.log(this.imagesInfo);
     let temp = '',
       num = 0;
     console.log(this.categories);
@@ -50,29 +59,6 @@ class PaintingQuiz extends Quiz {
     this.type = 'painting';
   }
 }
-
-// class CategoryList {
-//   constructor() {
-//     // this.categories = setCategories(db);
-//   }
-//   setCategories(categories) {}
-// }
-// class Category {
-//   constructor() {
-//     this.data = {};
-//   }
-// }
-// class Question {
-//   constructor(image, questionField, answerField) {
-//     this.answer = image.answerField;
-//     this.wrong = generateWrongVariant(answerField);
-//   }
-//   generateWrongVariant(answerField) {
-//     return [1, 2, 3];
-//   }
-// }
-// class Score {}
-
 const artistQuiz = new ArtistQuiz(),
   paintingQuiz = new PaintingQuiz();
 
