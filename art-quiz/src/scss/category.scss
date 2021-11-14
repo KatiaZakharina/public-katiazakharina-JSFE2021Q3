@@ -44,11 +44,13 @@
 .card {
   &__painting {
     margin-bottom: 25px;
-    height: auto;
-    width: 100%;
-    min-width: 155px;
+    height: 155px;
+    width: 155px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
     border-radius: 15px;
-    transition: background-image 1s ease-in-out;
+    transition: background-image 9s ease-in-out;
   }
   &__header {
     @include flex-space-between;

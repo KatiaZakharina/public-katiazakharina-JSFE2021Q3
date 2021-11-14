@@ -1,6 +1,5 @@
 //TODO: refact: add component approach
 //TODO: refact: rename routing and localStorage, turn localStorage into class
-//FIXME: routing back
 
 class Quiz {
   constructor() {
@@ -22,14 +21,14 @@ class Quiz {
     for (let category in this.categories) {
       //FIXME: smooth appearing by means back-image
       temp += `
-        <div class="category__card card ${this.categories[category] ? '' : 'card_inactive'}">
-          <div class="card__header">
-            <div class="card__title">${category}</div>
-            <div class="card__score">${this.categories[category]}/10</div>
-          </div>
-          <img class="card__painting" src="./assets/img/${num}.jpg" alt="painting"> 
+      <div class="category__card card ${this.categories[category] ? '' : 'card_inactive'}">
+        <div class="card__header">
+          <div class="card__title">${category}</div>
+          <div class="card__score">${this.categories[category]}/10</div>
         </div>
-      `;
+        <div class="card__painting" style="background-image: url(../assets/img/${num}.jpg);"></div> 
+      </div>
+    `;
       num++;
     }
     document.querySelector('.content__inner').innerHTML += temp;
