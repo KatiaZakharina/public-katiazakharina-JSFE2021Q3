@@ -1,6 +1,7 @@
 import entryRender from './entryRender';
 import settingsRender from './settingsRender';
 import categoryRender from './categoryRender';
+import quizRender from './quizRender';
 import categoryNameRender from './categoryNameRender';
 import { artistQuiz, paintingQuiz } from './localStorage';
 
@@ -8,12 +9,10 @@ class Routing {
   constructor() {
     this.list = {
       '': entryRender,
-      artist: () => {
-        categoryRender();
-      },
-      painting: () => {
-        categoryRender();
-      },
+      artist: categoryRender,
+      "artist-quiz": quizRender,
+      painting: categoryRender,
+      "painting-quiz": quizRender,
       settings: settingsRender,
     };
   }

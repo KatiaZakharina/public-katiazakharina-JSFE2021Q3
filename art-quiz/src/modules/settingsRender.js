@@ -36,29 +36,30 @@ function settingsRender() {
   // timeMood.addEventListener('input', () => {
   //   timer.setAttribute('disabled', 'true');  ///!
   // });
-
-  function runnableTrack() {
-    const input = document.querySelectorAll('input[type="range"]');
-    input.forEach(input => {
-      function setBackgroundSize(input) {
-        input.style.setProperty('--background-size', `${getBackgroundSize(input)}%`);
-      }
-
-      setBackgroundSize(input);
-
-      input.addEventListener('input', () => setBackgroundSize(input));
-
-      function getBackgroundSize(input) {
-        const min = +input.min || 0;
-        const max = +input.max || 100;
-        const value = +input.value;
-
-        const size = ((value - min) / (max - min)) * 100;
-
-        return size;
-      }
-    });
-  }
   runnableTrack();
 }
+
+function runnableTrack() {
+  const input = document.querySelectorAll('input[type="range"]');
+  input.forEach(input => {
+    function setBackgroundSize(input) {
+      input.style.setProperty('--background-size', `${getBackgroundSize(input)}%`);
+    }
+
+    setBackgroundSize(input);
+
+    input.addEventListener('input', () => setBackgroundSize(input));
+
+    function getBackgroundSize(input) {
+      const min = +input.min || 0;
+      const max = +input.max || 100;
+      const value = +input.value;
+
+      const size = ((value - min) / (max - min)) * 100;
+
+      return size;
+    }
+  });
+}
+export { runnableTrack };
 export default settingsRender;

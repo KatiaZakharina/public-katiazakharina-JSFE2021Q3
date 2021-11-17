@@ -11,6 +11,7 @@ $fz3: 24px;
 $fz4: 22px;
 $fz5: 16px;
 $fz6: 14px;
+// $fz7: 9px;
 
 @mixin basic-trans {
   transition: 200ms cubic-bezier(0.17, 0.67, 0.56, 0.84);
@@ -21,13 +22,44 @@ $fz6: 14px;
   align-items: center;
   justify-content: space-between;
 }
-@mixin flex-column{
+@mixin flex-column {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+}
+@keyframes fadeIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
+@keyframes fadeOut {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 }
 
 @import './base.scss';
 @import './entry.scss';
 @import './settings.scss';
 @import './category.scss';
+@import './quiz.scss';

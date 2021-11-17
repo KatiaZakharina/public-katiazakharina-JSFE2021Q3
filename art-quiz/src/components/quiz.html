@@ -1,0 +1,21 @@
+<div class="quiz">
+  <header class="quiz__timer">
+    <img class="quiz__quit icon" data-quit-modal src="../assets/svg/eva_close-outline.svg" alt="icon: quite page">
+    <input class="quiz__timeline range-input" type="range" min="0" step="1" value="80" input>
+    <div class="quiz__time">3:49</div>
+  </header>
+  <div class="quiz__inner">
+  </div>
+  <div class="modal" data-quit>
+    <div class="container modal__container">
+      <div class="modal__content">
+        <div class="modal__close" data-quit-close>&times;</div>
+        <p class="modal__question">Do you really want to quit the game?</p>
+        <div class="modal__action">
+          <button class="btn" data-quit-close>Cancel</button>
+          <button class="btn btn_active" data-redirection=''>Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

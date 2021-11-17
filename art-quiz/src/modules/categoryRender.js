@@ -4,7 +4,6 @@ import { artistQuiz, paintingQuiz } from './localStorage';
 import categoryName from './categoryNameRender';
 
 function category() {
-
   document.querySelector('#root').innerHTML = categoryTemp;
   document.body.classList.remove('cover');
 
@@ -22,13 +21,16 @@ function category() {
   });
 
   let currentQuiz;
-  if ((window.location.hash.slice(1).split('/')[0]) == 'artist') {
+  if (window.location.hash.slice(1).split('/')[0] == 'artist') {
     currentQuiz = artistQuiz;
   } else if (window.location.hash.slice(1).split('/')[0] == 'painting') {
     currentQuiz = paintingQuiz;
   }
 
-  if (window.location.hash.slice(1).split('/')[1]) {
+  if (
+    window.location.hash.slice(1).split('/')[1] &&
+    window.location.hash.slice(1).split('/')[1] != 'quiz'
+  ) {
     categoryName(window.location.hash.slice(1).split('/')[1]);
     currentQuiz.renderCategoryName(window.location.hash.slice(1).split('/')[1]);
     return;
@@ -36,7 +38,13 @@ function category() {
 
   currentQuiz.renderCategories();
   document.querySelector('.content__inner').addEventListener('click', e => {
-    if (e.target.className == 'card__title' && e.target.parentElement.parentElement.classList.contains('card_completed')) {
+    if (e.target.classList.contains('card__painting')) {
+      window.location.hash = window.location.hash.slice(1) + '-quiz/' + e.target.dataset.category+'/1';
+    }
+    if (
+      e.target.className == 'card__title' &&
+      e.target.parentElement.parentElement.classList.contains('card_completed')
+    ) {
       window.location.hash =
         window.location.hash.slice(1) + '/' + e.target.textContent.toLowerCase();
     }
