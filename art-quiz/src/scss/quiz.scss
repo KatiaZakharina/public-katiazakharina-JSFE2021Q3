@@ -30,6 +30,10 @@
     margin-bottom: 20px;
     background-size: contain;
 
+    &.btn {
+      width: 100%;
+    }
+
     &.wrong,
     &.correct {
       position: relative;
@@ -48,6 +52,14 @@
     &.wrong:after {
       background-color: $wrong-color;
     }
+  }
+  &__picture-question {
+    width: calc(100vw - 50px);
+    height: calc(100vw - 50px);
+    margin-bottom: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 15px;
   }
 }
 
@@ -69,7 +81,6 @@
 
     .btn {
       margin-top: 20px;
-      width: 100%;
     }
   }
   &.wrong .modal__painting::after {
@@ -77,6 +88,9 @@
   }
   &.correct .modal__painting::after {
     background-image: url('../assets/svg/correct_check-circle.svg');
+  }
+  &__painting-name{
+    text-align: center;
   }
 }
 .modal__painting {
@@ -137,7 +151,8 @@
   gap: 20px;
 }
 .modal .btn {
-  width: 50%;
+  flex-grow: 1;
+  display: block;
   color: $bg-color;
   border-color: $bg-color;
   &_active {
@@ -166,9 +181,9 @@
       height: 35vw;
       width: 75vw;
     }
-    .btn{
+    .btn {
+      flex-grow: 1;
       margin-top: 15px;
-      width: 100%;
     }
   }
   .modal__score-state {

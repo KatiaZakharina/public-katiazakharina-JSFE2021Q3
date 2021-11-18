@@ -2,7 +2,7 @@
 //TODO: refact: rename routing and localStorage, turn localStorage into class
 
 //TODO: change structure of categories db :null
-//FIXME: use category db only for read name. To manage quiz use imageInfo
+//FIXME: use category db only for read name. To manage quiz use imagesInfo
 
 class Quiz {
   constructor() {
@@ -20,7 +20,6 @@ class Quiz {
   }
 
   getRandomNum(arr, start, end) {
-    console.log(start, end);
     let random = ~~(Math.random() * (end - start + 1) + start);
     return arr.indexOf(random) == -1 ? random : this.getRandomNum(arr, start, end);
   }
@@ -36,6 +35,11 @@ class Quiz {
   }
 
   async setData() {
+    this.db.then(db => console.log(this.categories = db[1][this.type]));
+
+    if (localStorage.getItem('images-info') && localStorage.getItem('images-info') != 'undefined')
+      return;
+    console.log('nooo');
     return this.db.then(db => {
       db[0].images.forEach((i, index) => {
         i.isGuessed ??= false;
@@ -114,6 +118,10 @@ class Quiz {
     let currentObj = this.imagesInfo[categoryNum * 10 + +currentQuiz - 1],
       randomObjArr = [+currentObj.imageNum];
 
+    if (currentQuiz == '1') {
+      this.resetResultOfRound(categoryNum);
+    }
+
     for (let i = 0; i < 3; i++) {
       randomObjArr.push(this.getRandomNum(randomObjArr, num ? 120 : 0, num ? 239 : 119)); //(num + 1) * 120 - (num ? 0 : 1)
     }
@@ -134,6 +142,11 @@ class Quiz {
       currentObj = this.imagesInfo[categoryNum * 10 + +currentQuiz - 1];
 
     return currentObj;
+  }
+  resetResultOfRound(roundNum) {
+    for (let i = 0; i < 10; i++) {
+      this.imagesInfo[roundNum * 10 + i].isGuessed = false;
+    }
   }
   async renderModal(status) {
     if (!this.imagesInfo) await this.setData();
@@ -199,6 +212,9 @@ class Quiz {
       btns = `<button class="btn" data-redirection=''>Home</button>
       <button class="btn btn_active" data-redirection='next-quiz'>Next Quiz</button>`;
     }
+    if ((categoryNum == 11 || categoryNum == 23) && categoryScore != 0) {
+      btns = `<button class="btn" data-redirection=''>Home</button>`;
+    }
 
     document.querySelector('.quiz').innerHTML += `
     <div class="modal final-modal ${status} show" data-final>
@@ -219,7 +235,7 @@ class Quiz {
       if (e.target.dataset.redirection == '') {
         window.location.hash = '';
       }
-      if (e.target.dataset.redirection == 'next-quiz' && categoryNum != 11 && categoryNum != 23) {
+      if (e.target.dataset.redirection == 'next-quiz') {
         window.location.hash =
           window.location.hash.slice(1).split('/')[0] +
           '/' +
@@ -255,7 +271,7 @@ class ArtistQuiz extends Quiz {
     });
   }
   async checkAnswer(answerSrc) {
-    let currentObj = await super.checkAnswer(answerSrc),
+    let currentObj = await super.checkAnswer(),
       chosenObj = this.imagesInfo[answerSrc.match(/\/(\d+)\./)[1]];
     if (currentObj.author == chosenObj.author) {
       currentObj.isGuessed = true;
@@ -272,21 +288,20 @@ class PaintingQuiz extends Quiz {
     let data = super.renderQuiz();
     let temp = '';
     return data.then(data => {
-      console.log(data);
-      temp += `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>
+      temp += `<div class="quiz__question">Which is the author of this picture?</div>
+      <div class="quiz__picture-question" style="background-image: url(../assets/img/${data.currentObj.imageNum}.jpg)"></div>
       <div class="quiz__answers">`;
       for (let obj in data.randomObjArr) {
-        temp += `<div class="quiz__answer card__painting" style="background-image: url(../assets/img/${data.randomObjArr[obj].imageNum}.jpg);"></div>`;
+        temp += `<button class="quiz__answer btn">${data.randomObjArr[obj].author}</button>`;
       }
       temp += `</div>`;
       document.querySelector('.quiz__inner').innerHTML = temp;
     });
   }
-  async checkAnswer(answerSrc) {
-    let currentObj = await super.checkAnswer(answerSrc),
-      chosenObj = this.imagesInfo[answerSrc.match(/\/(\d+)\./)[1]];
-    if (currentObj.author == chosenObj.author) {
-      console.log(currentObj);
+  async checkAnswer(answerAuthor) {
+    let currentObj = await super.checkAnswer();
+
+    if (currentObj.author == answerAuthor) {
       currentObj.isGuessed = true;
       return 'correct';
     } else return 'wrong';

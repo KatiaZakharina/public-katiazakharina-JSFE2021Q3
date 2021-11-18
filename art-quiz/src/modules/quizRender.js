@@ -57,12 +57,11 @@ function quiz() {
   document.querySelector('[data-redirection]').addEventListener('click', e => {
     window.location.hash = e.target.dataset.redirection;
   });
-  // console.log(currentQuiz.renderQuiz());
 
   currentQuiz.renderQuiz().then(() => {
     document.querySelector('.quiz__answers').addEventListener('click', e => {
       if (e.target.classList.contains('quiz__answer')) {
-        currentQuiz.checkAnswer(e.target.style.backgroundImage).then(answerStatus => {
+        currentQuiz.checkAnswer(e.target.style.backgroundImage || e.target.textContent).then(answerStatus => {
           currentQuiz.renderModal(answerStatus);
           e.target.classList.add(answerStatus);
         });

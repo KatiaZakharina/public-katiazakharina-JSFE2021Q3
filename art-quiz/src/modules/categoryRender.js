@@ -8,7 +8,6 @@ function category() {
   document.body.classList.remove('cover');
 
   document.querySelector('.nav__inner').addEventListener('click', e => {
-    console.log(e.target.parentElement);
     if (
       e.target.parentElement.tagName == 'LI' &&
       e.target.parentElement.dataset.redirection != 'none'
