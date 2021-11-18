@@ -31,6 +31,8 @@
     background-size: contain;
 
     &.btn {
+      padding: 10px 0;
+      min-height: 70px;
       width: 100%;
     }
 
@@ -89,7 +91,7 @@
   &.correct .modal__painting::after {
     background-image: url('../assets/svg/correct_check-circle.svg');
   }
-  &__painting-name{
+  &__painting-name {
     text-align: center;
   }
 }

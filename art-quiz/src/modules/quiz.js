@@ -5,16 +5,6 @@
 //FIXME: use category db only for read name. To manage quiz use imagesInfo
 
 class Quiz {
-  constructor() {
-    this.db = Promise.all([
-      Quiz.getDataBase(
-        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJCYONXTCKLWIKTIL5SDBTFQY2',
-      ),
-      Quiz.getDataBase(
-        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC35SPP2FN72KJXLD73BTFQXO',
-      ),
-    ]);
-  }
   static async getDataBase(path) {
     return await fetch(path).then(data => data.json());
   }
@@ -35,24 +25,32 @@ class Quiz {
   }
 
   async setData() {
-    this.db.then(db => console.log(this.categories = db[1][this.type]));
+    this.categories = (
+      await Quiz.getDataBase(
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC35SPP2FN72KJXLD73BTFQXO',
+      )
+    )[this.type];
 
-    if (localStorage.getItem('images-info') && localStorage.getItem('images-info') != 'undefined')
-      return;
-    console.log('nooo');
-    return this.db.then(db => {
-      db[0].images.forEach((i, index) => {
-        i.isGuessed ??= false;
+    if (localStorage.getItem(`images-info-${this.type}`)) {
+      this.imagesInfo = JSON.parse(localStorage.getItem(`images-info-${this.type}`));
+      console.log(this.imagesInfo, 'localStorage');
+    } else {
+      this.imagesInfo = (
+        await Quiz.getDataBase(
+          'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJCYONXTCKLWIKTIL5SDBTFQY2',
+        )
+      ).images;
+      this.imagesInfo.forEach(i => {
+        i.isGuessed = false;
       });
-      this.imagesInfo = db[0].images;
-      this.categories = db[1][this.type];
-    });
+      console.log(this.imagesInfo, 'gitHubData', this);
+    }
   }
 
   async renderCategories() {
     //TODO: refact: move to categotiesRender, this method should return object
 
-    if (!this.categories) await this.setData();
+    if (!this.imagesInfo) await this.setData();
     let temp = '';
     const num = window.location.hash.slice(1) == 'artist' ? 0 : 12;
     for (let j = 0; j < this.categories.length; j++) {
@@ -264,7 +262,7 @@ class ArtistQuiz extends Quiz {
       temp += `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>
       <div class="quiz__answers">`;
       for (let obj in data.randomObjArr) {
-        temp += `<div class="quiz__answer card__painting" style="background-image: url(../assets/img/${data.randomObjArr[obj].imageNum}.jpg);"></div>`;
+        temp += `<div class="quiz__answer card__painting" style="background-image: url(./assets/img/${data.randomObjArr[obj].imageNum}.jpg);"></div>`;
       }
       temp += `</div>`;
       document.querySelector('.quiz__inner').innerHTML = temp;
@@ -289,7 +287,7 @@ class PaintingQuiz extends Quiz {
     let temp = '';
     return data.then(data => {
       temp += `<div class="quiz__question">Which is the author of this picture?</div>
-      <div class="quiz__picture-question" style="background-image: url(../assets/img/${data.currentObj.imageNum}.jpg)"></div>
+      <div class="quiz__picture-question" style="background-image: url(./assets/img/${data.currentObj.imageNum}.jpg)"></div>
       <div class="quiz__answers">`;
       for (let obj in data.randomObjArr) {
         temp += `<button class="quiz__answer btn">${data.randomObjArr[obj].author}</button>`;
