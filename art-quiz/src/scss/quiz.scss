@@ -16,9 +16,9 @@
     font-size: $fz6;
   }
   &__inner {
+    @include flex-column;
     margin: 0 auto;
     max-width: 830px;
-    @include flex-column;
   }
   &__question {
     margin: 30px 0;
@@ -58,19 +58,18 @@
   }
   &__picture-question {
     width: calc(100vw - 50px);
-    height: calc(100vw - 50px);
+    height: calc(60vh - 50px);
+    max-width: 825px;
     margin-bottom: 20px;
-    background-size: contain;
-    background-repeat: no-repeat;
+    @include cover-background;
     border-radius: 15px;
   }
   &__answer-painting {
     height: calc(50vmin - 100px);
     width: calc(50vmin - 100px);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
+    @include cover-background;
     border-radius: 15px;
+    cursor: pointer;
     transition: background-image 9s ease-in-out;
   }
 }
@@ -114,8 +113,7 @@
   width: 50vmin;
   max-width: 550px;
   max-height: 550px;
-  background-repeat: no-repeat;
-  background-size: contain;
+  @include cover-background;
   border-radius: 15px;
 
   &:after {
@@ -125,8 +123,7 @@
     left: 20px;
     width: 35px;
     height: 35px;
-    background-repeat: no-repeat;
-    background-size: contain;
+    @include cover-background;
   }
 }
 .modal__container {

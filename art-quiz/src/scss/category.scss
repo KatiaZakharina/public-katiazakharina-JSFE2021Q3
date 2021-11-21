@@ -1,16 +1,18 @@
 .category {
   margin-top: 20px;
   &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flex-space-between;
     margin-bottom: 25px;
   }
   &__logo {
     margin-bottom: 10px;
     height: 62px;
     width: 160px;
-    background: center / contain no-repeat url('../assets/svg/art_quiz_accent.svg');
+    @include cover-background-image('../assets/svg/art_quiz_accent.svg');
+  }
+  &__back-nav {
+    display: flex;
+    justify-content: start;
   }
   &__title {
     display: flex;
@@ -34,10 +36,14 @@
     width: 100%;
     z-index: 5;
   }
+  &__nav_lg-hide {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
 }
 
 .content {
-  height: calc(100vh - 270px);
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0;
@@ -48,8 +54,11 @@
     @media (min-width: 600px) {
       column-count: 3;
     }
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
       column-count: 4;
+    }
+    @media (min-width: 1240px) {
+      column-count: 6;
     }
   }
 }
@@ -63,10 +72,9 @@
   &__painting {
     height: calc(50vw - 40px);
     width: calc(50vw - 40px);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center center;
+    @include cover-background;
     border-radius: 15px;
+    cursor: pointer;
     transition: background-image 9s ease-in-out;
 
     @media (min-width: 600px) {
@@ -74,13 +82,14 @@
       width: calc(33vw - 20px);
     }
     @media (min-width: 768px) {
-      height: calc(20vw - 10px);
-      width: calc(20vw - 10px);
+      height: calc(25vw - 30px);
+      width: calc(25vw - 30px);
     }
-    @media (min-width: 1024px) {
-      width: calc(33vw - 130px);
-      height: calc(33vw - 230px);
-      background-size: cover;
+    @media (min-width: 1240px) {
+      height: calc(15vw - 10px);
+      width: calc(15vw - 10px);
+      max-width: 200px;
+      max-height: 200px;
     }
   }
   &__header {
@@ -102,7 +111,7 @@
     height: 50px;
     padding: 0 15px;
     color: $main-color;
-    background: $accent-color;
+    background-color: $accent-color;
     transition: 0.2s;
     border-radius: 0 0 15px 15px;
     pointer-events: none;
@@ -132,9 +141,7 @@
         right: -15px;
         width: 12px;
         height: 9px;
-        background-image: url('../assets/svg/eye.svg');
-        background-size: contain;
-        background-repeat: no-repeat;
+        @include cover-background-image('../assets/svg/eye.svg');
       }
     }
   }

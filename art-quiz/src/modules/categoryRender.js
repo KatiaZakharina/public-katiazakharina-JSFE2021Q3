@@ -7,11 +7,8 @@ function category() {
   document.querySelector('#root').innerHTML = categoryTemp;
   document.body.classList.remove('cover');
 
-  document.querySelector('.nav__inner').addEventListener('click', e => {
-    if (
-      e.target.parentElement.tagName == 'LI' &&
-      e.target.parentElement.dataset.redirection != 'none'
-    ) {
+  document.querySelector('#root').addEventListener('click', e => {
+    if (e.target.parentElement.dataset.redirection!=undefined) {
       window.location.hash = e.target.parentElement.dataset.redirection;
     }
   });
@@ -38,7 +35,8 @@ function category() {
   currentQuiz.renderCategories();
   document.querySelector('.content__inner').addEventListener('click', e => {
     if (e.target.classList.contains('card__painting')) {
-      window.location.hash = window.location.hash.slice(1) + '-quiz/' + e.target.dataset.category+'/1';
+      window.location.hash =
+        window.location.hash.slice(1) + '-quiz/' + e.target.dataset.category + '/1';
     }
     if (
       e.target.className == 'card__title' &&

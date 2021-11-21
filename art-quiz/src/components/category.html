@@ -3,13 +3,16 @@
     <div class="category__logo"></div>
     <img class="category__settings icon" data-settings src="../assets/svg/carbon_settings.svg" alt="icon: settings">
   </header>
-  <p class="category__title">Categories</p>
+  <ul class="category__back-nav">
+    <li class="nav__item" data-redirection=""><img class="settings__arrow icon" src="../assets/svg/eva_arrow-ios-back-fill.svg" alt="icon: return back"></li>
+    <li class="category__title">Categories</li>
+  </ul>
 
   <div class="category__content content">
     <div class="content__inner">
     </div>
   </div>
-  <nav class="nav category__nav">
+  <nav class="nav category__nav category__nav_lg-hide">
     <ul class="nav__inner">
       <li class="nav__item" data-redirection="">
         <svg class="category__icon icon" width="28" height="28" viewBox="0 0 28 28" fill="none"
@@ -20,7 +23,7 @@
         </svg>
         <span class="nav__label">Home</span>
       </li>
-      <li class="nav__item" data-redirection="none">
+      <li class="nav__item">
         <svg class="category__icon icon category__icon_active" width="28" height="28" viewBox="0 0 28 28" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
