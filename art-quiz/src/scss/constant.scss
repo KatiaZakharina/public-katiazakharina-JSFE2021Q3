@@ -43,7 +43,10 @@ $fz6: 14px;
 }
 @mixin cover-background-image($src) {
   background: center / cover no-repeat url($src);
+  transition: background-image 0.4 ease-in-out;
 }
-@mixin cover-background {
+@mixin smooth-cover-background {
   background: center / cover no-repeat;
+  background-image: url('../assets/img/default.jpg');
+  transition: background-image 0.7s ease-in-out;
 }

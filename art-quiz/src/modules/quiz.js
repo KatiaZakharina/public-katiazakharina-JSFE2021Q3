@@ -1,8 +1,6 @@
 //TODO: refact: add component approach
 //TODO: refact: rename routing and localStorage, turn localStorage into class
 
-//TODO: change structure of categories db :null
-//FIXME: use category db only for read name. To manage quiz use imagesInfo
 import settings from './settings';
 import Timer from './timer';
 
@@ -71,62 +69,84 @@ class Quiz {
     }
   }
 
+  loadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error(`Could not load image: ${url}`));
+    });
+  }
+
   async renderCategories() {
     if (!this.imagesInfo) await this.setData();
-    let temp = '';
     this.getQuizInfo();
+
     for (let j = 0; j < this.categories.length; j++) {
-      //FIXME: smooth appearing by means back-image  //card_inactive
       let categoryScore = 0;
+
       for (let i = 0; i < 10; i++) {
         categoryScore += this.imagesInfo[(j + this.num) * 10 + i].isGuessed ? 1 : 0;
       }
 
-      temp += `
-      <div class="category__card card ${
-        categoryScore == 0 ? 'card_inactive' : categoryScore == 10 ? 'card_completed' : ''
-      }">
-        <div class="card__header">
+      const bgImg = document.createElement('div');
+      bgImg.dataset.category = this.categories[j].toLowerCase();
+      bgImg.classList.add('card__painting');
+
+      this.loadImage(`./assets/img/${(j + this.num) * 10}.jpg`).then(() => {
+        bgImg.style.backgroundImage = `url(./assets/img/${(j + this.num) * 10}.jpg)`;
+      });
+      const card = document.createElement('div');
+      const specialClass =
+        categoryScore == 0 ? 'card_inactive' : categoryScore == 10 ? 'card_completed' : '';
+      card.classList.add('category__card', 'card');
+      if (specialClass) card.classList.add(specialClass);
+
+      card.innerHTML = `
+      <div class="card__header">
           <div class="card__title">${this.categories[j]}</div>
           <div class="card__score">${categoryScore}/10</div>
-        </div>
-        <div class="card__painting" data-category="${this.categories[
-          j
-        ].toLowerCase()}" style="background-image: url(./assets/img/${
-        (j + this.num) * 10
-      }.jpg);"></div> 
-        <div class="card__details">
+      </div>
+      <div class="card__details">
         <img src="./assets/svg/radix-icons_reload.svg" alt="icon: reload">
         <h5 class="card__again">Play again</h5>
-      </div>
-      </div>
-    `;
+      </div>`;
+      card.querySelector('.card__header').after(bgImg);
+      document.querySelector('.content__inner').classList.remove('category-by-name');
+      document.querySelector('.content__inner').append(card);
     }
-    document.querySelector('.content__inner').innerHTML += temp;
   }
 
   async renderCategoryByName() {
     if (!this.imagesInfo) await this.setData();
-    let temp = '';
 
     for (let i = 1; i <= 10; i++) {
+      const bgImg = document.createElement('div');
+      bgImg.classList.add('card__painting');
       this.getQuizInfo(i);
-      temp += `
-        <div class="category__card card ${
-          this.currentObj.isGuessed == false ? 'card_inactive' : 'card_completed'
-        }">
-          <div class="card__painting" style="background-image: url(./assets/img/${
-            this.currentObj.imageNum
-          }.jpg);"></div>
-          <div class="card__details card__picture-description">
+
+      this.loadImage(`./assets/img/${this.currentObj.imageNum}.jpg`).then(() => {
+        this.getQuizInfo(i);
+        bgImg.style.backgroundImage = `url(./assets/img/${this.currentObj.imageNum}.jpg)`;
+        console.log(bgImg.style.backgroundImage);
+      });
+
+      const categoryCard = document.createElement('div');
+      categoryCard.classList.add(
+        'category__card',
+        'card',
+        `${this.currentObj.isGuessed == false ? 'card_inactive' : 'card_completed'}`,
+      );
+      categoryCard.innerHTML += `
+        <div class="card__details card__picture-description">
           <p class="card__picture-info">${this.currentObj.author}</p>
           <p class="card__picture-info">${this.currentObj.name}</p>
           <p class="card__picture-info">${this.currentObj.year}</p>
-        </div>
-        </div>
-      `;
+        </div>`;
+      categoryCard.prepend(bgImg);
+      document.querySelector('.content__inner').classList.add('category-by-name');
+      document.querySelector('.content__inner').append(categoryCard);
     }
-    document.querySelector('.content__inner').innerHTML += temp;
   }
   async renderQuiz() {
     if (!this.imagesInfo) await this.setData();
@@ -228,7 +248,7 @@ class Quiz {
     <div class="modal final-modal ${status} show" data-final>
     <div class="container modal__container fadeIn">
       <div class="modal__content">
-      <div class="modal__painting"></div>
+      <div class="modal__result-img"></div>
         <h4 class="modal__score-state">${score}</h4>
         <p class="modal__phrase">${phrase}</p>
         <div class="modal__action">
@@ -273,15 +293,25 @@ class ArtistQuiz extends Quiz {
   }
   async renderQuiz() {
     let data = super.renderQuiz();
-    let temp = '';
     return data.then(data => {
-      temp += `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>
-      <div class="quiz__answers">`;
+      document.querySelector(
+        '.quiz__inner',
+      ).innerHTML = `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>`;
+      const quizAnswers = document.createElement('div');
+      quizAnswers.classList.add('quiz__answers');
+
       for (let obj in data.randomObjArr) {
-        temp += `<div class="quiz__answer quiz__answer-painting" style="background-image: url(./assets/img/${data.randomObjArr[obj].imageNum}.jpg);"></div>`;
+        const bgImg = document.createElement('div');
+        bgImg.classList.add('quiz__answer', 'quiz__answer-painting');
+        this.getQuizInfo();
+
+        this.loadImage(`./assets/img/${data.randomObjArr[obj].imageNum}.jpg`).then(() => {
+          this.getQuizInfo();
+          bgImg.style.backgroundImage = `url(./assets/img/${data.randomObjArr[obj].imageNum}.jpg)`;
+        });
+        quizAnswers.append(bgImg);
       }
-      temp += `</div>`;
-      document.querySelector('.quiz__inner').innerHTML = temp;
+      document.querySelector('.quiz__inner').append(quizAnswers);
     });
   }
   async checkAnswer(answerSrc) {
@@ -304,13 +334,21 @@ class PaintingQuiz extends Quiz {
     let temp = '';
     return data.then(data => {
       temp += `<div class="quiz__question">Which is the author of this picture?</div>
-      <div class="quiz__picture-question" style="background-image: url(./assets/img/${data.currentObj.imageNum}.jpg)"></div>
       <div class="quiz__answers">`;
       for (let obj in data.randomObjArr) {
         temp += `<button class="quiz__answer btn">${data.randomObjArr[obj].author}</button>`;
       }
       temp += `</div>`;
       document.querySelector('.quiz__inner').innerHTML = temp;
+
+      const bgImg = document.createElement('div');
+      bgImg.classList.add('quiz__picture-question');
+
+      this.loadImage(`./assets/img/${data.currentObj.imageNum}.jpg`).then(() => {
+        bgImg.style.backgroundImage = `url(./assets/img/${data.currentObj.imageNum}.jpg)`;
+      });
+
+      document.querySelector('.quiz__answers').before(bgImg);
     });
   }
   async checkAnswer(answerAuthor) {
