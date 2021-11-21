@@ -1,24 +1,28 @@
 class Settings {
   constructor(obj) {
-    this.volume = obj?.volume ?? 30;
-    this.timeMood = obj?.timeMood ?? false;
-    this.timer = obj?.timer ?? 0;
-  }
-  saveToLocalStorage() {
-    return {
-      volume: this.volume,
-      timeMood: this.time.mood,
-      timer: this.timer,
+    this.settings = {
+      volume: obj?.volume ?? 30,
+      timeMood: obj?.timeMood ?? false,
+      timer: obj?.timer ?? 0,
     };
   }
-  get() {
-    this.volume = volume.value;
-    this.timeMood = timeMood.value;
-    this.timer = timer.value;
+  setInputState() {
+    console.log(settings.settings);
+    const volume = document.querySelector('.settings__volume'),
+      timeMood = document.querySelector('.switcher'),
+      timer = document.querySelector('.number-input__input');
+
+    volume.value = settings.settings.volume;
+    timeMood.checked = settings.settings.timeMood;
+    timer.value = settings.settings.timeMood ? settings.settings.timer : 0;
   }
-  set({}) {
-    //localstorage
+  setDefault() {
+    this.settings.volume = 30;
+    this.settings.timeMood = false;
+    this.settings.timer = 0;
+    this.setInputState();
+    runnableTrack();
   }
 }
-const settings=new Settings();
+const settings = new Settings(JSON.parse(localStorage.getItem('settings')));
 export default settings;

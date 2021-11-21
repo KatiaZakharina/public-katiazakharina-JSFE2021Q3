@@ -35,7 +35,7 @@ body {
   font-family: 'Quattrocento Sans';
   font-weight: normal;
   color: #fff;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: $bg-color;
 }
 .container {
@@ -45,7 +45,9 @@ body {
   width: calc(100vw - 40px);
 }
 .main {
-  height: calc(100vh - 45px);
+  margin: 0 auto;
+  max-width: 830px;
+  // height: calc(100vh - 45px);
 }
 
 .btn {

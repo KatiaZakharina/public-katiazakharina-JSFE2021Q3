@@ -1,38 +1,59 @@
 .settings {
   padding-top: 20px;
-}
-.settings__header {
-  display: flex;
-  align-items: center;
-}
-.settings__arrow {
-  height: 34px;
-  width: 34px;
-}
-.settings__title {
-  width: calc(100% - 60px);
-  text-align: center;
-  font-size: $fz3;
-}
-.settings__section-title {
-  margin-top: 50px;
-  margin-bottom: 20px;
-  font-size: $fz1;
-  text-align: center;
-}
-.settings__volume-icons{
-  display: flex;
-  justify-content: space-between;
-  width: calc(100% - 30px);
-  margin-top: 5px;
-}
-.settings__time-mood {
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 100px;
-  width: 100%;
-  font-size: $fz3;
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+  &__arrow {
+    height: 34px;
+    width: 34px;
+  }
+  &__title {
+    width: calc(100% - 60px);
+    text-align: center;
+    font-size: $fz3;
+  }
+  &__form {
+    @media (min-width: 768px) {
+      width: 50vw;
+      max-width: 500px;
+      padding-left: 50px;
+    }
+  }
+  &__section-title {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: $fz1;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      text-align: left;
+    }
+  }
+  &__volume-icons {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 30px);
+    margin-top: 5px;
+  }
+  &__time-mood {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 100px;
+    width: 100%;
+    font-size: $fz3;
+    @media (min-width: 768px) {
+      margin: 0;
+    }
+  }
+  &__number-input {
+    margin: 0 auto;
+    @media (min-width: 768px) {
+      margin: 0;
+    }
+  }
 }
 
 .switch-box {
@@ -62,21 +83,21 @@
 .switcher {
   display: none;
   appearance: none;
-}
-.switcher:checked ~ .switch {
-  background-color: $accent-color;
-  border: solid 2px transparent;
-  @include basic-trans;
-  &:before {
-    transform: translateX(20px);
-    background-color: white;
-    @include basic-trans;
-  }
-}
 
-.switcher:not(:checked) ~ .switch {
-  &:before {
+  &:checked ~ .switch {
+    background-color: $accent-color;
+    border: solid 2px transparent;
     @include basic-trans;
+    &:before {
+      transform: translateX(20px);
+      background-color: white;
+      @include basic-trans;
+    }
+  }
+  &:not(:checked) ~ .switch {
+    &:before {
+      @include basic-trans;
+    }
   }
 }
 
@@ -86,7 +107,6 @@
   justify-content: space-between;
   height: 36px;
   width: 150px;
-  margin: 0 auto;
   font-size: $fz3;
   font-weight: 300;
   border: 3px #000 solid;
@@ -142,13 +162,16 @@
   }
 }
 .settings__buttons {
+  @include flex-space-between;
   margin-top: 50px;
   padding-bottom: 30px;
-  display: flex;
-  justify-content: space-between;
+  @media (min-width: 768px) {
+    justify-content: end;
+  }
 }
 .settings__btn {
   min-width: 160px;
+  max-width: 290px;
   width: 100%;
   &:first-child {
     margin-right: 15px;

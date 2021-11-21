@@ -1,8 +1,9 @@
 .cover {
-  background: center / cover no-repeat url('../assets/img/cover.jpg');
+  background: center 20% / cover no-repeat url('../assets/img/cover.jpg');
+  overflow: hidden;
 }
 .entry {
-  height: calc(100% - 120px);
+  height: 60vh;
   margin-top: 20px;
 }
 .entry__header {
@@ -15,6 +16,19 @@
   align-items: center;
   justify-content: end;
   height: 100%;
+}
+.entry__action {
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 60vw;
+  max-width: 600px;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
 }
 .entry__btn {
   max-width: 270px;

@@ -31,7 +31,7 @@ function category() {
     window.location.hash.slice(1).split('/')[1] != 'quiz'
   ) {
     categoryName(window.location.hash.slice(1).split('/')[1]);
-    currentQuiz.renderCategoryName(window.location.hash.slice(1).split('/')[1]);
+    currentQuiz.renderCategoryByName();
     return;
   }
 

@@ -16,6 +16,8 @@
     font-size: $fz6;
   }
   &__inner {
+    margin: 0 auto;
+    max-width: 830px;
     @include flex-column;
   }
   &__question {
@@ -28,7 +30,6 @@
   }
   &__answer {
     margin-bottom: 20px;
-    background-size: contain;
 
     &.btn {
       padding: 10px 0;
@@ -63,6 +64,15 @@
     background-repeat: no-repeat;
     border-radius: 15px;
   }
+  &__answer-painting {
+    height: calc(50vmin - 100px);
+    width: calc(50vmin - 100px);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    border-radius: 15px;
+    transition: background-image 9s ease-in-out;
+  }
 }
 
 .modal {
@@ -79,6 +89,8 @@
 
   &.wrong .modal__content,
   &.correct .modal__content {
+    margin: 0 auto;
+    max-width: 600px;
     padding-top: 20px;
 
     .btn {
@@ -98,8 +110,10 @@
 .modal__painting {
   position: relative;
   margin-bottom: 15px;
-  height: 75vw;
-  width: 75vw;
+  height: 50vmin;
+  width: 50vmin;
+  max-width: 550px;
+  max-height: 550px;
   background-repeat: no-repeat;
   background-size: contain;
   border-radius: 15px;
@@ -116,12 +130,15 @@
   }
 }
 .modal__container {
-  padding-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .modal__content {
   position: relative;
   @include flex-column;
-  width: 100%;
+  width: 60vmin;
+  min-width: 290px;
   padding: 60px 20px 30px;
   background-color: #fff;
   border-radius: 20px;

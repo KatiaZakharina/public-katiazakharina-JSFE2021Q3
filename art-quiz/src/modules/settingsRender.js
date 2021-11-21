@@ -1,13 +1,14 @@
 import settingsTemp from '../components/settings.html';
+import settings from './settings';
 import routing from './routing';
 
 function settingsRender() {
-  const volume = document.querySelector('.settings__volume'),
-    timeMood = document.querySelector('.switcher'),
-    timer = document.querySelector('.settings__timer');
-
   document.querySelector('#root').innerHTML = settingsTemp;
   document.body.classList.remove('cover');
+
+  const volume = document.querySelector('.settings__volume'),
+    timeMood = document.querySelector('.switcher'),
+    timer = document.querySelector('.number-input__input');
 
   document.querySelector('.settings__arrow').addEventListener('click', () => {
     history.back();
@@ -19,6 +20,7 @@ function settingsRender() {
         if (!e.target.nextElementSibling.disabled) {
           e.target.nextElementSibling.step = 5;
           e.target.nextElementSibling.stepDown();
+          settings.settings.timer = e.target.nextElementSibling.value;
         }
       }),
     );
@@ -28,10 +30,33 @@ function settingsRender() {
         if (!e.target.previousElementSibling.disabled) {
           e.target.previousElementSibling.step = 5;
           e.target.previousElementSibling.stepUp();
+          settings.settings.timer = e.target.previousElementSibling.value;
         }
       }),
     );
   })();
+
+  volume.addEventListener('input', () => {
+    settings.settings.volume = volume.value;
+  });
+  timeMood.addEventListener('input', () => {
+    settings.settings.timeMood = timeMood.checked;
+  });
+  console.log();
+  timer.addEventListener('change', () => {
+    settings.settings.timer = timer.value;
+    console.log(timer.value);
+  });
+
+  document.querySelector('[data-default]').addEventListener('click', ()=>{
+    settings.setDefault();
+  });
+  document.querySelector('[data-save]').addEventListener('click', ()=>{
+    history.back();
+  });
+
+  settings.setInputState();
+
   // console.log(timeMood);
   // timeMood.addEventListener('input', () => {
   //   timer.setAttribute('disabled', 'true');  ///!

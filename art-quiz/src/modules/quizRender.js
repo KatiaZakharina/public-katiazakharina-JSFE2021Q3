@@ -61,10 +61,13 @@ function quiz() {
   currentQuiz.renderQuiz().then(() => {
     document.querySelector('.quiz__answers').addEventListener('click', e => {
       if (e.target.classList.contains('quiz__answer')) {
-        currentQuiz.checkAnswer(e.target.style.backgroundImage || e.target.textContent).then(answerStatus => {
-          currentQuiz.renderModal(answerStatus);
-          e.target.classList.add(answerStatus);
-        });
+        currentQuiz
+          .checkAnswer(e.target.style.backgroundImage || e.target.textContent)
+          .then(answerStatus => {
+            currentQuiz.renderModal(answerStatus);
+            currentQuiz.playAudio(answerStatus);
+            // e.target.classList.add(answerStatus);
+          });
       }
     });
   });

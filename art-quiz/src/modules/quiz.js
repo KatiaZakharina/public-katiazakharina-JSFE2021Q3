@@ -3,15 +3,39 @@
 
 //TODO: change structure of categories db :null
 //FIXME: use category db only for read name. To manage quiz use imagesInfo
+import settings from './settings';
+import Timer from './timer';
 
 class Quiz {
+  constructor() {
+    this.timer = new Timer(settings.settings.timer);
+  }
   static async getDataBase(path) {
     return await fetch(path).then(data => data.json());
   }
 
+  getQuizInfo(i) {
+    this.quizCategory = window.location.hash.slice(1).split('/')[1];
+    this.quizType = window.location.hash.slice(1).split('/')[0].replace('-quiz', '');
+    this.num = this.quizType == 'artist' ? 0 : 12;
+
+    if (this.quizCategory) {
+      this.categoryNum =
+        this.categories.indexOf(this.quizCategory[0].toUpperCase() + this.quizCategory.slice(1)) +
+        this.num;
+
+      this.currentQuiz = window.location.hash.slice(1).split('/')[2];
+      i = i || +this.currentQuiz;
+      this.currentObj = this.imagesInfo[this.categoryNum * 10 + i - 1];
+    }
+  }
   getRandomNum(arr, start, end) {
     let random = ~~(Math.random() * (end - start + 1) + start);
     return arr.indexOf(random) == -1 ? random : this.getRandomNum(arr, start, end);
+  }
+  checkAuthorUniqueness(arr) {
+    let authorArr = arr.map(number => this.imagesInfo[number].author);
+    return authorArr.length === new Set(authorArr).size;
   }
   randomizeOrder(arr) {
     let order = [],
@@ -27,7 +51,7 @@ class Quiz {
   async setData() {
     this.categories = (
       await Quiz.getDataBase(
-        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC35SPP2FN72KJXLD73BTFQXO',
+        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC2SJ5DLYAAOTMONG2LBUKQTQ',
       )
     )[this.type];
 
@@ -37,7 +61,7 @@ class Quiz {
     } else {
       this.imagesInfo = (
         await Quiz.getDataBase(
-          'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJCYONXTCKLWIKTIL5SDBTFQY2',
+          'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJC6Q4IESCA5ITBM3EU3BUKQQG',
         )
       ).images;
       this.imagesInfo.forEach(i => {
@@ -48,16 +72,14 @@ class Quiz {
   }
 
   async renderCategories() {
-    //TODO: refact: move to categotiesRender, this method should return object
-
     if (!this.imagesInfo) await this.setData();
     let temp = '';
-    const num = window.location.hash.slice(1) == 'artist' ? 0 : 12;
+    this.getQuizInfo();
     for (let j = 0; j < this.categories.length; j++) {
       //FIXME: smooth appearing by means back-image  //card_inactive
       let categoryScore = 0;
       for (let i = 0; i < 10; i++) {
-        categoryScore += this.imagesInfo[(j + num) * 10 + i].isGuessed ? 1 : 0;
+        categoryScore += this.imagesInfo[(j + this.num) * 10 + i].isGuessed ? 1 : 0;
       }
 
       temp += `
@@ -70,7 +92,9 @@ class Quiz {
         </div>
         <div class="card__painting" data-category="${this.categories[
           j
-        ].toLowerCase()}" style="background-image: url(./assets/img/${(j + num) * 10}.jpg);"></div> 
+        ].toLowerCase()}" style="background-image: url(./assets/img/${
+        (j + this.num) * 10
+      }.jpg);"></div> 
         <div class="card__details">
         <img src="./assets/svg/radix-icons_reload.svg" alt="icon: reload">
         <h5 class="card__again">Play again</h5>
@@ -81,26 +105,23 @@ class Quiz {
     document.querySelector('.content__inner').innerHTML += temp;
   }
 
-  async renderCategoryName() {
-    let name = window.location.hash.slice(1).split('/')[1];
+  async renderCategoryByName() {
     if (!this.imagesInfo) await this.setData();
-    let temp = '',
-      num = window.location.hash.slice(1).split('/')[0] == 'artist' ? 0 : 12,
-      categoryNum = this.categories.indexOf(name[0].toUpperCase() + name.slice(1)) + num;
+    let temp = '';
 
     for (let i = 1; i <= 10; i++) {
-      let currentObj = this.imagesInfo[categoryNum * 10 + i - 1];
+      this.getQuizInfo(i);
       temp += `
         <div class="category__card card ${
-          currentObj.isGuessed == false ? 'card_inactive' : 'card_completed'
+          this.currentObj.isGuessed == false ? 'card_inactive' : 'card_completed'
         }">
           <div class="card__painting" style="background-image: url(./assets/img/${
-            currentObj.imageNum
+            this.currentObj.imageNum
           }.jpg);"></div>
           <div class="card__details card__picture-description">
-          <p class="card__picture-info">${currentObj.author}</p>
-          <p class="card__picture-info">${currentObj.name}</p>
-          <p class="card__picture-info">${currentObj.year}</p>
+          <p class="card__picture-info">${this.currentObj.author}</p>
+          <p class="card__picture-info">${this.currentObj.name}</p>
+          <p class="card__picture-info">${this.currentObj.year}</p>
         </div>
         </div>
       `;
@@ -109,37 +130,34 @@ class Quiz {
   }
   async renderQuiz() {
     if (!this.imagesInfo) await this.setData();
-    let name = window.location.hash.slice(1).split('/')[1].replace('-quiz', ''),
-      num = window.location.hash.slice(1).split('/')[0] == 'artist-quiz' ? 0 : 12,
-      categoryNum = this.categories.indexOf(name[0].toUpperCase() + name.slice(1)) + num,
-      currentQuiz = window.location.hash.slice(1).split('/')[2];
-    let currentObj = this.imagesInfo[categoryNum * 10 + +currentQuiz - 1],
-      randomObjArr = [+currentObj.imageNum];
+    this.getQuizInfo();
 
-    if (currentQuiz == '1') {
-      this.resetResultOfRound(categoryNum);
-    }
+    let randomObjArr;
 
-    for (let i = 0; i < 3; i++) {
-      randomObjArr.push(this.getRandomNum(randomObjArr, num ? 120 : 0, num ? 239 : 119)); //(num + 1) * 120 - (num ? 0 : 1)
-    }
+    if (this.currentQuiz == '1') this.resetResultOfRound(this.categoryNum);
+
+    if (settings.settings.timeMood) this.timer.startTimer();
+
+    do {
+      randomObjArr = [+this.currentObj.imageNum];
+      for (let i = 0; i < 3; i++) {
+        randomObjArr.push(
+          this.getRandomNum(randomObjArr, this.num ? 120 : 0, this.num ? 239 : 119),
+        );
+      }
+    } while (!this.checkAuthorUniqueness(randomObjArr));
+
     randomObjArr = this.randomizeOrder(randomObjArr);
     randomObjArr = randomObjArr.map(num => {
       return this.imagesInfo[num];
     });
-    //TODO: author can have more then one picture!
-    return { randomObjArr, currentObj };
+    return { randomObjArr, currentObj: this.currentObj };
   }
+
   async checkAnswer() {
     if (!this.imagesInfo) await this.setData();
-
-    let name = window.location.hash.slice(1).split('/')[1].replace('-quiz', ''),
-      num = window.location.hash.slice(1).split('/')[0] == 'artist-quiz' ? 0 : 12,
-      categoryNum = this.categories.indexOf(name[0].toUpperCase() + name.slice(1)) + num,
-      currentQuiz = window.location.hash.slice(1).split('/')[2],
-      currentObj = this.imagesInfo[categoryNum * 10 + +currentQuiz - 1];
-
-    return currentObj;
+    this.getQuizInfo();
+    return this.currentObj;
   }
   resetResultOfRound(roundNum) {
     for (let i = 0; i < 10; i++) {
@@ -148,20 +166,15 @@ class Quiz {
   }
   async renderModal(status) {
     if (!this.imagesInfo) await this.setData();
-
-    let name = window.location.hash.slice(1).split('/')[1].replace('-quiz', ''),
-      num = window.location.hash.slice(1).split('/')[0] == 'artist-quiz' ? 0 : 12,
-      categoryNum = this.categories.indexOf(name[0].toUpperCase() + name.slice(1)) + num,
-      currentQuiz = window.location.hash.slice(1).split('/')[2],
-      currentObj = this.imagesInfo[categoryNum * 10 + +currentQuiz - 1];
+    this.getQuizInfo();
 
     document.querySelector('.quiz').innerHTML += `
     <div class="modal show ${status}" data-answer>
     <div class="container modal__container fadeIn">
       <div class="modal__content">
-      <div class="modal__painting" style="background-image: url(./assets/img/${currentObj.imageNum}.jpg)"></div>
-        <h4 class="modal__painting-name">${currentObj.name}</h4>
-        <p class="modal__painting-description">${currentObj.author}, ${currentObj.year}</p>
+      <div class="modal__painting" style="background-image: url(./assets/img/${this.currentObj.imageNum}.jpg)"></div>
+        <h4 class="modal__painting-name">${this.currentObj.name}</h4>
+        <p class="modal__painting-description">${this.currentObj.author}, ${this.currentObj.year}</p>
         <div class="modal__action">
           <button class="btn btn_active" data-redirection='next-question'>Next</button>
         </div>
@@ -182,13 +195,10 @@ class Quiz {
   async renderFinalModal() {
     if (!this.imagesInfo) await this.setData();
 
-    let name = window.location.hash.slice(1).split('/')[1].replace('-quiz', ''),
-      num = window.location.hash.slice(1).split('/')[0] == 'artist-quiz' ? 0 : 12,
-      categoryNum = this.categories.indexOf(name[0].toUpperCase() + name.slice(1)) + num,
-      categoryScore = 0;
+    let categoryScore = 0;
 
     for (let i = 0; i < 10; i++) {
-      if (this.imagesInfo[categoryNum * 10 + i].isGuessed) categoryScore++;
+      if (this.imagesInfo[this.categoryNum * 10 + i].isGuessed) categoryScore++;
     }
 
     let phrase, score, status, btns;
@@ -210,7 +220,7 @@ class Quiz {
       btns = `<button class="btn" data-redirection=''>Home</button>
       <button class="btn btn_active" data-redirection='next-quiz'>Next Quiz</button>`;
     }
-    if ((categoryNum == 11 || categoryNum == 23) && categoryScore != 0) {
+    if ((this.categoryNum == 11 || this.categoryNum == 23) && categoryScore != 0) {
       btns = `<button class="btn" data-redirection=''>Home</button>`;
     }
 
@@ -235,21 +245,27 @@ class Quiz {
       }
       if (e.target.dataset.redirection == 'next-quiz') {
         window.location.hash =
-          window.location.hash.slice(1).split('/')[0] +
-          '/' +
-          this.categories[categoryNum + 1].toLowerCase() +
-          '/1';
+          this.quizType + '-quiz/' + this.categories[this.categoryNum + 1].toLowerCase() + '/1';
       }
       if (e.target.dataset.redirection == 'current-quiz') {
-        window.location.hash =
-          window.location.hash.slice(1).split('/')[0] +
-          '/' +
-          window.location.hash.slice(1).split('/')[1] +
-          '/1';
+        window.location.hash = this.quizType + '-quiz/' + this.quizCategory + '/1';
       }
     });
   }
+
+  playAudio(status) {
+    if (settings.settings.volume != 0) {
+      const audio = document.createElement('audio');
+      audio.volume = settings.settings.volume / 100;
+      audio.src =
+        status == 'correct'
+          ? './assets/audio/mixkit-achievement-bell-600.wav'
+          : './assets/audio/mixkit-losing-drums-2023.wav';
+      audio.play();
+    }
+  }
 }
+
 class ArtistQuiz extends Quiz {
   constructor() {
     super();
@@ -262,7 +278,7 @@ class ArtistQuiz extends Quiz {
       temp += `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>
       <div class="quiz__answers">`;
       for (let obj in data.randomObjArr) {
-        temp += `<div class="quiz__answer card__painting" style="background-image: url(./assets/img/${data.randomObjArr[obj].imageNum}.jpg);"></div>`;
+        temp += `<div class="quiz__answer quiz__answer-painting" style="background-image: url(./assets/img/${data.randomObjArr[obj].imageNum}.jpg);"></div>`;
       }
       temp += `</div>`;
       document.querySelector('.quiz__inner').innerHTML = temp;
@@ -277,6 +293,7 @@ class ArtistQuiz extends Quiz {
     } else return 'wrong';
   }
 }
+
 class PaintingQuiz extends Quiz {
   constructor() {
     super();
@@ -305,6 +322,7 @@ class PaintingQuiz extends Quiz {
     } else return 'wrong';
   }
 }
+
 const artistQuiz = new ArtistQuiz(),
   paintingQuiz = new PaintingQuiz();
 

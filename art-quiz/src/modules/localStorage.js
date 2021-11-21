@@ -7,7 +7,9 @@ import { Quiz, artistQuiz, paintingQuiz } from '../modules/quiz';
 })();
 
 function setLocalStorage() {
-  // localStorage.setItem('settings-data', JSON.stringify(settings.setLocalStorage()));
+  localStorage.setItem('settings', JSON.stringify(settings.settings));
+  settings.setInputState();
+  console.log('f');
   localStorage.setItem('images-info-artists', JSON.stringify(artistQuiz.imagesInfo));
   localStorage.setItem('images-info-painting', JSON.stringify(paintingQuiz.imagesInfo));
 }
