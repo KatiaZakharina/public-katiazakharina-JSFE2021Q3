@@ -8,7 +8,7 @@ class Timer {
       this.decrementTime();
       this.showTime();
 
-      if (this.time === 0) {
+      if (this.time <= 0) {
         this.stopTimer();
       }
     }, 1000);
@@ -16,11 +16,14 @@ class Timer {
   stopTimer() {
     clearInterval(this.interval);
   }
+  setNewTime(time){
+    this.time=time;
+  }
   decrementTime() {
     this.time--;
   }
   showTime() {
-    const minutes = String(~~(this.time / 60)).padStart(2, '0'),
+    const minutes = String(~~(this.time / 60)),
       seconds = String(this.time - minutes).padStart(2, '0');
     this.timeOutput.textContent = `${minutes}:${seconds}`;
   }

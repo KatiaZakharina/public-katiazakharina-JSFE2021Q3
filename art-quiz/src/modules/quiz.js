@@ -2,11 +2,11 @@
 //TODO: refact: rename routing and localStorage, turn localStorage into class
 
 import settings from './settings';
-import Timer from './timer';
+import timer from './timer';
 
 class Quiz {
   constructor() {
-    this.timer = new Timer(settings.settings.timer);
+    this.timer = timer;
   }
   static async getDataBase(path) {
     return await fetch(path).then(data => data.json());
@@ -53,9 +53,13 @@ class Quiz {
       )
     )[this.type];
 
-    if (localStorage.getItem(`images-info-${this.type}`)) {
+    if (
+      localStorage.getItem(`images-info-${this.type}`) &&
+      localStorage.getItem(`images-info-${this.type}`) != 'undefined'
+    ) {
       this.imagesInfo = JSON.parse(localStorage.getItem(`images-info-${this.type}`));
-      console.log(this.imagesInfo, 'localStorage');
+      console.log(this.imagesInfo);
+      console.log('localStorage', this);
     } else {
       this.imagesInfo = (
         await Quiz.getDataBase(
@@ -65,7 +69,7 @@ class Quiz {
       this.imagesInfo.forEach(i => {
         i.isGuessed = false;
       });
-      console.log(this.imagesInfo, 'gitHubData', this);
+      console.log('gitHubData', this);
     }
   }
 
@@ -128,7 +132,6 @@ class Quiz {
       this.loadImage(`./assets/img/${this.currentObj.imageNum}.jpg`).then(() => {
         this.getQuizInfo(i);
         bgImg.style.backgroundImage = `url(./assets/img/${this.currentObj.imageNum}.jpg)`;
-        console.log(bgImg.style.backgroundImage);
       });
 
       const categoryCard = document.createElement('div');
@@ -156,7 +159,7 @@ class Quiz {
 
     if (this.currentQuiz == '1') this.resetResultOfRound(this.categoryNum);
 
-    if (settings.settings.timeMood) this.timer.startTimer();
+    if (settings.settings.timeMood) settings.timer.startTimer();
 
     do {
       randomObjArr = [+this.currentObj.imageNum];
@@ -214,7 +217,7 @@ class Quiz {
   }
   async renderFinalModal() {
     if (!this.imagesInfo) await this.setData();
-
+    this.getQuizInfo();
     let categoryScore = 0;
 
     for (let i = 0; i < 10; i++) {
@@ -232,7 +235,8 @@ class Quiz {
       status = 'win-quiz';
       phrase = 'Congratulations!';
       score = 'Grand result';
-      btns = `<button class="btn btn_active" data-redirection='next-quiz'>Next</button>`;
+      btns = `<button class="btn" data-redirection=''>Cancel</button>
+      <button class="btn btn_active" data-redirection='next-quiz'>Next</button>`;
     } else {
       status = 'complete-quiz';
       phrase = 'Congratulations!';
@@ -265,7 +269,10 @@ class Quiz {
       }
       if (e.target.dataset.redirection == 'next-quiz') {
         window.location.hash =
-          this.quizType + '-quiz/' + this.categories[this.categoryNum + 1].toLowerCase() + '/1';
+          this.quizType +
+          '-quiz/' +
+          this.categories[(this.categoryNum % 12) + 1].toLowerCase() +
+          '/1';
       }
       if (e.target.dataset.redirection == 'current-quiz') {
         window.location.hash = this.quizType + '-quiz/' + this.quizCategory + '/1';

@@ -1,3 +1,5 @@
+import Timer from './timer';
+
 class Settings {
   constructor(obj) {
     this.settings = {
@@ -5,6 +7,7 @@ class Settings {
       timeMood: obj?.timeMood ?? false,
       timer: obj?.timer ?? 0,
     };
+    this.timer = new Timer(this.settings.timer);
   }
   setInputState() {
     console.log(settings.settings);
@@ -15,6 +18,7 @@ class Settings {
     volume.value = settings.settings.volume;
     timeMood.checked = settings.settings.timeMood;
     timer.value = settings.settings.timeMood ? settings.settings.timer : 0;
+    this.timer.setNewTime(this.settings.timer);
   }
   setDefault() {
     this.settings.volume = 30;
@@ -22,6 +26,7 @@ class Settings {
     this.settings.timer = 0;
     this.setInputState();
     runnableTrack();
+    this.timer.setNewTime(this.settings.timer);
   }
 }
 const settings = new Settings(JSON.parse(localStorage.getItem('settings')));

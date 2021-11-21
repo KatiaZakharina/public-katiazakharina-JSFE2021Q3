@@ -42,7 +42,6 @@ function settingsRender() {
   timeMood.addEventListener('input', () => {
     settings.settings.timeMood = timeMood.checked;
   });
-  console.log();
   timer.addEventListener('change', () => {
     settings.settings.timer = timer.value;
     console.log(timer.value);
