@@ -1,6 +1,8 @@
 .quiz {
   &__timer {
     @include flex-space-between;
+    max-width: 750px;
+    margin: 0 auto;
     padding: 10px 0;
   }
   &__quit {
@@ -37,8 +39,8 @@
       width: 100%;
     }
 
-    &.wrong,
-    &.correct {
+    &.wrong:active,
+    &.correct:active {
       position: relative;
       &:after {
         content: '';
@@ -49,9 +51,11 @@
         border-radius: 15px;
       }
     }
+    &.correct:active,
     &.correct:after {
       background-color: $correct-color;
     }
+    &.wrong:active,
     &.wrong:after {
       background-color: $wrong-color;
     }

@@ -3,21 +3,21 @@ class Timer {
     this.time = time;
   }
   startTimer() {
+    console.log(this.time);
+
     this.timeOutput = document.querySelector('.quiz__time');
     this.interval = setInterval(() => {
       this.decrementTime();
       this.showTime();
-
-      if (this.time <= 0) {
-        this.stopTimer();
-      }
     }, 1000);
+
+    setTimeout(this.stopTimer, this.time * 1000, this.interval);
   }
-  stopTimer() {
-    clearInterval(this.interval);
+  stopTimer(ID) {
+    clearInterval(ID);
   }
-  setNewTime(time){
-    this.time=time;
+  setNewTime(time) {
+    this.time = time;
   }
   decrementTime() {
     this.time--;

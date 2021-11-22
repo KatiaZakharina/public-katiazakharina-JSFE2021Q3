@@ -1,6 +1,3 @@
-//TODO: refact: add component approach
-//TODO: refact: rename routing and localStorage, turn localStorage into class
-
 import settings from './settings';
 import timer from './timer';
 
@@ -58,8 +55,7 @@ class Quiz {
       localStorage.getItem(`images-info-${this.type}`) != 'undefined'
     ) {
       this.imagesInfo = JSON.parse(localStorage.getItem(`images-info-${this.type}`));
-      console.log(this.imagesInfo);
-      console.log('localStorage', this);
+      // console.log('localStorage', this);
     } else {
       this.imagesInfo = (
         await Quiz.getDataBase(
@@ -69,7 +65,7 @@ class Quiz {
       this.imagesInfo.forEach(i => {
         i.isGuessed = false;
       });
-      console.log('gitHubData', this);
+      // console.log('gitHubData', this);
     }
   }
 
@@ -101,8 +97,7 @@ class Quiz {
         bgImg.style.backgroundImage = `url(./assets/img/${(j + this.num) * 10}.jpg)`;
       });
       const card = document.createElement('div');
-      const specialClass =
-        categoryScore == 0 ? 'card_inactive' : categoryScore == 10 ? 'card_completed' : '';
+      const specialClass = categoryScore == 0 ? 'card_inactive' : 'card_completed'; //categoryScore == 10 ? 'card_completed' : '';
       card.classList.add('category__card', 'card');
       if (specialClass) card.classList.add(specialClass);
 
@@ -262,6 +257,7 @@ class Quiz {
     </div>
   </div>
     `;
+    this.playAudio(status);
 
     document.querySelector('.final-modal').addEventListener('click', e => {
       if (e.target.dataset.redirection == '') {
@@ -283,11 +279,15 @@ class Quiz {
   playAudio(status) {
     if (settings.settings.volume != 0) {
       const audio = document.createElement('audio');
+      const audioList = {
+        correct: './assets/audio/mixkit-achievement-bell-600.wav',
+        wrong: './assets/audio/mixkit-losing-drums-2023.wav',
+        'win-quiz': './assets/audio/mixkit-football-team-applause-509.wav',
+        'lose-quiz': './assets/audio/mixkit-losing-marimba-2025.wav',
+        'complete-quiz': './assets/audio/mixkit-unlock-game-notification-253.wav',
+      };
       audio.volume = settings.settings.volume / 100;
-      audio.src =
-        status == 'correct'
-          ? './assets/audio/mixkit-achievement-bell-600.wav'
-          : './assets/audio/mixkit-losing-drums-2023.wav';
+      audio.src = audioList[status];
       audio.play();
     }
   }
@@ -309,7 +309,9 @@ class ArtistQuiz extends Quiz {
 
       for (let obj in data.randomObjArr) {
         const bgImg = document.createElement('div');
-        bgImg.classList.add('quiz__answer', 'quiz__answer-painting');
+        let specialClass =
+          data.currentObj.author == data.randomObjArr[obj].author ? 'correct' : 'wrong';
+        bgImg.classList.add('quiz__answer', 'quiz__answer-painting', specialClass);
         this.getQuizInfo();
 
         this.loadImage(`./assets/img/${data.randomObjArr[obj].imageNum}.jpg`).then(() => {
@@ -343,7 +345,9 @@ class PaintingQuiz extends Quiz {
       temp += `<div class="quiz__question">Which is the author of this picture?</div>
       <div class="quiz__answers">`;
       for (let obj in data.randomObjArr) {
-        temp += `<button class="quiz__answer btn">${data.randomObjArr[obj].author}</button>`;
+        let specialClass =
+          data.currentObj.author == data.randomObjArr[obj].author ? 'correct' : 'wrong';
+        temp += `<button class="quiz__answer ${specialClass} btn">${data.randomObjArr[obj].author}</button>`;
       }
       temp += `</div>`;
       document.querySelector('.quiz__inner').innerHTML = temp;

@@ -66,7 +66,6 @@ function quiz() {
           .then(answerStatus => {
             currentQuiz.renderModal(answerStatus);
             currentQuiz.playAudio(answerStatus);
-            // e.target.classList.add(answerStatus);
           });
       }
     });
