@@ -142,7 +142,7 @@
   outline: none;
 
   &::-webkit-slider-runnable-track {
-    height: 3px;
+    height: 4px;
     background: linear-gradient(to right, $accent-color, $accent-color), #d7d7d7;
     background-size: var(--background-size, 0%) 100%;
     background-repeat: no-repeat;

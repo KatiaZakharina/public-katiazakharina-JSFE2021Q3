@@ -154,7 +154,10 @@ class Quiz {
 
     if (this.currentQuiz == '1') this.resetResultOfRound(this.categoryNum);
 
-    if (settings.settings.timeMood) settings.timer.startTimer();
+    if (settings.settings.timeMood) {
+      settings.timer.time=settings.timer.initial;
+      settings.timer.startTimer();
+    }
 
     do {
       randomObjArr = [+this.currentObj.imageNum];
@@ -185,6 +188,8 @@ class Quiz {
   async renderModal(status) {
     if (!this.imagesInfo) await this.setData();
     this.getQuizInfo();
+
+    // settings.timer.stopTimer();
 
     document.querySelector('.quiz').innerHTML += `
     <div class="modal show ${status}" data-answer>

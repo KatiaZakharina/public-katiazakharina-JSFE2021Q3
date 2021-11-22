@@ -47,10 +47,10 @@ function settingsRender() {
     console.log(timer.value);
   });
 
-  document.querySelector('[data-default]').addEventListener('click', ()=>{
+  document.querySelector('[data-default]').addEventListener('click', () => {
     settings.setDefault();
   });
-  document.querySelector('[data-save]').addEventListener('click', ()=>{
+  document.querySelector('[data-save]').addEventListener('click', () => {
     history.back();
   });
 
@@ -60,6 +60,7 @@ function settingsRender() {
   // timeMood.addEventListener('input', () => {
   //   timer.setAttribute('disabled', 'true');  ///!
   // });
+  settings.timer;
   runnableTrack();
 }
 
