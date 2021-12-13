@@ -1,11 +1,14 @@
+import { APIOptions, Endpoints, SourcesResponse, NewsResponse } from '../constants';
 class Loader {
-    constructor(baseLink, options) {
+    private baseLink: string;
+    private options: { [apiKey: string]: string };
+    constructor(baseLink: string, options: { [apiKey: string]: string }) {
         this.baseLink = baseLink;
         this.options = options;
     }
 
     getResp(
-        { endpoint, options = {} },
+        { endpoint, options = {} }: Endpoints,
         callback = () => {
             console.error('No callback for GET response');
         }
@@ -13,33 +16,36 @@ class Loader {
         this.load('GET', endpoint, callback, options);
     }
 
-    errorHandler(res) {
+    errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
             throw Error(res.statusText);
         }
-
         return res;
     }
 
-    makeUrl(options, endpoint) {
+    makeUrl(options: APIOptions | {}, endpoint: string) {
         const urlOptions = { ...this.options, ...options };
+
         let url = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
-            url += `${key}=${urlOptions[key]}&`;
+            const getKeyValue = <T, K extends keyof T>(obj: T, keyName: K): T[K] => obj[keyName];
+            url += `${key}=${getKeyValue(urlOptions, key)}&`;
         });
 
         return url.slice(0, -1);
     }
 
-    load(method, endpoint, callback, options = {}) {
+    load(method: string, endpoint: string, callback: (data?: SourcesResponse | NewsResponse) => void, options = {}) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
-            .then((res) => res.json())
-            .then((data) => callback(data))
-            .catch((err) => console.error(err));
+            .then((res: Response) => res.json())
+            .then((data: SourcesResponse | NewsResponse) => {
+                return callback(data);
+            })
+            .catch((err: Error) => console.error(err));
     }
 }
 
