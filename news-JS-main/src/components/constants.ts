@@ -14,6 +14,14 @@ export enum HTTPMethod {
     PUT = 'PUT',
     TRACE = 'TRACE',
 }
+export type HTTPMethodStrings = keyof typeof HTTPMethod;
+
+export enum Theme {
+    NIGHT = 'night',
+    LIGHT = 'light',
+    SNOW = 'snow',
+}
+export type ThemeStrings = keyof typeof Theme;
 
 export interface Endpoints {
     endpoint: string;

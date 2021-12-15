@@ -1,7 +1,15 @@
 import './news.css';
 import { NewsObject } from '../../constants';
+import * as AOS from 'aos';
+import 'aos/dist/aos.css';
 
 class News {
+    constructor() {
+        AOS.init({
+            delay: 300,
+            duration: 1000,
+        });
+    }
     draw(data: Array<NewsObject>) {
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
@@ -27,6 +35,9 @@ class News {
             newsClone.querySelector('.news__description-source')!.textContent = item.source.name;
             newsClone.querySelector('.news__description-content')!.textContent = item.description;
             newsClone.querySelector('.news__read-more a')!.setAttribute('href', item.url);
+
+            newsClone.querySelector('.news__item')!.setAttribute('data-aos', 'fade-up');
+            newsClone.querySelector('.news__item')!.setAttribute('data-aos-anchor-placement', 'top-bottom');
 
             fragment.append(newsClone);
         });

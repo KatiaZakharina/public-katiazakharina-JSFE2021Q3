@@ -1,16 +1,18 @@
 body {
-    color: #fff;
-    background: #17181c;
+    color: var(--contrast-color);
+    background: var(--bg-color);
     font-family: sans-serif;
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 30px;
 }
 
-header h1 {
+header span {
     max-width: 1440px;
-    margin: 30px auto;
     font-size: 40px;
     font-weight: 800;
 }
@@ -34,4 +36,18 @@ footer .copyright a:hover {
 }
 footer .copyright:before {
     content: '©';
+}
+.my-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px auto;
+    width: 100%;
+    max-width: 700px;
+    padding: 10px 0;
+    color: var(--contrast-color);
+}
+.developer {
+    text-decoration: none;
+    color: var(--contrast-color);
 }

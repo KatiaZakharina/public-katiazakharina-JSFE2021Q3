@@ -1,4 +1,4 @@
-import { APIOptions, Endpoints, SourcesResponse, NewsResponse } from '../constants';
+import { APIOptions, HTTPMethodStrings, Endpoints, SourcesResponse, NewsResponse } from '../constants';
 class Loader {
     private baseLink: string;
     private options: { [apiKey: string]: string };
@@ -38,7 +38,12 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: string, endpoint: string, callback: (data?: SourcesResponse | NewsResponse) => void, options = {}) {
+    load(
+        method: HTTPMethodStrings,
+        endpoint: string,
+        callback: (data?: SourcesResponse | NewsResponse) => void,
+        options = {}
+    ) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())
