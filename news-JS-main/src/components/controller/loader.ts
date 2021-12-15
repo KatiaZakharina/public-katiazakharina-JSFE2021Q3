@@ -12,7 +12,7 @@ class Loader {
         callback = () => {
             console.error('No callback for GET response');
         }
-    ) {
+    ): void {
         this.load('GET', endpoint, callback, options);
     }
 
@@ -25,10 +25,10 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: APIOptions | {}, endpoint: string) {
+    makeUrl(options: APIOptions | {}, endpoint: string): string {
         const urlOptions = { ...this.options, ...options };
 
-        let url = `${this.baseLink}${endpoint}?`;
+        let url: string = `${this.baseLink}${endpoint}?`;
 
         Object.keys(urlOptions).forEach((key) => {
             const getKeyValue = <T, K extends keyof T>(obj: T, keyName: K): T[K] => obj[keyName];
@@ -43,7 +43,7 @@ class Loader {
         endpoint: string,
         callback: (data?: SourcesResponse | NewsResponse) => void,
         options = {}
-    ) {
+    ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res: Response) => res.json())

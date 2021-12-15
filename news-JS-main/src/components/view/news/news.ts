@@ -10,11 +10,11 @@ class News {
             duration: 1000,
         });
     }
-    draw(data: Array<NewsObject>) {
-        const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    draw(data: Array<NewsObject>): void {
+        const news: Array<NewsObject> = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
-        const fragment = document.createDocumentFragment();
-        const newsItemTemp = document.querySelector('#newsItemTemp');
+        const fragment: DocumentFragment = document.createDocumentFragment();
+        const newsItemTemp: Element | null = document.querySelector('#newsItemTemp');
 
         news.forEach((item, idx) => {
             const newsClone = (newsItemTemp as HTMLTemplateElement).content.cloneNode(true) as HTMLElement;

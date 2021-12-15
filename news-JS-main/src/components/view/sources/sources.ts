@@ -2,9 +2,9 @@ import './sources.css';
 import { SourcesObject } from '../../constants';
 
 class Sources {
-    draw(data: Array<SourcesObject>) {
-        const fragment = document.createDocumentFragment();
-        const sourceItemTemp = document.querySelector('#sourceItemTemp');
+    draw(data: Array<SourcesObject>): void {
+        const fragment: DocumentFragment = document.createDocumentFragment();
+        const sourceItemTemp: Element | null = document.querySelector('#sourceItemTemp');
 
         if (sourceItemTemp === null) return;
 

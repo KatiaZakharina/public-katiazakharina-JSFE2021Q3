@@ -3,7 +3,7 @@ export interface APIOptions {
         sources: string;
     };
 }
-export enum HTTPMethod {
+export const enum HTTPMethod {
     CONNECT = 'CONNECT',
     DELETE = 'DELETE',
     GET = 'GET',

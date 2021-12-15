@@ -12,18 +12,20 @@ class ThemeController {
         this.theme = Theme.NIGHT;
         this.switcherEl = document.querySelector('.theme-switcher')!;
         this.themeElements = this.switcherEl.querySelectorAll('.theme-icon')!;
+
         this.switcherEl.addEventListener('click', (e) => {
             (document.querySelector('.rs-logo')! as HTMLElement).style.filter = 'invert(1)';
             this.handleThemeChange(e);
         });
     }
-    handleThemeChange(e: Event) {
+    handleThemeChange(e: Event): void {
         if ((e.target as Element).tagName === 'LI') {
             this.themeElements.forEach((el) => {
                 el.classList.remove('theme-icon_active');
             });
+
             (e.target as HTMLElement).classList.add('theme-icon_active');
-            let themeName = (e.target as HTMLElement).dataset.theme!.toUpperCase();
+            const themeName: string = (e.target as HTMLElement).dataset.theme!.toUpperCase();
             this.theme = Theme[themeName as ThemeStrings];
 
             switch (this.theme) {
@@ -39,12 +41,12 @@ class ThemeController {
             }
         }
     }
-    night(clear: boolean = false) {
+    night(needClear: boolean = false): void {
         (document.querySelector('.rs-logo')! as HTMLElement).style.filter = 'invert(0)';
 
-        if (clear && this.animationID) this.clearSnow();
+        if (needClear && this.animationID) this.clearSnow();
 
-        let night: Object = {
+        const night = {
             'bg-color': '#17181c',
             'contrast-color': '#fff',
             accent: '#30c5ff',
@@ -59,12 +61,12 @@ class ThemeController {
         });
     }
 
-    light(clear: boolean) {
-        if (clear && this.animationID) this.clearSnow();
+    light(needClear: boolean): void {
+        if (needClear && this.animationID) this.clearSnow();
 
         (document.querySelector('.rs-logo')! as HTMLElement).style.filter = 'invert(1)';
 
-        let light: Object = {
+        const light = {
             'bg-color': '#f2ece6',
             'contrast-color': '#2e2a2a',
             accent: '#e0847d',
@@ -79,25 +81,25 @@ class ThemeController {
         });
     }
 
-    snow() {
-        console.log(this.animationID);
+    snow(): void {
         if (this.animationID) this.clearSnow();
         this.night();
 
         document.body.style.backgroundImage = 'url("./assets/bg.jpg")';
 
-        function drawParticle() {
+        function drawParticle(): void {
             let starDensity: number;
+
             if (document.documentElement.scrollHeight > document.documentElement.clientHeight) {
                 starDensity = 20;
             } else {
                 starDensity = 2;
             }
 
-            let snow = Array(Math.ceil(Math.random() * 4) + starDensity);
+            let snow: Array<string> = Array(Math.ceil(Math.random() * 4) + starDensity);
 
-            let getSnowType = () => {
-                return ~~(Math.random() * 2) ? 'star' : 'snowflake';
+            let getSnowType: () => 'star' | 'snowflake' = () => {
+                return Math.floor(Math.random() * 2) ? 'star' : 'snowflake';
             };
 
             snow.fill(
@@ -105,7 +107,6 @@ class ThemeController {
                     Math.floor(Math.random() * 5) + 2
                 }' src="./assets/${getSnowType()}.svg" alt="star">`
             );
-            console.log(snow);
 
             let snowWrapper: HTMLElement;
             if (!document.querySelector('.snow-wrapper')) {
