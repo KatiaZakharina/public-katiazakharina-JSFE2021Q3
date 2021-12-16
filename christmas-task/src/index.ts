@@ -1,2 +1,5 @@
-import data from './components/controller/data';
-console.log(data);
+import './sass/global.sass';
+import { App } from './components/app/app';
+
+const app: App = new App();
+app.start();
