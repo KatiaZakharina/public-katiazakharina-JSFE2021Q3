@@ -1,10 +1,12 @@
 import { App } from '../../app/app';
-import './main.sass';
+import './main.scss';
 import toysList from '../../controller/data';
+import mainTemplate from './main.html';
 
 export class Main {
   draw() {
-    App.rootEl.innerHTML = `<p>Main</p>`;
+    document.body.className = 'body mainPage';
+    App.rootEl.innerHTML = mainTemplate;
     console.log(toysList);
   }
 }

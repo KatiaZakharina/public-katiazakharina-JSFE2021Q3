@@ -1,0 +1,72 @@
+@import '../../../scss/constant';
+
+.mainPage {
+  @include cover-background-image('../../../assets/bg.webp');
+}
+
+.main {
+  @include flex-column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signage {
+  @include flex-column;
+  margin: 200px auto 100px;
+  padding: 65px 85px;
+  width: 40%;
+  max-width: 600px;
+  font-family: 'Neucha', italic;
+  font-size: $fz1;
+  text-align: center;
+  @include glass-plastin;
+}
+
+.start-btn {
+  padding: 15px 120px;
+  font-size: $fz2;
+  background-color: transparent;
+  @include glass-plastin;
+}
+
+.ball {
+  position: absolute;
+}
+
+.ball::before {
+  content: '';
+  position: absolute;
+  background-color: #aaa;
+}
+
+.ball1 {
+  @include cover-background-image('../../../assets/ball/1.webp');
+  width: 440px;
+  height: 560px;
+  left: calc(50% - 550px);
+  top: 150px;
+}
+
+.ball1::before {
+  top: -210px;
+  left: 50%;
+  width: 4px;
+  height: 220px;
+  width: 5px;
+}
+
+.ball2 {
+  @include cover-background-image('../../../assets/ball/2.webp');
+  width: 300px;
+  height: 380px;
+  left: calc(50% + 150px);
+  top: 150px;
+}
+
+.ball2::before {
+  top: -205px;
+  left: calc(50% - 5px);
+  width: 4px;
+  height: 210px;
+  width: 5px;
+}

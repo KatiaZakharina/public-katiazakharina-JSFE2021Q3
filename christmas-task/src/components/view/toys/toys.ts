@@ -1,7 +1,9 @@
+import toysTemplate from './toys.html';
+
 import { App } from '../../app/app';
-import './toys.sass';
+import './toys.scss';
 export class Toys {
   draw() {
-    App.rootEl.innerHTML = `<p>Toys</p>`;
+    App.rootEl.innerHTML = toysTemplate;
   }
 }
