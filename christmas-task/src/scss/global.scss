@@ -29,6 +29,15 @@
   margin: 0 auto;
 }
 
+[data-redirection] {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s linear;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -49,4 +58,7 @@
 .developer {
   text-decoration: none;
   color: #fff;
+}
+.rs-logo {
+  height: 35px;
 }

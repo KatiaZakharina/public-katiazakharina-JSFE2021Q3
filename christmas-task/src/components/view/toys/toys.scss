@@ -1,0 +1,7 @@
+@import '../../../scss/constant';
+
+.toysPage {
+  position: relative;
+  background: linear-gradient(rgba($accent-color, 0.1), rgba($accent-color, 0.1)),
+    center / cover no-repeat url('../../../assets/bg.webp');
+}
