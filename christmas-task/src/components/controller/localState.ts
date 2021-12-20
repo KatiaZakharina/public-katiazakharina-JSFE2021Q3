@@ -4,13 +4,12 @@ export class LocalState {
   static data: LocalData;
   constructor() {
     LocalState.data = this.getData();
-    console.log(LocalState.data);
     window.addEventListener('beforeunload', () => {
       this.setLocalStorage();
     });
   }
   getData(): LocalData {
-    return JSON.parse(localStorage.getItem('data') ?? '{"selected": []}');
+    return JSON.parse(localStorage.getItem('data') ?? '{}');
   }
   clearData(key: string): void {
     localStorage.removeItem(key);

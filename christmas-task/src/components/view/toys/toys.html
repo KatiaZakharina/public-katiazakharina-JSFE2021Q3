@@ -2,34 +2,34 @@
   <form class="filters">
     <div class="filter">
       <p class="filter__title">Фильтры по значению</p>
-      <ul class="filter__inner">
-        <li class="filter__field shape">Форма:
-          <button class="shape__value-btn active"></button>
-          <button class="shape__value-btn"></button>
-          <button class="shape__value-btn"></button>
-          <button class="shape__value-btn"></button>
-          <button class="shape__value-btn"></button>
+      <ul class="filter__inner" data-filter="value">
+        <li class="filter__field">Форма:
+          <button class="shape__value-btn" type="button" data-btn="shape" data-value="шар"></button>
+          <button class="shape__value-btn" type="button" data-btn="shape" data-value="колокольчик"></button>
+          <button class="shape__value-btn" type="button" data-btn="shape" data-value="шишка"></button>
+          <button class="shape__value-btn" type="button" data-btn="shape" data-value="снежинка"></button>
+          <button class="shape__value-btn" type="button" data-btn="shape" data-value="фигурка"></button>
         </li>
-        <li class="filter__field color">Цвет:
-          <button class="color__value-btn active"></button>
-          <button class="color__value-btn"></button>
-          <button class="color__value-btn"></button>
-          <button class="color__value-btn"></button>
-          <button class="color__value-btn"></button>
+        <li class="filter__field">Цвет:
+          <button class="color__value-btn" type="button" data-btn="color" data-value="белый"></button>
+          <button class="color__value-btn" type="button" data-btn="color" data-value="желтый"></button>
+          <button class="color__value-btn" type="button" data-btn="color" data-value="красный"></button>
+          <button class="color__value-btn" type="button" data-btn="color" data-value="синий"></button>
+          <button class="color__value-btn" type="button" data-btn="color" data-value="зелёный"></button>
         </li>
-        <li class="filter__field size">Размер:
-          <button class="size__value-btn active"></button>
-          <button class="size__value-btn"></button>
-          <button class="size__value-btn"></button>
+        <li class="filter__field">Размер:
+          <button class="size__value-btn" type="button" data-btn="size" data-value="малый"></button>
+          <button class="size__value-btn" type="button" data-btn="size" data-value="средний"></button>
+          <button class="size__value-btn" type="button" data-btn="size" data-value="большой"></button>
         </li>
         <li class="filter__field favorite">Только любимые:
-          <input class="favorite__value-btn" type="checkbox">
+          <input class="favorite__value-btn" type="checkbox" data-btn="favorite">
         </li>
       </ul>
     </div>
     <div class="filter">
       <p class="filter__title">Фильтры по диапазону</p>
-      <div class="filter__inner">
+      <div class="filter__inner" data-filter="range">
         <label class="filter__label">Количество экземпляров:</label>
 
         <div class="filter__range range">
@@ -49,14 +49,14 @@
     </div>
     <div class="filter">
       <p class="filter__title">Сортировка</p>
-      <div class="filter__sort">
+      <div class="filter__sort" data-filter="sort">
         <select class="filter__sort-types">
           <option class="filter__sort-type" selected>По названию от " А" до "Я"</option>
           <option class="filter__sort-type">По названию от " Я" до "А"</option>
           <option class="filter__sort-type">По количеству: по возрастанию</option>
           <option class="filter__sort-type">По количеству: по убыванию</option>
         </select>
-        <button class=" filter__reset">Сброс фильтров</button>
+        <button class="filter__reset" type="button">Сброс фильтров</button>
       </div>
     </div>
   </form>

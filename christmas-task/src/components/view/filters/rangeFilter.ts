@@ -4,15 +4,13 @@ const noUiSlider = _default;
 import './nouislider.css';
 import { ToyData } from '../../constant';
 
-export class Filters {
-  private sort: string;
+export class RangeFilter{
   private sliderCount: target | null;
   private sliderYear: target | null;
 
   constructor() {
     this.sliderCount = null;
     this.sliderYear = null;
-    this.sort = 'alphabetically';
   }
 
   drawSliders() {

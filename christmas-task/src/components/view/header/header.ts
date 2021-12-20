@@ -7,7 +7,7 @@ export class Header {
   private headerEl: HTMLElement;
 
   constructor() {
-    this._num = +LocalState.data.selected.length;
+    this._num = LocalState.data.selected?.length ?? 0;
     this.headerEl = document.querySelector('.header-bar')!;
     this.counterEl = document.querySelector('.counter')!;
     this.reloadCounter();
