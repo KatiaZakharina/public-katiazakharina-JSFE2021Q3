@@ -4,13 +4,19 @@ export class LocalState {
   static data: LocalData;
   constructor() {
     LocalState.data = this.getData();
+    console.log(LocalState.data);
+    window.addEventListener('beforeunload', () => {
+      this.setLocalStorage();
+    });
   }
-  public getData(): LocalData {
-    //массив с номерами избранных игрушек,
-    //выбраные фильтры и сортировки
-    return JSON.parse(localStorage.getItem('data') ?? '{}');
+  getData(): LocalData {
+    return JSON.parse(localStorage.getItem('data') ?? '{"selected": []}');
   }
-  private clearData(key: string): void {
+  clearData(key: string): void {
     localStorage.removeItem(key);
+  }
+
+  setLocalStorage() {
+    localStorage.setItem('data', JSON.stringify(LocalState.data));
   }
 }

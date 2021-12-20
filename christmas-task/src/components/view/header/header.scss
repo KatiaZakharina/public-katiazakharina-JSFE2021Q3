@@ -8,10 +8,8 @@
 
   &__inner {
     @include flex-space-between;
-    width: calc(100% - 40px);
-    max-width: 1440px;
+    @extend .container;
     padding: 10px 0;
-    margin: 0 auto;
   }
   &.toys .nav__btn_toys,
   &.tree .nav__btn_tree {
@@ -34,6 +32,7 @@
   &__btn {
     padding: 10px 25px;
     font-size: $fz2;
+    font-family: 'Neucha', italic;
     text-transform: uppercase;
     color: #fff;
     background-color: transparent;
@@ -74,6 +73,7 @@
   width: 40px;
   height: 40px;
   padding-top: 5px;
+  margin-left: 15px;
   background-color: mix($main-color, $accent-color, 50%);
   border-radius: 50%;
   border: mix(#fff, $accent-color, 80%) 1px solid;

@@ -1,3 +1,5 @@
+@import './animation.scss';
+
 $accent-color: #24c5db;
 $main-color: #192f2d;
 
@@ -22,6 +24,13 @@ $fz5: 12px;
   $fz4: 18px;
   $fz5: 12px;
 }
+
+.container {
+  width: calc(100% - 40px);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 @mixin basic-trans {
   transition: 200ms cubic-bezier(0.17, 0.67, 0.56, 0.84);
   transition-delay: 50ms;

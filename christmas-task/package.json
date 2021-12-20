@@ -14,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@webpack-cli/generators": "^2.4.1"
+    "@webpack-cli/generators": "^2.4.1",
+    "nouislider": "^15.5.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.7.0",

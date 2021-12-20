@@ -1,1 +1,65 @@
-<p>Toys</p>
+<div class="toys">
+  <form class="filters">
+    <div class="filter">
+      <p class="filter__title">Фильтры по значению</p>
+      <ul class="filter__inner">
+        <li class="filter__field shape">Форма:
+          <button class="shape__value-btn active"></button>
+          <button class="shape__value-btn"></button>
+          <button class="shape__value-btn"></button>
+          <button class="shape__value-btn"></button>
+          <button class="shape__value-btn"></button>
+        </li>
+        <li class="filter__field color">Цвет:
+          <button class="color__value-btn active"></button>
+          <button class="color__value-btn"></button>
+          <button class="color__value-btn"></button>
+          <button class="color__value-btn"></button>
+          <button class="color__value-btn"></button>
+        </li>
+        <li class="filter__field size">Размер:
+          <button class="size__value-btn active"></button>
+          <button class="size__value-btn"></button>
+          <button class="size__value-btn"></button>
+        </li>
+        <li class="filter__field favorite">Только любимые:
+          <input class="favorite__value-btn" type="checkbox">
+        </li>
+      </ul>
+    </div>
+    <div class="filter">
+      <p class="filter__title">Фильтры по диапазону</p>
+      <div class="filter__inner">
+        <label class="filter__label">Количество экземпляров:</label>
+
+        <div class="filter__range range">
+          <input class="range__value" type="number" readonly>
+          <div id="slider-count" class="double-slider"></div>
+          <input class="range__value" type="number" readonly>
+        </div>
+
+        <label class="filter__label">Год приобритения:</label>
+
+        <div class="filter__range range">
+          <input class="range__value" type="number" readonly>
+          <div id="slider-year" class="double-slider"></div>
+          <input class="range__value" type="number" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="filter">
+      <p class="filter__title">Сортировка</p>
+      <div class="filter__sort">
+        <select class="filter__sort-types">
+          <option class="filter__sort-type" selected>По названию от " А" до "Я"</option>
+          <option class="filter__sort-type">По названию от " Я" до "А"</option>
+          <option class="filter__sort-type">По количеству: по возрастанию</option>
+          <option class="filter__sort-type">По количеству: по убыванию</option>
+        </select>
+        <button class=" filter__reset">Сброс фильтров</button>
+      </div>
+    </div>
+  </form>
+  <div class="toys-cards"></div>
+
+</div>

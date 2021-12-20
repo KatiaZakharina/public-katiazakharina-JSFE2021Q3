@@ -24,11 +24,6 @@
   color: #fff;
 }
 
-.container {
-  width: calc(100% - 40px);
-  margin: 0 auto;
-}
-
 [data-redirection] {
   cursor: pointer;
   opacity: 0.8;
@@ -49,10 +44,8 @@
 }
 
 .footer__content {
+  @extend .container;
   @include flex-space-between;
-  margin: 0 auto;
-  width: calc(100% - 40px);
-  max-width: 1440px;
 }
 
 .developer {

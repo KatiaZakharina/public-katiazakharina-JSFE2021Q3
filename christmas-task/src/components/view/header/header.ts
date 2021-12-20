@@ -1,4 +1,5 @@
 import './header.scss';
+import { LocalState } from '../../controller/localState';
 
 export class Header {
   private _num: number;
@@ -6,9 +7,10 @@ export class Header {
   private headerEl: HTMLElement;
 
   constructor() {
-    this._num = 0;
+    this._num = +LocalState.data.selected.length;
     this.headerEl = document.querySelector('.header-bar')!;
     this.counterEl = document.querySelector('.counter')!;
+    this.reloadCounter();
   }
   set num(value: number) {
     this._num = value;
@@ -17,6 +19,7 @@ export class Header {
   get num() {
     return this._num;
   }
+
   draw(type: string) {
     this.headerEl.className = `header-bar ${type}`;
   }
