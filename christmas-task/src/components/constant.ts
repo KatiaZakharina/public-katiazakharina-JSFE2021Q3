@@ -26,6 +26,6 @@ export interface valueFilters {
 }
 
 export interface rangeFilters {
-  quantity?: [number, number];
+  count?: [number, number];
   year?: [number, number];
 }

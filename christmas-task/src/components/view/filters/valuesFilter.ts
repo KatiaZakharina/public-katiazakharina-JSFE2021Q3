@@ -1,5 +1,6 @@
 import { valueFilters } from '../../constant';
 import { LocalState } from '../../controller/localState';
+import { FiltersController } from './filtersController';
 
 export class ValuesFilter {
   private cards: NodeListOf<HTMLElement> | null;
@@ -12,30 +13,10 @@ export class ValuesFilter {
   control(): void {
     this.controlCheckbox();
     this.updateFiltersForm();
-    this.updateCard();
 
     document.querySelector('[data-filter=value]')!.addEventListener('click', (e: Event) => {
       this.switchFilter(e);
     });
-  }
-
-  updateCard(): void {
-    this.cards = document.querySelectorAll('.card');
-
-    Object.entries(LocalState.data.filters!.value!).forEach(([option, value]) => {
-      if (value === 'нет') return;
-
-      this.cards!.forEach((card) => {
-        if ((card.querySelector(`[data-${option}]`) as HTMLElement).dataset[option] !== value) {
-          card.classList.add('hide');
-        }
-      });
-    });
-    if (document.querySelectorAll('.card.hide').length === this.cards?.length) {
-      (document.querySelector('.toys__message')! as HTMLElement).style.display = 'block';
-    } else {
-      (document.querySelector('.toys__message')! as HTMLElement).style.display = 'none';
-    }
   }
 
   controlCheckbox(): void {
@@ -72,7 +53,7 @@ export class ValuesFilter {
 
     LocalState.data.filters!.value![option as keyof valueFilters] = value;
     this.clearCardsFiltering();
-    this.updateCard();
+    FiltersController.updateCard();
   }
 
   updateFiltersForm(): void {
