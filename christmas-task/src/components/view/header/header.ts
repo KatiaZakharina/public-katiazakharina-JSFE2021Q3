@@ -20,10 +20,10 @@ export class Header {
     return this._num;
   }
 
-  draw(type: string) {
+  draw(type: string):void {
     this.headerEl.className = `header-bar ${type}`;
   }
-  reloadCounter() {
+  reloadCounter():void {
     this.counterEl.value = String(this.num);
   }
 }

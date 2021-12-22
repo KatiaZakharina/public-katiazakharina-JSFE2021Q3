@@ -10,10 +10,10 @@ export interface ToyData {
 }
 
 export interface LocalData {
-  selected?: Array<number>;
-  filters?: {
-    value?: valueFilters;
-    range?: rangeFilters;
+  selected: Array<number>;
+  filters: {
+    value: valueFilters;
+    range: rangeFilters;
     sort?: number;
   };
 }
@@ -26,6 +26,6 @@ export interface valueFilters {
 }
 
 export interface rangeFilters {
-  quontity: [number, number];
-  year: [number, number];
+  quantity?: [number, number];
+  year?: [number, number];
 }

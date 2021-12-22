@@ -1,40 +1,31 @@
 import toysTemplate from './toys.html';
-import { App } from '../../app/app';
 import './toys.scss';
 import toysDB from '../../controller/data';
-import { ValuesFilter } from '../filters/valuesFilter';
-import { RangeFilter } from '../filters/rangeFilter';
-import { Sort } from '../filters/sort';
+
+import { App } from '../../app/app';
 import { AppView } from '../appView';
 import { LocalState } from '../../controller/localState';
+import { FiltersController } from '../filters/filtersController';
 
 export class Toys {
-  private valuesFilter: ValuesFilter;
-  private rangeFilter: RangeFilter;
-  private sort: Sort;
+  private filtersCintroller: FiltersController;
 
   constructor() {
-    this.valuesFilter = new ValuesFilter();
-    this.rangeFilter = new RangeFilter();
-    this.valuesFilter = new ValuesFilter();
-    this.sort = new Sort();
-    if (!('selected' in LocalState.data)) LocalState.data.selected = [];
+    this.filtersCintroller = new FiltersController();
   }
 
   draw(): void {
     document.body.className = 'body toysPage';
     AppView.header.draw('toys');
     App.rootEl.innerHTML = toysTemplate;
-    this.rangeFilter.drawSliders();
     this.drawCards();
-    console.log(document.querySelector('main')?.innerHTML);
-    this.valuesFilter.control(document.querySelector('[data-filter=value]'), document.querySelectorAll('.card'));
+    this.filtersCintroller.control();
   }
 
   drawCards(): void {
     toysDB.forEach((toy) => {
       document.querySelector('.toys-cards')!.innerHTML += `
-      <div class="card ${LocalState.data.selected!.includes(+toy.num) ? 'selected' : ''}" data-num="${toy.num}">
+      <div class="card ${LocalState.data.selected.includes(+toy.num) ? 'selected' : ''}" data-num="${toy.num}">
       <span class="ribbon"></span>
       <p class="card__title">${toy.name}</p>
       <div class="card__inner">
@@ -45,14 +36,16 @@ export class Toys {
           <li class="card__info" data-shape=${toy.shape}>Форма: ${toy.shape}</li>
           <li class="card__info" data-color=${toy.color}>Цвет: ${toy.color}</li>
           <li class="card__info" data-size=${toy.size}>Размер: ${toy.size}</li>
-          <li class="card__info" data-favorite=${toy.favorite}>Любимая: ${toy.favorite ? 'да' : 'нет'}</li>
+          <li class="card__info" data-favorite=${toy.favorite ? 'да' : 'нет'}>Любимая: ${
+        toy.favorite ? 'да' : 'нет'
+      }</li>
         </ul>
       </div>
     </div>
       `;
     });
 
-    document.body.addEventListener('click', (e) => {
+    document.body.addEventListener('click', (e: Event) => {
       this.selectCard(e);
     });
   }
@@ -63,12 +56,12 @@ export class Toys {
 
     const cardNum = +card.dataset.num!;
 
-    if (LocalState.data.selected!.includes(cardNum)) {
+    if (LocalState.data.selected.includes(cardNum)) {
       AppView.header.num--;
-      LocalState.data.selected!.splice(LocalState.data.selected!.indexOf(cardNum), 1);
+      LocalState.data.selected.splice(LocalState.data.selected.indexOf(cardNum), 1);
       card.classList.remove('selected');
-    } else if (LocalState.data.selected!.length < 20) {
-      LocalState.data.selected!.push(cardNum);
+    } else if (LocalState.data.selected.length < 20) {
+      LocalState.data.selected.push(cardNum);
       AppView.header.num++;
       card.classList.add('selected');
     } else {

@@ -4,9 +4,9 @@ import mainTemplate from './main.html';
 import { AppView } from '../appView';
 
 export class Main {
-  draw() {
+  draw():void {
     document.body.className = 'body mainPage';
     AppView.header.draw('main');
-    App.rootEl.innerHTML = mainTemplate
+    App.rootEl.innerHTML = mainTemplate;
   }
 }

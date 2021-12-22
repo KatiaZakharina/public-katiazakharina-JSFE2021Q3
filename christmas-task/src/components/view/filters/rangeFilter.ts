@@ -1,10 +1,10 @@
 import _default, { target } from 'nouislider';
 import { AppView } from '../appView';
 const noUiSlider = _default;
-import './nouislider.css';
+import '../../../../node_modules/nouislider/dist/nouislider.css';
 import { ToyData } from '../../constant';
 
-export class RangeFilter{
+export class RangeFilter {
   private sliderCount: target | null;
   private sliderYear: target | null;
 
@@ -13,7 +13,7 @@ export class RangeFilter{
     this.sliderYear = null;
   }
 
-  drawSliders() {
+  drawSliders(): void {
     this.sliderCount = <target>document.querySelector('#slider-count')!;
     this.sliderYear = <target>document.querySelector('#slider-year')!;
 
@@ -21,7 +21,7 @@ export class RangeFilter{
     this.createSlider(this.sliderYear, 'year');
   }
 
-  createSlider(element: target, option: string) {
+  createSlider(element: target, option: string): void {
     const [min, max] = this.getRange(option);
     noUiSlider.create(element, {
       start: [min, max],
@@ -39,7 +39,7 @@ export class RangeFilter{
       updateRange(element, values);
     });
 
-    function updateRange(element: HTMLElement, values: (string | number)[]) {
+    function updateRange(element: HTMLElement, values: (string | number)[]): void {
       (element.previousElementSibling! as HTMLInputElement).value = String(Math.trunc(+values[0]));
       (element.nextElementSibling! as HTMLInputElement).value = String(Math.trunc(+values[1]));
     }

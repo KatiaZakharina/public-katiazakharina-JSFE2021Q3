@@ -9,13 +9,12 @@ export class LocalState {
     });
   }
   getData(): LocalData {
-    return JSON.parse(localStorage.getItem('data') ?? '{}');
+    const localData: LocalData = JSON.parse(
+      localStorage.getItem('data') ?? '{"selected":[], "filters": {"value":{}, "range": {}}}'
+    );
+    return localData;
   }
-  clearData(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  setLocalStorage() {
+  setLocalStorage():void {
     localStorage.setItem('data', JSON.stringify(LocalState.data));
   }
 }

@@ -10,6 +10,7 @@ export class AppView {
   public main: Main;
   public toys: Toys;
   public tree: Tree;
+  
   static header: Header;
   static popup: Popup;
   static toysDB: Array<ToyData>;

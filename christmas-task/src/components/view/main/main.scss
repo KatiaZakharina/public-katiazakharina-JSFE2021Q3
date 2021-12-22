@@ -10,21 +10,6 @@
   align-items: center;
 }
 
-$fz1: 53px;
-$fz2: 24px;
-$fz3: 20px;
-$fz4: 18px;
-$fz5: 12px;
-
-// @media (min-width: 0) {
-//   $fz1: 48px;
-//   $fz2: 20px;
-//   $fz3: 18px;
-//   $fz4: 18px;
-//   $fz5: 12px;
-// }
-
-
 .signage {
   @include flex-column;
   margin: 200px auto 80px;
