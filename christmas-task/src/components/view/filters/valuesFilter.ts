@@ -7,10 +7,10 @@ export class ValuesFilter {
 
   constructor() {
     this.cards = document.querySelectorAll('.card');
-    if (!('filters' in LocalState.data)) LocalState.data.filters = { value: {}, range: {} };
+    // if (!('filters' in LocalState.data)) LocalState.data.filters = { value: {}, range: {} };
   }
 
-  control(): void {
+  controlFiltering(): void {
     this.controlCheckbox();
     this.updateFiltersForm();
 
@@ -85,7 +85,8 @@ export class ValuesFilter {
       btn.classList.remove('active');
     });
     (document.querySelector('.toys__message')! as HTMLElement).style.display = 'none';
-    LocalState.data.filters.value = {};
-    LocalState.data.filters.range = {};
+    // LocalState.data.filters.value = {};
+    // LocalState.data.filters.range = {};
+    LocalState.clearLocalStorage();
   }
 }

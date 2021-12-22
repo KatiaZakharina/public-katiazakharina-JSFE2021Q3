@@ -17,8 +17,9 @@ export class FiltersController {
   }
 
   control(): void {
-    this.valuesFilter.control();
-    this.rangeFilter.drawSliders();
+    this.valuesFilter.controlFiltering();
+    this.rangeFilter.controlFiltering();
+    this.sort.controlSorting();
     this.controlResetBtn();
   }
 

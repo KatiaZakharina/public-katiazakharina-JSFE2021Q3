@@ -27,7 +27,7 @@ export class Toys {
       document.querySelector('.toys-cards')!.innerHTML += `
       <div class="card ${LocalState.data.selected.includes(+toy.num) ? 'selected' : ''}" data-num="${toy.num}">
       <span class="ribbon"></span>
-      <p class="card__title">${toy.name}</p>
+      <p class="card__title" data-name=${toy.name}>${toy.name}</p>
       <div class="card__inner">
         <img class="card__img" src="./assets/toys/${toy.num}.webp" alt="ball">
         <ul class="card__description">

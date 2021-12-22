@@ -14,7 +14,7 @@ export interface LocalData {
   filters: {
     value: valueFilters;
     range: rangeFilters;
-    sort?: number;
+    sort: [string, string];
   };
 }
 

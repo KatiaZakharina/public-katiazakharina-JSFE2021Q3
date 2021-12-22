@@ -16,7 +16,7 @@ export class RangeFilter {
     this.cards = document.querySelectorAll('.card');
   }
 
-  drawSliders(): void {
+  controlFiltering(): void {
     this.sliderCount = <target>document.querySelector('#slider-count')!;
     this.sliderYear = <target>document.querySelector('#slider-year')!;
 
@@ -62,8 +62,8 @@ export class RangeFilter {
     this.sliderCount!.noUiSlider!.destroy();
     this.sliderYear!.noUiSlider!.destroy();
 
-    this.createSlider(this.sliderCount!, 'count');
-    this.createSlider(this.sliderYear!, 'year');
+    this.createSlider(this.sliderCount!, 'count', true);
+    this.createSlider(this.sliderYear!, 'year', true);
   }
 
   getRange(option: string): [number, number] {

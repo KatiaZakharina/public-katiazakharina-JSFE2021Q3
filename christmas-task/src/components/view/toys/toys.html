@@ -51,10 +51,10 @@
       <p class="filter__title">Сортировка</p>
       <div class="filter__sort" data-filter="sort">
         <select class="filter__sort-types">
-          <option class="filter__sort-type" selected>По названию от " А" до "Я"</option>
-          <option class="filter__sort-type">По названию от " Я" до "А"</option>
-          <option class="filter__sort-type">По количеству: по возрастанию</option>
-          <option class="filter__sort-type">По количеству: по убыванию</option>
+          <option class="filter__sort-type" data-option="name" data-order="increment" selected>По названию от "А" до "Я"</option>
+          <option class="filter__sort-type" data-option="name" data-order="decrement">По названию от "Я" до "А"</option>
+          <option class="filter__sort-type" data-option="count" data-order="increment">По количеству: по возрастанию</option>
+          <option class="filter__sort-type" data-option="count" data-order="decrement">По количеству: по убыванию</option>
         </select>
         <button class="filter__reset" type="button">Сброс фильтров</button>
       </div>
