@@ -16,10 +16,10 @@ export class Toys {
 
   draw(): void {
     document.body.className = 'body toysPage';
-    AppView.header.draw('toys');
     App.rootEl.innerHTML = toysTemplate;
     this.drawCards();
     this.filtersCintroller.control();
+    AppView.header.draw('toys');
   }
 
   drawCards(): void {
@@ -27,7 +27,7 @@ export class Toys {
       document.querySelector('.toys-cards')!.innerHTML += `
       <div class="card ${LocalState.data.selected.includes(+toy.num) ? 'selected' : ''}" data-num="${toy.num}">
       <span class="ribbon"></span>
-      <p class="card__title" data-name=${toy.name}>${toy.name}</p>
+      <p class="card__title" data-name="${toy.name}">${toy.name}</p>
       <div class="card__inner">
         <img class="card__img" src="./assets/toys/${toy.num}.webp" alt="ball">
         <ul class="card__description">
@@ -55,6 +55,8 @@ export class Toys {
     if (!card) return;
 
     const cardNum = +card.dataset.num!;
+
+    console.log(LocalState.data.selected);
 
     if (LocalState.data.selected.includes(cardNum)) {
       AppView.header.num--;

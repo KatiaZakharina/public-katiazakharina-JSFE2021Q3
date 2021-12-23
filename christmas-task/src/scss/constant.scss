@@ -9,24 +9,6 @@ $fz3: 20px;
 $fz4: 18px;
 $fz5: 12px;
 
-
-//FIXME: adaptive layout
-@media (min-width: 0) {
-  $fz1: 48px;
-  $fz2: 20px;
-  $fz3: 18px;
-  $fz4: 18px;
-  $fz5: 12px;
-}
-
-@media (max-width: 1024px) {
-  $fz1: 48px;
-  $fz2: 20px;
-  $fz3: 18px;
-  $fz4: 18px;
-  $fz5: 12px;
-}
-
 .container {
   width: calc(100% - 40px);
   max-width: 1440px;

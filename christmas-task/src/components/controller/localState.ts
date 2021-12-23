@@ -24,7 +24,9 @@ export class LocalState {
   static clearLocalStorage() {
     localStorage.setItem(
       'data',
-      '{"selected":[], "filters": {"value":{}, "range": {}, "sort": ["name", "increment"]}}'
+      `{"selected":${JSON.stringify(
+        LocalState.data.selected
+      )}, "filters": {"value":{}, "range": {}, "sort": ["name", "increment"]}}`
     );
     LocalState.data = LocalState.getData();
   }

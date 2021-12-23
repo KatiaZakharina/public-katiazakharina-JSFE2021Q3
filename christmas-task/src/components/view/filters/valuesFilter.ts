@@ -7,7 +7,6 @@ export class ValuesFilter {
 
   constructor() {
     this.cards = document.querySelectorAll('.card');
-    // if (!('filters' in LocalState.data)) LocalState.data.filters = { value: {}, range: {} };
   }
 
   controlFiltering(): void {
@@ -85,8 +84,6 @@ export class ValuesFilter {
       btn.classList.remove('active');
     });
     (document.querySelector('.toys__message')! as HTMLElement).style.display = 'none';
-    // LocalState.data.filters.value = {};
-    // LocalState.data.filters.range = {};
     LocalState.clearLocalStorage();
   }
 }
