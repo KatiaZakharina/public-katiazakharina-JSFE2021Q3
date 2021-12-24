@@ -1,9 +1,9 @@
 import categoryTemp from '../components/category.html';
 import { artistQuiz } from './artistQuiz';
 import { paintingQuiz } from './paintingQuiz';
-import categoryName from './categoryNameRender';
+import { categoryName } from './categoryNameRender';
 
-function category() {
+export function category() {
   document.querySelector('#root').innerHTML = categoryTemp;
   document.body.classList.remove('cover');
 
@@ -42,4 +42,3 @@ function category() {
     }
   });
 }
-export default category;

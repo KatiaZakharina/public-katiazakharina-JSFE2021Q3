@@ -1,15 +1,15 @@
-import entryRender from './entryRender';
-import settingsRender from './settingsRender';
-import categoryRender from './categoryRender';
-import quizRender from './quizRender';
+import { entryRender } from './entryRender';
+import { settingsRender } from './settingsRender';
+import { category } from './categoryRender';
+import { quizRender } from './quizRender';
 
 class Routing {
   constructor() {
     this.list = {
       '': entryRender,
-      artist: categoryRender,
+      artist: category,
       'artist-quiz': quizRender,
-      painting: categoryRender,
+      painting: category,
       'painting-quiz': quizRender,
       settings: settingsRender,
     };
@@ -19,11 +19,11 @@ class Routing {
     this.list[url.shift(0)]();
   }
 }
-const routing = new Routing();
+export const routing = new Routing();
 
 window.addEventListener('hashchange', () => {
   routing.render();
 });
 
 routing.render();
-export default routing;
+// export default routing;

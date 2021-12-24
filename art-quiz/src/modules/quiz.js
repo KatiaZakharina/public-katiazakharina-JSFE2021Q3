@@ -1,9 +1,9 @@
-import settings from './settings';
-import timer from './timer';
+import { settings } from './settings';
+import { Timer } from './timer';
 
-class Quiz {
+export class Quiz {
   constructor() {
-    this.timer = timer;
+    this.timer = new Timer();
   }
   static async getDataBase(path) {
     return fetch(path).then((data) => data.json());
@@ -284,4 +284,3 @@ class Quiz {
     }
   }
 }
-export { Quiz };

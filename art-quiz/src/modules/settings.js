@@ -1,4 +1,4 @@
-import Timer from './timer';
+import { Timer } from './timer';
 
 class Settings {
   constructor(obj) {
@@ -28,5 +28,4 @@ class Settings {
     this.timer.setNewTime(this.settings.timer);
   }
 }
-const settings = new Settings(JSON.parse(localStorage.getItem('settings')));
-export default settings;
+export const settings = new Settings(JSON.parse(localStorage.getItem('settings')));

@@ -1,4 +1,4 @@
-import settings from './settings';
+import { settings } from './settings';
 import { artistQuiz } from './artistQuiz';
 import { paintingQuiz } from './paintingQuiz';
 
@@ -13,4 +13,3 @@ function setLocalStorage() {
   localStorage.setItem('images-info-painting', JSON.stringify(paintingQuiz.imagesInfo));
 }
 window.addEventListener('beforeunload', setLocalStorage);
-export { settings, artistQuiz };

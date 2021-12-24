@@ -1,7 +1,7 @@
 import settingsTemp from '../components/settings.html';
-import settings from './settings';
+import { settings } from './settings';
 
-function settingsRender() {
+export function settingsRender() {
   document.querySelector('#root').innerHTML = settingsTemp;
   document.body.classList.remove('cover');
 
@@ -80,4 +80,3 @@ function runnableTrack() {
   });
 }
 export { runnableTrack };
-export default settingsRender;

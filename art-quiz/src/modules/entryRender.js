@@ -1,6 +1,6 @@
 import entryTemp from '../components/entry.html';
 
-function entryRender() {
+export function entryRender() {
   document.querySelector('#root').innerHTML = entryTemp;
   document.body.classList.add('cover');
 
@@ -14,4 +14,3 @@ function entryRender() {
     }
   });
 }
-export default entryRender;

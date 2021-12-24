@@ -1,9 +1,9 @@
 import quizTemp from '../components/quiz.html';
-import { artistQuiz } from './localStorage';
+import { artistQuiz } from './artistQuiz';
 import { paintingQuiz } from './paintingQuiz';
 // import { runnableTrack } from './settingsRender';
 
-function quiz() {
+export function quizRender() {
   document.querySelector('#root').innerHTML = quizTemp;
   // runnableTrack();
   let currentQuiz;
@@ -70,4 +70,3 @@ function quiz() {
     });
   });
 }
-export default quiz;

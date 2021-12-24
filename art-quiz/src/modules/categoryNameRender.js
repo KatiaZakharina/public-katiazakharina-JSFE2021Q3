@@ -1,4 +1,4 @@
-function categoryName(name) {
+export function categoryName(name) {
   document.querySelector('.category__title').innerHTML = `<span>${
     name[0].toUpperCase() + name.slice(1)
   } categories</span>`;
@@ -6,4 +6,3 @@ function categoryName(name) {
     window.history.back();
   });
 }
-export default categoryName;
