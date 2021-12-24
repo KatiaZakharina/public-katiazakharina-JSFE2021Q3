@@ -7,25 +7,26 @@ class ArtistQuiz extends Quiz {
   }
   async renderQuiz() {
     const data = super.renderQuiz();
-    return data.then((data) => {
+    return data.then((response) => {
       document.querySelector(
         '.quiz__inner'
-      ).innerHTML = `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>`;
+      ).innerHTML = `<div class="quiz__question">Which is ${response.currentObj.author} picture?</div>`;
       const quizAnswers = document.createElement('div');
       quizAnswers.classList.add('quiz__answers');
 
-      for (const obj in data.randomObjArr) {
+      Object.keys(response.randomObjArr).forEach((obj) => {
         const bgImg = document.createElement('div');
-        const specialClass = data.currentObj.author === data.randomObjArr[obj].author ? 'correct' : 'wrong';
+        const specialClass = response.currentObj.author === response.randomObjArr[obj].author ? 'correct' : 'wrong';
         bgImg.classList.add('quiz__answer', 'quiz__answer-painting', specialClass);
         this.getQuizInfo();
 
-        this.loadImage(`./assets/img/${data.randomObjArr[obj].imageNum}.jpg`).then(() => {
+        this.loadImage(`./assets/img/${response.randomObjArr[obj].imageNum}.jpg`).then(() => {
           this.getQuizInfo();
-          bgImg.style.backgroundImage = `url(./assets/img/${data.randomObjArr[obj].imageNum}.jpg)`;
+          bgImg.style.backgroundImage = `url(./assets/img/${response.randomObjArr[obj].imageNum}.jpg)`;
         });
         quizAnswers.append(bgImg);
-      }
+      });
+
       document.querySelector('.quiz__inner').append(quizAnswers);
     });
   }

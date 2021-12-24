@@ -6,7 +6,7 @@ class Quiz {
     this.timer = timer;
   }
   static async getDataBase(path) {
-    return await fetch(path).then((data) => data.json());
+    return fetch(path).then((data) => data.json());
   }
 
   getQuizInfo(i) {
@@ -19,8 +19,8 @@ class Quiz {
         this.categories.indexOf(this.quizCategory[0].toUpperCase() + this.quizCategory.slice(1)) + this.num;
 
       this.currentQuiz = window.location.hash.slice(1).split('/')[2];
-      i = i || +this.currentQuiz;
-      this.currentObj = this.imagesInfo[this.categoryNum * 10 + i - 1];
+      const quizNum = i || +this.currentQuiz;
+      this.currentObj = this.imagesInfo[this.categoryNum * 10 + quizNum - 1];
     }
   }
   getRandomNum(arr, start, end) {
@@ -57,7 +57,8 @@ class Quiz {
         await Quiz.getDataBase('https://raw.githubusercontent.com/KatiaZakharina/DB/master/images.json')
       ).images;
       this.imagesInfo.forEach((i) => {
-        i.isGuessed = false;
+        const image = i;
+        image.isGuessed = false;
       });
     }
   }

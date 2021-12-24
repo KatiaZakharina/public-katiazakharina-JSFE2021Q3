@@ -13,5 +13,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'lines-between-class-members': 'off',
     'import/prefer-default-export': 'off',
+    'prefer-destructuring': ['error', { object: true, array: false }],
   },
 };
