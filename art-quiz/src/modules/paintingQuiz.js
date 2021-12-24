@@ -12,11 +12,11 @@ class PaintingQuiz extends Quiz {
       temp += `<div class="quiz__question">Which is the author of this picture?</div>
       <div class="quiz__answers">`;
 
-      console.log(response.randomObjArr, '0');
-      for (const obj in response.randomObjArr) {
+      Object.keys(response.randomObjArr).forEach((obj) => {
         const specialClass = response.currentObj.author === response.randomObjArr[obj].author ? 'correct' : 'wrong';
         temp += `<button class="quiz__answer ${specialClass} btn">${response.randomObjArr[obj].author}</button>`;
-      }
+      });
+
       temp += '</div>';
       document.querySelector('.quiz__inner').innerHTML = temp;
 

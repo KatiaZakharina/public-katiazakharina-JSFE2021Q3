@@ -1,6 +1,5 @@
 import settingsTemp from '../components/settings.html';
 import settings from './settings';
-import './routing';
 
 function settingsRender() {
   document.querySelector('#root').innerHTML = settingsTemp;

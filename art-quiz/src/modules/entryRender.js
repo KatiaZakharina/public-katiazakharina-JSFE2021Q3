@@ -1,5 +1,4 @@
 import entryTemp from '../components/entry.html';
-import './routing';
 
 function entryRender() {
   document.querySelector('#root').innerHTML = entryTemp;

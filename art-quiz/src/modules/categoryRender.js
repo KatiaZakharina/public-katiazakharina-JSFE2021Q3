@@ -1,5 +1,5 @@
 import categoryTemp from '../components/category.html';
-import { artistQuiz } from './localStorage';
+import { artistQuiz } from './artistQuiz';
 import { paintingQuiz } from './paintingQuiz';
 import categoryName from './categoryNameRender';
 

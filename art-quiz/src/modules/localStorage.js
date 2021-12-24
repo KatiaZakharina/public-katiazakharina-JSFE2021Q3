@@ -1,5 +1,5 @@
 import settings from './settings';
-import { artistQuiz } from './quiz';
+import { artistQuiz } from './artistQuiz';
 import { paintingQuiz } from './paintingQuiz';
 
 (async function getLocalStorage() {
