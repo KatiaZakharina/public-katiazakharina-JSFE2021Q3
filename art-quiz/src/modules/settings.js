@@ -24,7 +24,6 @@ class Settings {
     this.settings.timeMood = false;
     this.settings.timer = 0;
     this.setInputState();
-    // runnableTrack();
     this.timer.setNewTime(this.settings.timer);
   }
 }

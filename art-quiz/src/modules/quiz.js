@@ -76,7 +76,7 @@ export class Quiz {
     if (!this.imagesInfo) await this.setData();
     this.getQuizInfo();
 
-    for (let j = 0; j < this.categories.length; j += 1) {
+    this.categories.forEach(async (category, j) => {
       let categoryScore = 0;
 
       for (let i = 0; i < 10; i += 1) {
@@ -84,12 +84,12 @@ export class Quiz {
       }
 
       const bgImg = document.createElement('div');
-      bgImg.dataset.category = this.categories[j].toLowerCase();
+      bgImg.dataset.category = category.toLowerCase();
       bgImg.classList.add('card__painting');
 
-      this.loadImage(`./assets/img/${(j + this.num) * 10}.jpg`).then(() => {
-        bgImg.style.backgroundImage = `url(./assets/img/${(j + this.num) * 10}.jpg)`;
-      });
+      await this.loadImage(`./assets/img/${(j + this.num) * 10}.jpg`);
+      bgImg.style.backgroundImage = `url(./assets/img/${(j + this.num) * 10}.jpg)`;
+
       const card = document.createElement('div');
       const specialClass = categoryScore === 0 ? 'card_inactive' : 'card_completed';
       card.classList.add('category__card', 'card');
@@ -97,7 +97,7 @@ export class Quiz {
 
       card.innerHTML = `
       <div class="card__header">
-          <div class="card__title">${this.categories[j]}</div>
+          <div class="card__title">${category}</div>
           <div class="card__score">${categoryScore}/10</div>
       </div>
       <div class="card__details">
@@ -107,7 +107,7 @@ export class Quiz {
       card.querySelector('.card__header').after(bgImg);
       document.querySelector('.content__inner').classList.remove('category-by-name');
       document.querySelector('.content__inner').append(card);
-    }
+    });
   }
 
   async renderCategoryByName() {
@@ -269,18 +269,18 @@ export class Quiz {
   }
 
   playAudio(status) {
-    if (settings.settings.volume !== 0) {
-      const audio = document.createElement('audio');
-      const audioList = {
-        correct: './assets/audio/mixkit-achievement-bell-600.wav',
-        wrong: './assets/audio/mixkit-losing-drums-2023.wav',
-        'win-quiz': './assets/audio/mixkit-football-team-applause-509.wav',
-        'lose-quiz': './assets/audio/mixkit-losing-marimba-2025.wav',
-        'complete-quiz': './assets/audio/mixkit-unlock-game-notification-253.wav',
-      };
-      audio.volume = settings.settings.volume / 100;
-      audio.src = audioList[status];
-      audio.play();
-    }
+    if (settings.settings.volume === 0) return;
+
+    const audio = document.createElement('audio');
+    const audioList = {
+      correct: './assets/audio/mixkit-achievement-bell-600.wav',
+      wrong: './assets/audio/mixkit-losing-drums-2023.wav',
+      'win-quiz': './assets/audio/mixkit-football-team-applause-509.wav',
+      'lose-quiz': './assets/audio/mixkit-losing-marimba-2025.wav',
+      'complete-quiz': './assets/audio/mixkit-unlock-game-notification-253.wav',
+    };
+    audio.volume = settings.settings.volume / 100;
+    audio.src = audioList[status];
+    audio.play();
   }
 }

@@ -1,11 +1,11 @@
 import quizTemp from '../components/quiz.html';
 import { artistQuiz } from './artistQuiz';
 import { paintingQuiz } from './paintingQuiz';
-// import { runnableTrack } from './settingsRender';
+
 
 export function quizRender() {
   document.querySelector('#root').innerHTML = quizTemp;
-  // runnableTrack();
+
   let currentQuiz;
   if (window.location.hash.slice(1).split('/')[0] === 'artist-quiz') {
     currentQuiz = artistQuiz;

@@ -13,27 +13,24 @@ export function settingsRender() {
     window.history.back();
   });
 
-  (function numberInput() {
-    document.querySelectorAll('.number-input__minus').forEach((i) =>
-      i.addEventListener('click', (e) => {
-        if (!e.target.nextElementSibling.disabled) {
-          e.target.nextElementSibling.step = 5;
-          e.target.nextElementSibling.stepDown();
-          settings.settings.timer = e.target.nextElementSibling.value;
-        }
-      })
-    );
+  function numberInput() {
+    const inputCount = document.querySelector('.number-input__input');
+    inputCount.step = 5;
 
-    document.querySelectorAll('.number-input__plus').forEach((i) =>
-      i.addEventListener('click', (e) => {
-        if (!e.target.previousElementSibling.disabled) {
-          e.target.previousElementSibling.step = 5;
-          e.target.previousElementSibling.stepUp();
-          settings.settings.timer = e.target.previousElementSibling.value;
-        }
-      })
-    );
-  })();
+    document.querySelector('.number-input__minus').addEventListener('click', () => {
+      if (inputCount.disabled) return;
+      inputCount.stepDown();
+      settings.settings.timer = inputCount.value;
+    });
+
+    document.querySelector('.number-input__plus').addEventListener('click', () => {
+      if (inputCount.disabled) return;
+      inputCount.stepUp();
+      settings.settings.timer = inputCount.value;
+    });
+  }
+
+  numberInput();
 
   volume.addEventListener('input', () => {
     settings.settings.volume = volume.value;
@@ -53,8 +50,6 @@ export function settingsRender() {
   });
 
   settings.setInputState();
-
-  // runnableTrack();
 }
 
 function runnableTrack() {

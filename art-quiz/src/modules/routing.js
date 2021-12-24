@@ -26,4 +26,3 @@ window.addEventListener('hashchange', () => {
 });
 
 routing.render();
-// export default routing;
