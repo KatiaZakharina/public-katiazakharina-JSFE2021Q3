@@ -14,9 +14,9 @@ class Settings {
     const timeMood = document.querySelector('.switcher');
     const timer = document.querySelector('.number-input__input');
 
-    volume.value = settings.settings.volume;
-    timeMood.checked = settings.settings.timeMood;
-    timer.value = settings.settings.timeMood ? settings.settings.timer : 0;
+    volume.value = this.settings.volume;
+    timeMood.checked = this.settings.timeMood;
+    timer.value = this.settings.timeMood ? this.settings.timer : 0;
     this.timer.setNewTime(this.settings.timer);
   }
   setDefault() {

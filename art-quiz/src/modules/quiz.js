@@ -24,7 +24,7 @@ class Quiz {
     }
   }
   getRandomNum(arr, start, end) {
-    const random = ~~(Math.random() * (end - start + 1) + start);
+    const random = Math.floor(Math.random() * (end - start + 1) + start);
     return arr.indexOf(random) === -1 ? random : this.getRandomNum(arr, start, end);
   }
   checkAuthorUniqueness(arr) {
@@ -49,7 +49,7 @@ class Quiz {
 
     if (
       localStorage.getItem(`images-info-${this.type}`) &&
-      localStorage.getItem(`images-info-${this.type}`) != 'undefined'
+      localStorage.getItem(`images-info-${this.type}`) !== 'undefined'
     ) {
       this.imagesInfo = JSON.parse(localStorage.getItem(`images-info-${this.type}`));
     } else {
@@ -75,10 +75,10 @@ class Quiz {
     if (!this.imagesInfo) await this.setData();
     this.getQuizInfo();
 
-    for (let j = 0; j < this.categories.length; j++) {
+    for (let j = 0; j < this.categories.length; j += 1) {
       let categoryScore = 0;
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i += 1) {
         categoryScore += this.imagesInfo[(j + this.num) * 10 + i].isGuessed ? 1 : 0;
       }
 
@@ -112,7 +112,7 @@ class Quiz {
   async renderCategoryByName() {
     if (!this.imagesInfo) await this.setData();
 
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 10; i += 1) {
       const bgImg = document.createElement('div');
       bgImg.classList.add('card__painting');
       this.getQuizInfo(i);
@@ -154,7 +154,7 @@ class Quiz {
 
     do {
       randomObjArr = [+this.currentObj.imageNum];
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 3; i += 1) {
         randomObjArr.push(this.getRandomNum(randomObjArr, this.num ? 120 : 0, this.num ? 239 : 119));
       }
     } while (!this.checkAuthorUniqueness(randomObjArr));
@@ -170,7 +170,7 @@ class Quiz {
     return this.currentObj;
   }
   resetResultOfRound(roundNum) {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i += 1) {
       this.imagesInfo[roundNum * 10 + i].isGuessed = false;
     }
   }
@@ -195,7 +195,7 @@ class Quiz {
 
     document.querySelector('[data-redirection="next-question"]').addEventListener('click', () => {
       const url = window.location.hash.slice(1).split('/');
-      if (url[2] != 10) window.location.hash = `${url[0]}/${url[1]}/${+(++url[2])}`;
+      if (url[2] !== '10') window.location.hash = `${url[0]}/${url[1]}/${+(url[2] = +url[2] + 1)}`;
       else {
         document.querySelector('[data-answer]').classList.add('hide');
         this.renderFinalModal();
@@ -207,8 +207,8 @@ class Quiz {
     this.getQuizInfo();
     let categoryScore = 0;
 
-    for (let i = 0; i < 10; i++) {
-      if (this.imagesInfo[this.categoryNum * 10 + i].isGuessed) categoryScore++;
+    for (let i = 0; i < 10; i += 1) {
+      if (this.imagesInfo[this.categoryNum * 10 + i].isGuessed) categoryScore += 1;
     }
 
     let phrase;
@@ -234,7 +234,7 @@ class Quiz {
       btns = `<button class="btn" data-redirection=''>Home</button>
       <button class="btn btn_active" data-redirection='next-quiz'>Next Quiz</button>`;
     }
-    if ((this.categoryNum === 11 || this.categoryNum === 23) && categoryScore != 0) {
+    if ((this.categoryNum === 11 || this.categoryNum === 23) && categoryScore !== 0) {
       btns = '<button class="btn" data-redirection=\'\'>Home</button>';
     }
 
@@ -268,7 +268,7 @@ class Quiz {
   }
 
   playAudio(status) {
-    if (settings.settings.volume != 0) {
+    if (settings.settings.volume !== 0) {
       const audio = document.createElement('audio');
       const audioList = {
         correct: './assets/audio/mixkit-achievement-bell-600.wav',
