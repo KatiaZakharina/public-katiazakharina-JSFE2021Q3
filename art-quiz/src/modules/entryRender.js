@@ -1,5 +1,6 @@
 import entryTemp from '../components/entry.html';
-import routing from './routing';
+import './routing';
+
 function entryRender() {
   document.querySelector('#root').innerHTML = entryTemp;
   document.body.classList.add('cover');
@@ -8,8 +9,8 @@ function entryRender() {
     window.location.hash = 'settings';
   });
 
-  document.querySelector('.entry__inner').addEventListener('click', e => {
-    if (e.target.tagName == 'BUTTON') {
+  document.querySelector('.entry__inner').addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
       window.location.hash = e.target.dataset.quiztype;
     }
   });

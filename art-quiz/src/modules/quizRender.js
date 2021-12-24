@@ -1,39 +1,23 @@
 import quizTemp from '../components/quiz.html';
-import { settings, artistQuiz, paintingQuiz } from './localStorage';
-import { runnableTrack } from './settingsRender';
+import { artistQuiz } from './localStorage';
+import { paintingQuiz } from './paintingQuiz';
+// import { runnableTrack } from './settingsRender';
 
 function quiz() {
   document.querySelector('#root').innerHTML = quizTemp;
-  runnableTrack();
+  // runnableTrack();
   let currentQuiz;
-  if (window.location.hash.slice(1).split('/')[0] == 'artist-quiz') {
+  if (window.location.hash.slice(1).split('/')[0] === 'artist-quiz') {
     currentQuiz = artistQuiz;
-  } else if (window.location.hash.slice(1).split('/')[0] == 'painting-quiz') {
+  } else if (window.location.hash.slice(1).split('/')[0] === 'painting-quiz') {
     currentQuiz = paintingQuiz;
   }
 
   function createModal(modalName) {
-    const modalTrigger = document.querySelectorAll(`[data-${modalName}-modal]`),
-      modal = document.querySelector(`[data-${modalName}]`),
-      modalContainer = document.querySelector(`[data-${modalName}] .modal__container`),
-      modalCloseBtn = document.querySelectorAll(`[data-${modalName}-close]`);
-
-    modalTrigger?.forEach(btn => {
-      btn.addEventListener('click', showModal);
-    });
-
-    modalCloseBtn?.forEach(close => close.addEventListener('click', hideModal));
-
-    modal.addEventListener('click', e => {
-      if (e.target === modal) {
-        hideModal();
-      }
-    });
-    document.addEventListener('keydown', e => {
-      if (e.code == 'Escape' && modal.classList.contains('show')) {
-        hideModal();
-      }
-    });
+    const modalTrigger = document.querySelectorAll(`[data-${modalName}-modal]`);
+    const modal = document.querySelector(`[data-${modalName}]`);
+    const modalContainer = document.querySelector(`[data-${modalName}] .modal__container`);
+    const modalCloseBtn = document.querySelectorAll(`[data-${modalName}-close]`);
 
     function showModal() {
       modal.classList.add('show');
@@ -50,23 +34,38 @@ function quiz() {
         modal.classList.remove('show');
       }, 500);
     }
+
+    modalTrigger?.forEach((btn) => {
+      btn.addEventListener('click', showModal);
+    });
+
+    modalCloseBtn?.forEach((close) => close.addEventListener('click', hideModal));
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        hideModal();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Escape' && modal.classList.contains('show')) {
+        hideModal();
+      }
+    });
   }
 
   createModal('quit');
 
-  document.querySelector('[data-redirection]').addEventListener('click', e => {
+  document.querySelector('[data-redirection]').addEventListener('click', (e) => {
     window.location.hash = e.target.dataset.redirection;
   });
 
   currentQuiz.renderQuiz().then(() => {
-    document.querySelector('.quiz__answers').addEventListener('click', e => {
+    document.querySelector('.quiz__answers').addEventListener('click', (e) => {
       if (e.target.classList.contains('quiz__answer')) {
-        currentQuiz
-          .checkAnswer(e.target.style.backgroundImage || e.target.textContent)
-          .then(answerStatus => {
-            currentQuiz.renderModal(answerStatus);
-            currentQuiz.playAudio(answerStatus);
-          });
+        currentQuiz.checkAnswer(e.target.style.backgroundImage || e.target.textContent).then((answerStatus) => {
+          currentQuiz.renderModal(answerStatus);
+          currentQuiz.playAudio(answerStatus);
+        });
       }
     });
   });

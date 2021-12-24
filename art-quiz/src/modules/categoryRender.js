@@ -1,14 +1,14 @@
 import categoryTemp from '../components/category.html';
-import routing from './routing';
-import { artistQuiz, paintingQuiz } from './localStorage';
+import { artistQuiz } from './localStorage';
+import { paintingQuiz } from './paintingQuiz';
 import categoryName from './categoryNameRender';
 
 function category() {
   document.querySelector('#root').innerHTML = categoryTemp;
   document.body.classList.remove('cover');
 
-  document.querySelector('#root').addEventListener('click', e => {
-    if (e.target.parentElement.dataset.redirection!=undefined) {
+  document.querySelector('#root').addEventListener('click', (e) => {
+    if (e.target.parentElement.dataset.redirection !== undefined) {
       window.location.hash = e.target.parentElement.dataset.redirection;
     }
   });
@@ -17,33 +17,28 @@ function category() {
   });
 
   let currentQuiz;
-  if (window.location.hash.slice(1).split('/')[0] == 'artist') {
+  if (window.location.hash.slice(1).split('/')[0] === 'artist') {
     currentQuiz = artistQuiz;
-  } else if (window.location.hash.slice(1).split('/')[0] == 'painting') {
+  } else if (window.location.hash.slice(1).split('/')[0] === 'painting') {
     currentQuiz = paintingQuiz;
   }
 
-  if (
-    window.location.hash.slice(1).split('/')[1] &&
-    window.location.hash.slice(1).split('/')[1] != 'quiz'
-  ) {
+  if (window.location.hash.slice(1).split('/')[1] && window.location.hash.slice(1).split('/')[1] !== 'quiz') {
     categoryName(window.location.hash.slice(1).split('/')[1]);
     currentQuiz.renderCategoryByName();
     return;
   }
 
   currentQuiz.renderCategories();
-  document.querySelector('.content__inner').addEventListener('click', e => {
+  document.querySelector('.content__inner').addEventListener('click', (e) => {
     if (e.target.classList.contains('card__painting')) {
-      window.location.hash =
-        window.location.hash.slice(1) + '-quiz/' + e.target.dataset.category + '/1';
+      window.location.hash = `${window.location.hash.slice(1)}-quiz/${e.target.dataset.category}/1`;
     }
     if (
-      e.target.className == 'card__title' &&
+      e.target.className === 'card__title' &&
       e.target.parentElement.parentElement.classList.contains('card_completed')
     ) {
-      window.location.hash =
-        window.location.hash.slice(1) + '/' + e.target.textContent.toLowerCase();
+      window.location.hash = `${window.location.hash.slice(1)}/${e.target.textContent.toLowerCase()}`;
     }
   });
 }

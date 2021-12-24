@@ -6,18 +6,17 @@ class Quiz {
     this.timer = timer;
   }
   static async getDataBase(path) {
-    return await fetch(path).then(data => data.json());
+    return await fetch(path).then((data) => data.json());
   }
 
   getQuizInfo(i) {
     this.quizCategory = window.location.hash.slice(1).split('/')[1];
     this.quizType = window.location.hash.slice(1).split('/')[0].replace('-quiz', '');
-    this.num = this.quizType == 'artist' ? 0 : 12;
+    this.num = this.quizType === 'artist' ? 0 : 12;
 
     if (this.quizCategory) {
       this.categoryNum =
-        this.categories.indexOf(this.quizCategory[0].toUpperCase() + this.quizCategory.slice(1)) +
-        this.num;
+        this.categories.indexOf(this.quizCategory[0].toUpperCase() + this.quizCategory.slice(1)) + this.num;
 
       this.currentQuiz = window.location.hash.slice(1).split('/')[2];
       i = i || +this.currentQuiz;
@@ -25,19 +24,19 @@ class Quiz {
     }
   }
   getRandomNum(arr, start, end) {
-    let random = ~~(Math.random() * (end - start + 1) + start);
-    return arr.indexOf(random) == -1 ? random : this.getRandomNum(arr, start, end);
+    const random = ~~(Math.random() * (end - start + 1) + start);
+    return arr.indexOf(random) === -1 ? random : this.getRandomNum(arr, start, end);
   }
   checkAuthorUniqueness(arr) {
-    let authorArr = arr.map(number => this.imagesInfo[number].author);
+    const authorArr = arr.map((number) => this.imagesInfo[number].author);
     return authorArr.length === new Set(authorArr).size;
   }
   randomizeOrder(arr) {
-    let order = [],
-      newArr = [];
+    const order = [];
+    const newArr = [];
     arr.forEach((item, index) => {
       order.push(this.getRandomNum(order, 0, arr.length - 1));
-      let j = order[index];
+      const j = order[index];
       newArr.push(arr[j]);
     });
     return newArr;
@@ -45,9 +44,7 @@ class Quiz {
 
   async setData() {
     this.categories = (
-      await Quiz.getDataBase(
-        'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/categories.json?token=ARYOJC2SJ5DLYAAOTMONG2LBUKQTQ',
-      )
+      await Quiz.getDataBase('https://raw.githubusercontent.com/KatiaZakharina/DB/master/categories.json')
     )[this.type];
 
     if (
@@ -55,17 +52,13 @@ class Quiz {
       localStorage.getItem(`images-info-${this.type}`) != 'undefined'
     ) {
       this.imagesInfo = JSON.parse(localStorage.getItem(`images-info-${this.type}`));
-      // console.log('localStorage', this);
     } else {
       this.imagesInfo = (
-        await Quiz.getDataBase(
-          'https://raw.githubusercontent.com/rolling-scopes-school/katiazakharina-JSFE2021Q3/art-quiz/art-quiz/src/assets/db/images.json?token=ARYOJC6Q4IESCA5ITBM3EU3BUKQQG',
-        )
+        await Quiz.getDataBase('https://raw.githubusercontent.com/KatiaZakharina/DB/master/images.json')
       ).images;
-      this.imagesInfo.forEach(i => {
+      this.imagesInfo.forEach((i) => {
         i.isGuessed = false;
       });
-      // console.log('gitHubData', this);
     }
   }
 
@@ -97,7 +90,7 @@ class Quiz {
         bgImg.style.backgroundImage = `url(./assets/img/${(j + this.num) * 10}.jpg)`;
       });
       const card = document.createElement('div');
-      const specialClass = categoryScore == 0 ? 'card_inactive' : 'card_completed'; //categoryScore == 10 ? 'card_completed' : '';
+      const specialClass = categoryScore === 0 ? 'card_inactive' : 'card_completed';
       card.classList.add('category__card', 'card');
       if (specialClass) card.classList.add(specialClass);
 
@@ -133,7 +126,7 @@ class Quiz {
       categoryCard.classList.add(
         'category__card',
         'card',
-        `${this.currentObj.isGuessed == false ? 'card_inactive' : 'card_completed'}`,
+        `${this.currentObj.isGuessed === false ? 'card_inactive' : 'card_completed'}`
       );
       categoryCard.innerHTML += `
         <div class="card__details card__picture-description">
@@ -152,26 +145,22 @@ class Quiz {
 
     let randomObjArr;
 
-    if (this.currentQuiz == '1') this.resetResultOfRound(this.categoryNum);
+    if (this.currentQuiz === '1') this.resetResultOfRound(this.categoryNum);
 
     if (settings.settings.timeMood) {
-      settings.timer.time=settings.timer.initial;
+      settings.timer.time = settings.timer.initial;
       settings.timer.startTimer();
     }
 
     do {
       randomObjArr = [+this.currentObj.imageNum];
       for (let i = 0; i < 3; i++) {
-        randomObjArr.push(
-          this.getRandomNum(randomObjArr, this.num ? 120 : 0, this.num ? 239 : 119),
-        );
+        randomObjArr.push(this.getRandomNum(randomObjArr, this.num ? 120 : 0, this.num ? 239 : 119));
       }
     } while (!this.checkAuthorUniqueness(randomObjArr));
 
     randomObjArr = this.randomizeOrder(randomObjArr);
-    randomObjArr = randomObjArr.map(num => {
-      return this.imagesInfo[num];
-    });
+    randomObjArr = randomObjArr.map((num) => this.imagesInfo[num]);
     return { randomObjArr, currentObj: this.currentObj };
   }
 
@@ -189,8 +178,6 @@ class Quiz {
     if (!this.imagesInfo) await this.setData();
     this.getQuizInfo();
 
-    // settings.timer.stopTimer();
-
     document.querySelector('.quiz').innerHTML += `
     <div class="modal show ${status}" data-answer>
     <div class="container modal__container fadeIn">
@@ -207,8 +194,8 @@ class Quiz {
     `;
 
     document.querySelector('[data-redirection="next-question"]').addEventListener('click', () => {
-      let url = window.location.hash.slice(1).split('/');
-      if (url[2] != 10) window.location.hash = url[0] + '/' + url[1] + '/' + +(++url[2]);
+      const url = window.location.hash.slice(1).split('/');
+      if (url[2] != 10) window.location.hash = `${url[0]}/${url[1]}/${+(++url[2])}`;
       else {
         document.querySelector('[data-answer]').classList.add('hide');
         this.renderFinalModal();
@@ -224,14 +211,17 @@ class Quiz {
       if (this.imagesInfo[this.categoryNum * 10 + i].isGuessed) categoryScore++;
     }
 
-    let phrase, score, status, btns;
-    if (categoryScore == 0) {
+    let phrase;
+    let score;
+    let status;
+    let btns;
+    if (categoryScore === 0) {
       status = 'lose-quiz';
       phrase = 'Play again?';
       score = 'Game over';
       btns = `<button class="btn" data-redirection=''>Cancel</button>
       <button class="btn btn_active" data-redirection='current-quiz'>Yes</button>`;
-    } else if (categoryScore == 10) {
+    } else if (categoryScore === 10) {
       status = 'win-quiz';
       phrase = 'Congratulations!';
       score = 'Grand result';
@@ -240,12 +230,12 @@ class Quiz {
     } else {
       status = 'complete-quiz';
       phrase = 'Congratulations!';
-      score = categoryScore + '/10';
+      score = `${categoryScore}/10`;
       btns = `<button class="btn" data-redirection=''>Home</button>
       <button class="btn btn_active" data-redirection='next-quiz'>Next Quiz</button>`;
     }
-    if ((this.categoryNum == 11 || this.categoryNum == 23) && categoryScore != 0) {
-      btns = `<button class="btn" data-redirection=''>Home</button>`;
+    if ((this.categoryNum === 11 || this.categoryNum === 23) && categoryScore != 0) {
+      btns = '<button class="btn" data-redirection=\'\'>Home</button>';
     }
 
     document.querySelector('.quiz').innerHTML += `
@@ -264,19 +254,15 @@ class Quiz {
     `;
     this.playAudio(status);
 
-    document.querySelector('.final-modal').addEventListener('click', e => {
-      if (e.target.dataset.redirection == '') {
+    document.querySelector('.final-modal').addEventListener('click', (e) => {
+      if (e.target.dataset.redirection === '') {
         window.location.hash = '';
       }
-      if (e.target.dataset.redirection == 'next-quiz') {
-        window.location.hash =
-          this.quizType +
-          '-quiz/' +
-          this.categories[(this.categoryNum % 12) + 1].toLowerCase() +
-          '/1';
+      if (e.target.dataset.redirection === 'next-quiz') {
+        window.location.hash = `${this.quizType}-quiz/${this.categories[(this.categoryNum % 12) + 1].toLowerCase()}/1`;
       }
-      if (e.target.dataset.redirection == 'current-quiz') {
-        window.location.hash = this.quizType + '-quiz/' + this.quizCategory + '/1';
+      if (e.target.dataset.redirection === 'current-quiz') {
+        window.location.hash = `${this.quizType}-quiz/${this.quizCategory}/1`;
       }
     });
   }
@@ -304,18 +290,17 @@ class ArtistQuiz extends Quiz {
     this.type = 'artists';
   }
   async renderQuiz() {
-    let data = super.renderQuiz();
-    return data.then(data => {
+    const data = super.renderQuiz();
+    return data.then((data) => {
       document.querySelector(
-        '.quiz__inner',
+        '.quiz__inner'
       ).innerHTML = `<div class="quiz__question">Which is ${data.currentObj.author} picture?</div>`;
       const quizAnswers = document.createElement('div');
       quizAnswers.classList.add('quiz__answers');
 
-      for (let obj in data.randomObjArr) {
+      for (const obj in data.randomObjArr) {
         const bgImg = document.createElement('div');
-        let specialClass =
-          data.currentObj.author == data.randomObjArr[obj].author ? 'correct' : 'wrong';
+        const specialClass = data.currentObj.author === data.randomObjArr[obj].author ? 'correct' : 'wrong';
         bgImg.classList.add('quiz__answer', 'quiz__answer-painting', specialClass);
         this.getQuizInfo();
 
@@ -329,55 +314,16 @@ class ArtistQuiz extends Quiz {
     });
   }
   async checkAnswer(answerSrc) {
-    let currentObj = await super.checkAnswer(),
-      chosenObj = this.imagesInfo[answerSrc.match(/\/(\d+)\./)[1]];
-    if (currentObj.author == chosenObj.author) {
+    const currentObj = await super.checkAnswer();
+    const chosenObj = this.imagesInfo[answerSrc.match(/\/(\d+)\./)[1]];
+    if (currentObj.author === chosenObj.author) {
       currentObj.isGuessed = true;
       return 'correct';
-    } else return 'wrong';
+    }
+    return 'wrong';
   }
 }
 
-class PaintingQuiz extends Quiz {
-  constructor() {
-    super();
-    this.type = 'painting';
-  }
-  async renderQuiz() {
-    let data = super.renderQuiz();
-    let temp = '';
-    return data.then(data => {
-      temp += `<div class="quiz__question">Which is the author of this picture?</div>
-      <div class="quiz__answers">`;
-      for (let obj in data.randomObjArr) {
-        let specialClass =
-          data.currentObj.author == data.randomObjArr[obj].author ? 'correct' : 'wrong';
-        temp += `<button class="quiz__answer ${specialClass} btn">${data.randomObjArr[obj].author}</button>`;
-      }
-      temp += `</div>`;
-      document.querySelector('.quiz__inner').innerHTML = temp;
+const artistQuiz = new ArtistQuiz();
 
-      const bgImg = document.createElement('div');
-      bgImg.classList.add('quiz__picture-question');
-
-      this.loadImage(`./assets/img/${data.currentObj.imageNum}.jpg`).then(() => {
-        bgImg.style.backgroundImage = `url(./assets/img/${data.currentObj.imageNum}.jpg)`;
-      });
-
-      document.querySelector('.quiz__answers').before(bgImg);
-    });
-  }
-  async checkAnswer(answerAuthor) {
-    let currentObj = await super.checkAnswer();
-
-    if (currentObj.author == answerAuthor) {
-      currentObj.isGuessed = true;
-      return 'correct';
-    } else return 'wrong';
-  }
-}
-
-const artistQuiz = new ArtistQuiz(),
-  paintingQuiz = new PaintingQuiz();
-
-export { Quiz, artistQuiz, paintingQuiz };
+export { Quiz, artistQuiz };

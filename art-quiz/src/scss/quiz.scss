@@ -184,10 +184,6 @@
 }
 
 .final-modal {
-  // .modal__result-img{
-  //   height: 50vmin;
-  //   width: 50vmin;
-  // }
   &.complete-quiz {
     .modal__result-img {
       @include cover-background-image('../assets/svg/win_champion-cup.svg');

@@ -4,8 +4,6 @@ class Timer {
     this.time = time;
   }
   startTimer() {
-    console.log(this.time);
-
     this.timeOutput = document.querySelector('.quiz__time');
     this.timeLine = document.querySelector('.quiz__timeline');
     this.interval = setInterval(() => {
@@ -22,35 +20,35 @@ class Timer {
     this.time = time;
   }
   decrementTime() {
-    this.time--;
+    this.time -= 1;
   }
   showTime() {
-    const minutes = String(~~(this.time / 60)),
-      seconds = String(this.time - minutes).padStart(2, '0');
+    const minutes = String(Math.floor(this.time / 60));
+    const seconds = String(this.time - minutes).padStart(2, '0');
     this.timeOutput.textContent = `${minutes}:${seconds}`;
     this.timeLine.value = (this.time / this.initial) * 100;
     this.runnableTrack();
   }
   runnableTrack() {
-    const input = document.querySelectorAll('input[type="range"]');
-    input.forEach(input => {
-      function setBackgroundSize(input) {
-        input.style.setProperty('--background-size', `${getBackgroundSize(input)}%`);
-      }
-
-      setBackgroundSize(input);
-
-      input.addEventListener('input', () => setBackgroundSize(input));
-
-      function getBackgroundSize(input) {
-        const min = +input.min || 0;
-        const max = +input.max || 100;
-        const value = +input.value;
+    const inputs = document.querySelectorAll('input[type="range"]');
+    inputs.forEach((input) => {
+      function getBackgroundSize(inputEl) {
+        const min = +inputEl.min || 0;
+        const max = +inputEl.max || 100;
+        const value = +inputEl.value;
 
         const size = ((value - min) / (max - min)) * 100;
 
         return size;
       }
+
+      function setBackgroundSize(inputEl) {
+        inputEl.style.setProperty('--background-size', `${getBackgroundSize(inputEl)}%`);
+      }
+
+      setBackgroundSize(input);
+
+      input.addEventListener('input', () => setBackgroundSize(input));
     });
   }
 }
