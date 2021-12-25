@@ -1,0 +1,165 @@
+@import '../../../scss/constant';
+
+.treePage {
+  position: relative;
+  background: linear-gradient(rgba(mix($accent-color, #000, 0.1), 0.5), rgba(mix($accent-color, #000, 0.1), 0.5)),
+    center / cover no-repeat url('../../../assets/bg.webp');
+  background-attachment: fixed;
+}
+
+.tree {
+  display: flex;
+
+  &__title {
+    margin: 25px 0 10px;
+    font-size: $fz3;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Neucha', italic;
+  }
+}
+
+.tree__main {
+  @include cover-background-image('./../../../assets/bg/1.webp');
+  width: 40%;
+  height: calc(100vh - 100px);
+}
+
+.tree__aside {
+  width: 30%;
+
+  &:nth-child(1) {
+    padding-right: 30px;
+  }
+  &:nth-child(3) {
+    padding-left: 30px;
+  }
+}
+
+.menu {
+  @include flex-space-between;
+  max-width: 150px;
+  padding: 15px 10px 15px;
+}
+
+.snow-btn,
+.audio-btn {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 0;
+}
+
+.snow-btn {
+  @include cover-background-image('../../../assets/svg/snow.svg');
+}
+.audio-btn {
+  @include cover-background-image('../../../assets/svg/audio.svg');
+}
+
+.tree-type,
+.saved-trees {
+  display: flex;
+  flex-wrap: wrap;
+  &__item,
+  &__item {
+    width: calc(12vw - 10px);
+    height: calc(12vw - 10px);
+    margin: 5px;
+    @include white-plate;
+    background-image: url('./../../../assets//tree/1.webp');
+  }
+}
+
+.tree-background {
+  display: flex;
+  flex-wrap: wrap;
+  &__item {
+    width: calc(12vw / 2 - 10px);
+    height: calc(12vw / 2 - 10px);
+    margin: 5px;
+    border-radius: 5px;
+    @include cover-background;
+    background-image: url('./../../../assets/bg/1.webp');
+    cursor: pointer;
+  }
+}
+
+.lights {
+  @include flex-space-between;
+  max-width: 80%;
+  margin-bottom: 40px;
+
+  &__item {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border-left: #fff 2px solid;
+    cursor: pointer;
+
+    @media (max-width: 1024px) {
+      height: 20px;
+      width: 20px;
+    }
+
+    &:nth-child(1) {
+      background: linear-gradient(-45deg, $rainbow-colors);
+      box-shadow: yellow 5px 5px 15px;
+    }
+    @for $i from 2 through length($rainbow-colors) {
+      $color: nth($rainbow-colors, $i);
+
+      &:nth-child(#{$i}) {
+        background-color: $color;
+        box-shadow: $color 5px 5px 15px;
+      }
+    }
+  }
+}
+
+.tree__save,
+.tree__reset {
+  @include glass-plate;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.toys-card {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  &__item {
+    @include white-plate();
+    background-image: url('./../../../assets/toys/1.webp');
+    width: calc((25vw - 10px) / 4);
+    height: calc((25vw - 10px) / 4);
+    margin: 3px;
+
+    @media (max-width: 1200px) {
+      width: calc((25vw - 20px) / 4);
+      height: calc((25vw - 20px) / 4);
+    }
+
+    @media (max-width: 1024px) {
+      width: calc((25vw - 25px) / 3);
+      height: calc((25vw - 25px) / 3);
+    }
+  }
+
+  &__indicator {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    transform: translate(20%, 20%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $fz4;
+    border-radius: 50%;
+    background-color: #3c83b3;
+  }
+}

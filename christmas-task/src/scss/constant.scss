@@ -9,6 +9,8 @@ $fz3: 20px;
 $fz4: 18px;
 $fz5: 12px;
 
+$rainbow-colors: #fff, #fdd700, #fd0000, #2199eb, #08aa05;
+
 .container {
   width: calc(100% - 40px);
   max-width: 1440px;
@@ -36,9 +38,24 @@ $fz5: 12px;
   background: center / cover no-repeat url($src);
 }
 
-@mixin glass-plastin {
+@mixin cover-background {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@mixin glass-plate {
   border: 3px solid rgba($accent-color, 0.5);
   border-radius: 25px;
   background-color: rgba($accent-color, 0.15);
   backdrop-filter: blur(6px);
+}
+@mixin white-plate() {
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(#fff, 0.5);
+  backdrop-filter: blur(6px);
+  border-radius: 13px;
+  cursor: pointer;
 }

@@ -19,14 +19,14 @@
   font-family: 'Neucha', italic;
   font-size: $fz1;
   text-align: center;
-  @include glass-plastin;
+  @include glass-plate;
 }
 
 .start-btn {
   padding: 15px 120px;
   font-size: $fz2;
   background-color: transparent;
-  @include glass-plastin;
+  @include glass-plate;
 }
 
 .ball {
