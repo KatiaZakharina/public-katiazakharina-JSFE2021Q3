@@ -10,12 +10,27 @@ export interface ToyData {
 }
 
 export interface LocalData {
-  selected: Array<number>;
+  selected: Selected;
   filters: {
     value: valueFilters;
     range: rangeFilters;
     sort: [string, string];
   };
+}
+
+export interface Selected {
+  i?: number;
+}
+
+export interface DecorationData {
+  menu?: {
+    audio?: boolean;
+    snow?: boolean;
+  };
+  placedOnTree?: Array<{ num: number; location: { x: number; y: number } }>;
+  tree: number;
+  background?: number;
+  lights?: number;
 }
 
 export interface valueFilters {

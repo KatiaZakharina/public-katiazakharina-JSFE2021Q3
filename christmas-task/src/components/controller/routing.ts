@@ -19,7 +19,7 @@ export class Routing {
       this.hashObserver();
     });
   }
-  hashObserver():void {
+  hashObserver(): void {
     const url: string = window.location.hash.slice(1).split('/')[0];
     const render: () => void = this.hashlist[url];
     render();

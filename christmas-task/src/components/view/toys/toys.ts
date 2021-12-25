@@ -1,6 +1,7 @@
 import toysTemplate from './toys.html';
 import './toys.scss';
 import toysDB from '../../controller/data';
+import { Selected } from './../../constant';
 
 import { App } from '../../app/app';
 import { AppView } from '../appView';
@@ -25,7 +26,9 @@ export class Toys {
   drawCards(): void {
     toysDB.forEach((toy) => {
       document.querySelector('.toys-cards')!.innerHTML += `
-      <div class="card ${LocalState.data.selected.includes(+toy.num) ? 'selected' : ''}" data-num="${toy.num}">
+      <div class="card ${Object.keys(LocalState.data.selected).includes(toy.num) ? 'selected' : ''}" data-num="${
+        toy.num
+      }">
       <span class="ribbon"></span>
       <p class="card__title" data-name="${toy.name}">${toy.name}</p>
       <div class="card__inner">
@@ -54,16 +57,16 @@ export class Toys {
     const card: HTMLElement | null = (e.target as HTMLElement).closest('.card');
     if (!card) return;
 
-    const cardNum = +card.dataset.num!;
+    const cardNum: string = card.dataset.num!,
+      cardCount: number = +(card.querySelector('[data-count]') as HTMLElement).dataset.count!;
 
-    console.log(LocalState.data.selected);
-
-    if (LocalState.data.selected.includes(cardNum)) {
-      AppView.header.num--;
-      LocalState.data.selected.splice(LocalState.data.selected.indexOf(cardNum), 1);
+    if (Object.keys(LocalState.data.selected).includes(cardNum)) {
+      AppView.header.num -= 1;
+      delete LocalState.data.selected[cardNum as keyof Selected];
+      // LocalState.data.selected.splice(LocalState.data.selected.indexOf([cardNum, cardCount]), 1);
       card.classList.remove('selected');
-    } else if (LocalState.data.selected.length < 20) {
-      LocalState.data.selected.push(cardNum);
+    } else if (Object.keys(LocalState.data.selected).length < 20) {
+      LocalState.data.selected[cardNum as keyof Selected] = cardCount;
       AppView.header.num++;
       card.classList.add('selected');
     } else {
