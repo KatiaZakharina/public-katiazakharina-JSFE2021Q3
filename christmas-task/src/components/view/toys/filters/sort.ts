@@ -1,4 +1,4 @@
-import { LocalState } from '../../controller/localState';
+import { LocalState } from './../../../controller/localState';
 
 export class Sort {
   controlSorting() {

@@ -1,5 +1,5 @@
-import { valueFilters } from '../../constant';
-import { LocalState } from '../../controller/localState';
+import { valueFilters } from './../../../constant';
+import { LocalState } from './../../../controller/localState';
 import { FiltersController } from './filtersController';
 
 export class ValuesFilter {

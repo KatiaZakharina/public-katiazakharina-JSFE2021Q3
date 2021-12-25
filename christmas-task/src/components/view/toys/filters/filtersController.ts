@@ -1,7 +1,7 @@
 import { ValuesFilter } from '../filters/valuesFilter';
 import { RangeFilter } from '../filters/rangeFilter';
 import { Sort } from '../filters/sort';
-import { LocalState } from '../../controller/localState';
+import { LocalState } from './../../../controller/localState';
 
 export class FiltersController {
   public valuesFilter: ValuesFilter;

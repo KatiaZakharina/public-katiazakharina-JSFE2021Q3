@@ -6,7 +6,7 @@ import { Selected } from './../../constant';
 import { App } from '../../app/app';
 import { AppView } from '../appView';
 import { LocalState } from '../../controller/localState';
-import { FiltersController } from '../filters/filtersController';
+import { FiltersController } from './filters/filtersController';
 
 export class Toys {
   private filtersCintroller: FiltersController;

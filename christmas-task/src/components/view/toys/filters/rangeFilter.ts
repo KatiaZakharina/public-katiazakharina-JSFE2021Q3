@@ -1,8 +1,8 @@
 import noUiSlider, { target } from 'nouislider';
-import { AppView } from '../appView';
-import '../../../../node_modules/nouislider/dist/nouislider.css';
-import { rangeFilters, ToyData } from '../../constant';
-import { LocalState } from '../../controller/localState';
+import { AppView } from './../../appView';
+import './../../../../../node_modules/nouislider/dist/nouislider.css';
+import { rangeFilters, ToyData } from './../../../constant';
+import { LocalState } from './../../../controller/localState';
 import { FiltersController } from './filtersController';
 
 export class RangeFilter {

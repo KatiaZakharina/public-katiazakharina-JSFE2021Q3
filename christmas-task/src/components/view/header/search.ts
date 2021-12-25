@@ -1,4 +1,4 @@
-import { FiltersController } from '../filters/filtersController';
+import { FiltersController } from './../toys/filters/filtersController';
 
 export class Search {
   constructor() {
