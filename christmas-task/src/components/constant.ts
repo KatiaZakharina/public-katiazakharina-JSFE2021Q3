@@ -23,15 +23,16 @@ export interface Selected {
 }
 
 export interface DecorationData {
-  menu?: {
-    audio?: boolean;
-    snow?: boolean;
+  menu: {
+    audio: boolean;
+    snow: boolean;
   };
-  placedOnTree?: Array<{ num: number; location: { x: number; y: number } }>;
+  placedOnTree: Array<{ num: number; location: { x: number; y: number } }>;
   tree: number;
-  background?: number;
-  lights?: number;
+  background: number;
+  lights: number;
 }
+
 
 export interface valueFilters {
   shape?: string;

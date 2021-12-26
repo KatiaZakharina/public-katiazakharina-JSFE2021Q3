@@ -5,6 +5,12 @@
   background: linear-gradient(rgba(mix($accent-color, #000, 0.1), 0.5), rgba(mix($accent-color, #000, 0.1), 0.5)),
     center / cover no-repeat url('../../../assets/bg.webp');
   background-attachment: fixed;
+  overflow-x: hidden;
+
+  .footer {
+    position: relative;
+    z-index: 2;
+  }
 }
 
 .tree {
@@ -20,9 +26,22 @@
 }
 
 .tree__main {
-  @include cover-background-image('./../../../assets/bg/1.webp');
+  position: relative;
+  @include cover-background;
+  @include smooth-cover-background;
   width: 40%;
   height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.christmas-tree {
+  margin-bottom: 80px;
+
+  &_mini {
+    height: 60%;
+    width: 60%;
+  }
 }
 
 .tree__aside {
@@ -48,6 +67,11 @@
   height: 40px;
   background-color: transparent;
   border: 0;
+
+  &.active,
+  &.active {
+    filter: invert(0.3);
+  }
 }
 
 .snow-btn {
@@ -57,31 +81,61 @@
   @include cover-background-image('../../../assets/svg/audio.svg');
 }
 
-.tree-type,
-.saved-trees {
+.tree-type {
   display: flex;
   flex-wrap: wrap;
-  &__item,
   &__item {
     width: calc(12vw - 10px);
     height: calc(12vw - 10px);
+    max-width: 140px;
+    max-height: 140px;
     margin: 5px;
     @include white-plate;
-    background-image: url('./../../../assets//tree/1.webp');
   }
+}
+
+.saved-trees {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: calc((20vw - 10px) / 3);
+    min-height: calc((20vw - 10px) / 3);
+    margin: 0 5px;
+    @include cover-background;
+    border-radius: 13px;
+    cursor: pointer;
+  }
+}
+
+.tree-type__item.active {
+  background-color: rgba($accent-color, 0.5);
 }
 
 .tree-background {
   display: flex;
   flex-wrap: wrap;
   &__item {
-    width: calc(12vw / 2 - 10px);
-    height: calc(12vw / 2 - 10px);
+    width: calc((20vw - 30px) / 4);
+    height: calc((20vw - 30px) / 4);
+    max-width: 100px;
+    max-height: 100px;
     margin: 5px;
     border-radius: 5px;
+
+    &.active {
+      border: 4px solid yellow;
+    }
     @include cover-background;
-    background-image: url('./../../../assets/bg/1.webp');
     cursor: pointer;
+
+    @media (max-width: 1600px) {
+      width: calc((24vw - 30px) / 4);
+      height: calc((24vw - 30px) / 4);
+    }
   }
 }
 
@@ -125,16 +179,22 @@
   margin-bottom: 10px;
 }
 
-.toys-card {
+.toys-wrapper {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   &__item {
-    @include white-plate();
-    background-image: url('./../../../assets/toys/1.webp');
-    width: calc((25vw - 10px) / 4);
-    height: calc((25vw - 10px) / 4);
+    @include white-plate;
+    width: calc((25vw - 45px) / 5);
+    height: calc((25vw - 45px) / 5);
+    max-width: 100px;
+    max-height: 100px;
     margin: 3px;
+
+    @media (max-width: 1500px) {
+      width: calc((25vw - 10px) / 4);
+      height: calc((25vw - 10px) / 4);
+    }
 
     @media (max-width: 1200px) {
       width: calc((25vw - 20px) / 4);
@@ -161,5 +221,20 @@
     font-size: $fz4;
     border-radius: 50%;
     background-color: #3c83b3;
+    pointer-events: none;
   }
+
+  &__img {
+    position: relative;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    display: none;
+    width: 40px;
+    height: 40px;
+    cursor: move;
+  }
+}
+
+.treePage .toys-wrapper__img {
+  display: block;
 }

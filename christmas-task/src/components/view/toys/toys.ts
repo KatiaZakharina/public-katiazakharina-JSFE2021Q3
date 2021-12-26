@@ -18,12 +18,12 @@ export class Toys {
   draw(): void {
     document.body.className = 'body toysPage';
     App.rootEl.innerHTML = toysTemplate;
-    this.drawCards();
+    Toys.drawCards();
     this.filtersCintroller.control();
     AppView.header.draw('toys');
   }
 
-  drawCards(): void {
+  static drawCards(): void {
     toysDB.forEach((toy) => {
       document.querySelector('.toys-cards')!.innerHTML += `
       <div class="card ${Object.keys(LocalState.data.selected).includes(toy.num) ? 'selected' : ''}" data-num="${
@@ -48,12 +48,12 @@ export class Toys {
       `;
     });
 
-    document.body.addEventListener('click', (e: Event) => {
-      this.selectCard(e);
+    document.querySelector('.toys-cards')!.addEventListener('click', (e: Event) => {
+      Toys.selectCard(e);
     });
   }
 
-  selectCard(e: Event): void {
+  static selectCard(e: Event): void {
     const card: HTMLElement | null = (e.target as HTMLElement).closest('.card');
     if (!card) return;
 
@@ -63,7 +63,6 @@ export class Toys {
     if (Object.keys(LocalState.data.selected).includes(cardNum)) {
       AppView.header.num -= 1;
       delete LocalState.data.selected[cardNum as keyof Selected];
-      // LocalState.data.selected.splice(LocalState.data.selected.indexOf([cardNum, cardCount]), 1);
       card.classList.remove('selected');
     } else if (Object.keys(LocalState.data.selected).length < 20) {
       LocalState.data.selected[cardNum as keyof Selected] = cardCount;

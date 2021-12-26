@@ -59,3 +59,7 @@ $rainbow-colors: #fff, #fdd700, #fd0000, #2199eb, #08aa05;
   border-radius: 13px;
   cursor: pointer;
 }
+@mixin smooth-cover-background {
+  background: center / cover no-repeat;
+  transition: background-image 0.7s ease-in-out;
+}

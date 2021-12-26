@@ -3,7 +3,7 @@ import './popup.scss';
 
 export class Popup {
   showModal(message: string):void {
-    App.rootEl. insertAdjacentHTML('beforeend',`
+    App.rootEl.insertAdjacentHTML('beforeend',`
     <div class="modal">
     <div class="modal__container">
       <div class="modal__content">
