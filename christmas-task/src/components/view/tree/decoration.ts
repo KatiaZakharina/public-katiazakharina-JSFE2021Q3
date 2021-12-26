@@ -21,6 +21,7 @@ export class Decoration {
     this.drawControl(4, this.treeType!, 'tree-type__item', 'tree');
     this.drawControl(8, this.treeBg!, 'tree-background__item', 'bg');
     this.drawSavedTrees();
+    this.drawGarland();
 
     this.updateControl();
 
@@ -39,6 +40,8 @@ export class Decoration {
       ).style.backgroundImage;
       LocalState.decoration.background = +(e.target as HTMLElement).dataset.control!;
     });
+
+    document.querySelector('.lights')!.addEventListener('click', this.controlLights.bind(this));
   }
 
   drawControl(n: number, parentEl: Element, className: string, folder?: string): void {
@@ -49,6 +52,58 @@ export class Decoration {
       if (folder) element.style.backgroundImage = `url(./assets/${folder}/${i}.webp)`;
       parentEl?.append(element);
     }
+  }
+
+  controlLights(e: Event) {
+    console.log('f');
+    if (!(e.target as HTMLElement).classList.contains('lights__item')) return;
+    LocalState.decoration.lights = +(e.target as HTMLElement).dataset.control!;
+    this.drawGarland();
+  }
+
+  drawGarland() {
+    const num = [6, 11, 13, 13, 19];
+    const garlands = document.querySelector('.garlands');
+    garlands!.innerHTML = '';
+
+    num.forEach((num) => {
+      const garland = document.createElement('li');
+      garland.classList.add('garland');
+
+      for (let i = 0; i < num; i++) {
+        const garlandItem = document.createElement('li');
+        garlandItem.classList.add('garland__item');
+        garland.append(garlandItem);
+      }
+
+      garlands?.append(garland);
+    });
+
+    switch (LocalState.decoration.lights) {
+      case 1:
+        this.setCSSVGarlandVars(['#fdd700', '#fd0000', '#2199eb', '#08aa05']);
+        break;
+      case 2:
+        this.setCSSVGarlandVars(['#fdd700', '#fdd700', '#fdd700', '#fdd700']);
+        break;
+      case 3:
+        this.setCSSVGarlandVars(['#fd0000', '#fd0000', '#fd0000', '#fd0000']);
+        break;
+      case 4:
+        this.setCSSVGarlandVars(['#2199eb', '#2199eb', '#2199eb', '#2199eb']);
+        break;
+      case 5:
+        this.setCSSVGarlandVars(['#08aa05', '#08aa05', '#08aa05', '#08aa05']);
+        break;
+      default:
+        break;
+    }
+  }
+
+  setCSSVGarlandVars(arr: Array<string>) {
+    arr.forEach((value, index) => {
+      document.documentElement.style.setProperty(`--garland-color${index + 1}`, value);
+    });
   }
 
   updateControl() {

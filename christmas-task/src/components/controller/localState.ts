@@ -40,7 +40,7 @@ export class LocalState {
           placedOnTree: [],
           tree: 1,
           background: 1,
-          lights: 0,
+          lights: 1,
         };
     return decorationData;
   }
@@ -81,7 +81,7 @@ export class LocalState {
         placedOnTree: [],
         tree: 1,
         background: 1,
-        lights: 0,
+        lights: 1,
       })
     );
     LocalState.decoration = LocalState.getDecorationData();
