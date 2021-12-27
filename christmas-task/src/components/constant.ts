@@ -27,12 +27,11 @@ export interface DecorationData {
     audio: boolean;
     snow: boolean;
   };
-  placedOnTree: Array<{ num: number; location: { x: number; y: number } }>;
+  placedOnTree: Array<{ num: number; count: number; location: { x: number; y: number } }>;
   tree: number;
   background: number;
   lights: number;
 }
-
 
 export interface valueFilters {
   shape?: string;

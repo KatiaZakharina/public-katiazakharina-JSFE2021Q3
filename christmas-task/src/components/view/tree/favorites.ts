@@ -16,16 +16,20 @@ export class Favorites {
     this.drawToyCards();
 
     this.treeWrapper!.ondragover = this.allowDrop.bind(this);
+    this.toysWrapper!.ondragover = this.allowDrop.bind(this);
 
     this.treeWrapper!.ondragstart = this.dragStart.bind(this);
-    this.toysWrapper!.ondragstart = this.dragStart.bind(this);
+    document.body!.ondragstart = this.dragStart.bind(this);
 
     this.treeWrapper!.ondrop = this.dropEvent.bind(this);
+    this.toysWrapper!.ondrop = this.dropEvent.bind(this);
 
     this.decorateTree();
+    this.drawSavedTrees();
   }
 
   drawToyCards() {
+    this.toysWrapper!.innerHTML = '';
     if (Object.keys(LocalState.data.selected).length) this.drawSelectedToys();
     else this.drawDefauldToys();
   }
@@ -43,24 +47,27 @@ export class Favorites {
   drawToy(num: number, count: number) {
     const toy = document.createElement('div');
     toy.classList.add('toys-wrapper__item');
-
-    const img = document.createElement('img');
-    img.classList.add('toys-wrapper__img');
-    img.setAttribute('draggable', 'true');
-    img.id = `${num}-${count}`;
-    img.src = `./../../../assets/toys/${num}.webp`;
-    toy.append(img);
+    toy.append(this.createToyImg(num, count));
 
     const toyCount = document.createElement('span');
     toyCount.classList.add('toys-wrapper__indicator');
     toyCount.textContent = String(count);
     toyCount.dataset.num = String(num);
+    toy.append(toyCount);
 
-    toy.insertAdjacentElement('beforeend', toyCount);
-    this.toysWrapper?.insertAdjacentElement('beforeend', toy);
+    this.toysWrapper!.append(toy);
   }
 
-  allowDrop(e: DragEvent) {
+  createToyImg(num: number, count: number, attribute?: string): HTMLImageElement {
+    const img = document.createElement('img');
+    img.classList.add('toys-wrapper__img');
+    img.setAttribute('draggable', 'true');
+    img.id = `${num}-${count}`;
+    img.src = `./assets/toys/${num}.webp`;
+    return img;
+  }
+
+  allowDrop(e: DragEvent): void {
     e.preventDefault();
   }
 
@@ -74,27 +81,34 @@ export class Favorites {
     if (!itemId) return;
 
     const draggedEl = document.getElementById(itemId)!;
-    const draggedClone = draggedEl.cloneNode(true);
-    (draggedClone as HTMLElement).setAttribute('dragged', 'true');
-
     const [num, count] = draggedEl.id.split('-');
-    draggedEl.id = `${num}-${+count - 1}`;
 
-    draggedEl.nextElementSibling!.textContent = String(+draggedEl.nextElementSibling!.textContent! - 1);
-    LocalState.decoration.placedOnTree.push({
-      num: +num,
-      location: {
-        x: e.pageX,
-        y: e.pageY,
-      },
-    });
+    if (draggedEl.getAttribute('dragged')) {
+      this.moveAt(draggedEl as HTMLElement, e.pageX, e.pageY);
 
-    if (+count === 1) draggedEl.remove();
+      if ((e.target as HTMLElement).closest('.toys-wrapper')) {
+        this.updateLocation(draggedEl as HTMLElement, e.pageX, e.pageY, true);
+        this.incrementToyCount(+num);
+
+        draggedEl.remove();
+      } else {
+        this.updateLocation(draggedEl as HTMLElement, e.pageX, e.pageY, false);
+      }
+      return;
+    }
+
+    const draggedClone = draggedEl.cloneNode(true);
+    this.decrementToyCount(+num);
+
+    (draggedClone as HTMLElement).setAttribute('dragged', 'true');
+    (draggedClone as HTMLElement).setAttribute('draggable', 'true');
+
     (draggedClone as HTMLElement).style.position = 'absolute';
     (draggedClone as HTMLElement).style.zIndex = String(1000);
 
     document.body.append(draggedClone);
     this.moveAt(draggedClone as HTMLElement, e.pageX, e.pageY);
+    this.updateLocation(draggedClone as HTMLElement, e.pageX, e.pageY, false);
   }
 
   moveAt(element: HTMLElement, pageX: number, pageY: number) {
@@ -102,27 +116,99 @@ export class Favorites {
     element.style.top = pageY - element.offsetHeight / 2 + 'px';
   }
 
+  updateLocation(element: HTMLElement, pageX: number, pageY: number, removeFromTree: boolean) {
+    const [num, count] = element.id.split('-');
+    let currentToyObj;
+
+    for (const decoratedTree of LocalState.decoration.placedOnTree) {
+      if (decoratedTree.num === +num && decoratedTree.count == +count) {
+        currentToyObj = decoratedTree;
+        break;
+      }
+    }
+
+    if (!currentToyObj) {
+      LocalState.decoration.placedOnTree.push({
+        num: +num,
+        count: +count,
+        location: {
+          x: pageX,
+          y: pageY,
+        },
+      });
+    } else if (removeFromTree) {
+      LocalState.decoration.placedOnTree.splice(LocalState.decoration.placedOnTree.indexOf(currentToyObj), 1);
+      return;
+    } else {
+      LocalState.decoration.placedOnTree[LocalState.decoration.placedOnTree.indexOf(currentToyObj)] = {
+        num: +num,
+        count: +count,
+        location: {
+          x: pageX,
+          y: pageY,
+        },
+      };
+    }
+  }
+
   decorateTree() {
+    document.querySelectorAll('[dragged].toys-wrapper__img').forEach((toy) => toy.remove());
+
     if (LocalState.decoration.placedOnTree.length === 0) return;
     LocalState.decoration.placedOnTree.forEach((toy) => {
       const toyEl: HTMLImageElement = document.createElement('img');
       toyEl.classList.add('toys-wrapper__img');
       toyEl.setAttribute('dragged', 'true');
-      toyEl.src = `./../../../assets/toys/${toy.num}.webp`;
+      toyEl.src = `./assets/toys/${toy.num}.webp`;
+      toyEl.id = `${toy.num}-${toy.count}`;
 
       toyEl.style.position = 'absolute';
       toyEl.style.zIndex = String(1000);
 
       document.body.append(toyEl);
       this.moveAt(toyEl, toy.location.x, toy.location.y);
-      this.updateToyCount(toy.num);
+      this.decrementToyCount(toy.num);
     });
   }
-  updateToyCount(num: number) {
+
+  decrementToyCount(num: number) {
     const counter = document.querySelector(`[data-num="${num}"]`);
-    if (counter) {
-      counter.textContent = String(+counter!.textContent! - 1);
-      if (+counter.textContent === 0) counter.previousElementSibling?.remove();
+    if (!counter) return;
+    counter.textContent = String(+counter!.textContent! - 1);
+    counter.parentElement!.querySelector('.toys-wrapper__img')!.id = `${num}-${+counter.textContent}`;
+    if (+counter.textContent === 0) counter.parentElement?.querySelector('.toys-wrapper__img')?.remove();
+  }
+
+  incrementToyCount(num: number) {
+    const counter = document.querySelector(`[data-num="${num}"]`);
+    if (!counter) return;
+
+    if (+counter.textContent! === 0) {
+      const newToyImg = document.createElement('img');
+      newToyImg.src = `./assets/toys/${num}.webp`;
+      newToyImg.classList.add('toys-wrapper__img');
+      newToyImg.setAttribute('draggable', 'true');
+      counter.parentElement!.append(newToyImg);
     }
+
+    counter.textContent = String(+counter!.textContent! + 1);
+    counter.parentElement!.querySelector('.toys-wrapper__img')!.id = `${num}-${+counter.textContent}`;
+  }
+
+  drawSavedTrees() {
+    document.querySelector('.saved-trees')!.innerHTML = '';
+
+    LocalState.savedTrees.forEach((state, i) => {
+      const element = document.createElement('div');
+      element.classList.add('saved-trees__item');
+      element.dataset.control = String(i);
+      element.style.backgroundImage = `url(./assets/bg/${state.background}.webp)`;
+
+      const tree: HTMLImageElement = document.createElement('img');
+      tree.classList.add('christmas-tree_mini');
+      tree.src = `./assets/tree/${state.tree}.webp`;
+      element.append(tree);
+      document.querySelector('.saved-trees')!.append(element);
+    });
   }
 }

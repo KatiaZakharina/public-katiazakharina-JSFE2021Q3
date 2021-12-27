@@ -7,7 +7,6 @@ import { AppView } from '../appView';
 import { Decoration } from './decoration';
 import { Favorites } from './favorites';
 import { Menu } from './menu';
-import { Toys } from '../toys/toys';
 
 export class Tree {
   private decoration: Decoration;
@@ -40,21 +39,35 @@ export class Tree {
 
     this.saveBtn!.addEventListener('click', this.saveTreeState.bind(this));
     this.resetBtn!.addEventListener('click', this.resetTreeState.bind(this));
+
+    document.querySelector('.saved-trees')?.addEventListener('click', (e: Event) => {
+      if (!(e.target as HTMLElement).classList.contains('saved-trees__item')) return;
+      this.restoreTreeState(+(e.target as HTMLElement).dataset.control!);
+    });
   }
 
   saveTreeState() {
     LocalState.savedTrees.unshift(LocalState.decoration);
+    this.favorites.drawSavedTrees();
     this.resetTreeState();
-    this.decoration.drawSavedTrees();
   }
 
   resetTreeState() {
     LocalState.clearDecorationStorage();
     this.decoration.clearControl();
     this.decoration.updateControl();
+    this.menu.control();
 
     this.favorites.toysWrapper!.innerHTML = '';
     this.favorites.drawToyCards();
     document.querySelectorAll('[dragged]').forEach((toy) => toy.remove());
+    this.decoration.drawGarland();
+  }
+
+  restoreTreeState(num: number) {
+    LocalState.decoration = LocalState.savedTrees[num];
+    this.decoration.draw();
+    this.favorites.draw();
+    this.menu.control();
   }
 }

@@ -20,16 +20,19 @@ export class Menu {
     this.audioEl = document.querySelector('.audio');
 
     if (LocalState.decoration.menu.audio) this.audioBtn?.classList.add('active');
+    else this.audioBtn?.classList.remove('active');
+
     this.controlAudio();
 
     if (LocalState.decoration.menu.snow) this.snowBtn?.classList.add('active');
+    else this.snowBtn?.classList.remove('active');
     this.controlSnow();
 
-    this.snowBtn?.addEventListener('click', (e: Event) => {
+    this.snowBtn?.addEventListener('click', () => {
       this.snowBtn?.classList.toggle('active');
       this.controlSnow();
     });
-    this.audioBtn?.addEventListener('click', (e: Event) => {
+    this.audioBtn?.addEventListener('click', () => {
       this.audioBtn?.classList.toggle('active');
       this.controlAudio();
     });
@@ -45,7 +48,6 @@ export class Menu {
     this.snowBtn?.classList.remove('active');
   }
   startSnow() {
-    console.log('H');
     this.snowID = +setInterval(() => {
       this.createSnowFlake();
     }, 50);
@@ -56,7 +58,7 @@ export class Menu {
     const snow_flake = document.createElement('i');
     snow_flake.classList.add('snowflake');
     snow_flake.style.backgroundImage = 'url("./assets/svg/snowflake.svg")';
-    snow_flake.style.left = Math.random() * (window.innerWidth / 2)+(window.innerWidth / 4) + 'px';
+    snow_flake.style.left = Math.random() * (window.innerWidth / 2) + window.innerWidth / 4 + 'px';
     snow_flake.style.animationDuration = Math.random() * 3 + 2 + 's';
     snow_flake.style.opacity = String(Math.random());
 
@@ -78,8 +80,9 @@ export class Menu {
   }
   playAudio() {
     this.audioEl!.src = './assets/audio/audio.mp3';
-    this.audioEl!.play().catch(() => {
-      AppView.popup.showModal('Кликните, для воспроизведения аудио');
+
+    this.audioEl!.play().catch((err) => {
+      if (err) AppView.popup.showModal('Кликните, для воспроизведения аудио');
       document.querySelector('.modal')?.addEventListener('click', () => {
         this.audioEl!.play();
       });
