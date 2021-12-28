@@ -8,5 +8,5 @@
     "allowJs": true,
     "moduleResolution": "node"
   },
-  "files": ["src/index.ts", "typings.d.ts"]
+  "files": ["src/index.ts", "typings.d.ts", "webpack.config.ts"]
 }

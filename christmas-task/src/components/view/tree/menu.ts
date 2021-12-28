@@ -14,7 +14,7 @@ export class Menu {
     this.snowID = null;
   }
 
-  control() {
+  control(): void {
     this.snowBtn = document.querySelector('.snow-btn');
     this.audioBtn = document.querySelector('.audio-btn');
     this.audioEl = document.querySelector('.audio');
@@ -32,29 +32,29 @@ export class Menu {
       this.snowBtn?.classList.toggle('active');
       this.controlSnow();
     });
-    this.audioBtn?.addEventListener('click', (g) => {
+    this.audioBtn?.addEventListener('click', () => {
       this.audioBtn?.classList.toggle('active');
       this.controlAudio();
     });
   }
 
-  controlSnow() {
+  controlSnow(): void {
     if (this.snowBtn!.classList.contains('active')) this.startSnow();
     else this.stopSnow();
   }
-  stopSnow() {
+  stopSnow(): void {
     LocalState.decoration.menu.snow = false;
     clearInterval(this.snowID!);
     this.snowBtn?.classList.remove('active');
   }
-  startSnow() {
+  startSnow(): void {
     this.snowID = +setInterval(() => {
       this.createSnowFlake();
     }, 50);
     LocalState.decoration.menu.snow = true;
   }
 
-  createSnowFlake() {
+  createSnowFlake(): void {
     const snow_flake = document.createElement('i');
     snow_flake.classList.add('snowflake');
     snow_flake.style.backgroundImage = 'url("./assets/svg/snowflake.svg")';
@@ -69,16 +69,16 @@ export class Menu {
     }, 5000);
   }
 
-  controlAudio() {
+  controlAudio(): void {
     if (this.audioBtn!.classList.contains('active')) this.playAudio();
     else this.stopAudio();
   }
 
-  stopAudio() {
+  stopAudio(): void {
     this.audioEl?.pause();
     LocalState.decoration.menu.audio = false;
   }
-  playAudio() {
+  playAudio(): void {
     this.audioEl!.src = './assets/audio/audio.mp3';
 
     this.audioEl!.play().catch((err) => {

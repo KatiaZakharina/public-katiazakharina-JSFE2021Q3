@@ -2,8 +2,10 @@ import { App } from '../../app/app';
 import './popup.scss';
 
 export class Popup {
-  showModal(message: string):void {
-    App.rootEl.insertAdjacentHTML('beforeend',`
+  showModal(message: string): void {
+    App.rootEl.insertAdjacentHTML(
+      'beforeend',
+      `
     <div class="modal">
     <div class="modal__container">
       <div class="modal__content">
@@ -14,14 +16,15 @@ export class Popup {
       </div>
     </div>
   </div>
-    `)
+    `
+    );
 
     document.querySelector('.modal__close')?.addEventListener('click', () => {
       this.closeModal();
     });
   }
 
-  closeModal():void{
+  closeModal(): void {
     document.querySelector('.modal')!.remove();
   }
 }

@@ -4,7 +4,7 @@ import { Routing } from '../controller/routing';
 export class App {
   private localState: LocalState;
   private routing: Routing;
-  static rootEl = document.querySelector('#root')!;
+  static rootEl: Element = document.querySelector('#root')!;
 
   constructor() {
     this.localState = new LocalState();
