@@ -9,7 +9,7 @@ export class Favorites {
     this.toysWrapper = null;
     this.treeWrapper = null;
   }
-  draw() {
+  draw(): void {
     this.toysWrapper = document.querySelector('.toys-wrapper');
     this.treeWrapper = document.querySelector('.drag-area');
 
@@ -28,23 +28,23 @@ export class Favorites {
     this.drawSavedTrees();
   }
 
-  drawToyCards() {
+  drawToyCards(): void {
     this.toysWrapper!.innerHTML = '';
     if (Object.keys(LocalState.data.selected).length) this.drawSelectedToys();
     else this.drawDefauldToys();
   }
-  drawSelectedToys() {
+  drawSelectedToys(): void {
     Object.entries(LocalState.data.selected).forEach(([num, count]) => {
       this.drawToy(+num, count);
     });
   }
-  drawDefauldToys() {
+  drawDefauldToys(): void {
     AppView.toysDB.slice(0, 20).forEach((obj) => {
       this.drawToy(+obj.num, +obj.count);
     });
   }
 
-  drawToy(num: number, count: number) {
+  drawToy(num: number, count: number): void {
     const toy = document.createElement('div');
     toy.classList.add('toys-wrapper__item');
     toy.append(this.createToyImg(num, count));
@@ -71,12 +71,12 @@ export class Favorites {
     e.preventDefault();
   }
 
-  dragStart(e: DragEvent) {
+  dragStart(e: DragEvent): void {
     if (!(e.target as HTMLElement).classList.contains('toys-wrapper__img')) return;
     e.dataTransfer?.setData('id', (e.target as HTMLElement).id);
   }
 
-  dropEvent(e: DragEvent) {
+  dropEvent(e: DragEvent): void {
     const itemId = e.dataTransfer?.getData('id');
     if (!itemId) return;
 
@@ -97,21 +97,21 @@ export class Favorites {
       return;
     }
 
-    const draggedClone = draggedEl.cloneNode(true);
+    const draggedClone = draggedEl.cloneNode(true) as HTMLElement;
     this.decrementToyCount(+num);
 
-    (draggedClone as HTMLElement).setAttribute('dragged', 'true');
-    (draggedClone as HTMLElement).setAttribute('draggable', 'true');
+    draggedClone.setAttribute('dragged', 'true');
+    draggedClone.setAttribute('draggable', 'true');
 
-    (draggedClone as HTMLElement).style.position = 'absolute';
-    (draggedClone as HTMLElement).style.zIndex = String(1000);
+    draggedClone.style.position = 'absolute';
+    draggedClone.style.zIndex = String(1000);
 
     document.body.append(draggedClone);
-    this.moveAt(draggedClone as HTMLElement, e.pageX, e.pageY);
-    this.updateLocation(draggedClone as HTMLElement, e.pageX, e.pageY, false);
+    this.moveAt(draggedClone, e.pageX, e.pageY);
+    this.updateLocation(draggedClone, e.pageX, e.pageY, false);
   }
 
-  moveAt(element: HTMLElement, pageX: number, pageY: number) {
+  moveAt(element: HTMLElement, pageX: number, pageY: number): void {
     element.style.left = pageX - element.offsetWidth / 2 + 'px';
     element.style.top = pageY - element.offsetHeight / 2 + 'px';
   }
@@ -151,7 +151,7 @@ export class Favorites {
     }
   }
 
-  decorateTree() {
+  decorateTree(): void {
     document.querySelectorAll('[dragged].toys-wrapper__img').forEach((toy) => toy.remove());
 
     if (LocalState.decoration.placedOnTree.length === 0) return;
@@ -171,7 +171,7 @@ export class Favorites {
     });
   }
 
-  decrementToyCount(num: number) {
+  decrementToyCount(num: number): void {
     const counter = document.querySelector(`[data-num="${num}"]`);
     if (!counter) return;
     counter.textContent = String(+counter!.textContent! - 1);
@@ -179,7 +179,7 @@ export class Favorites {
     if (+counter.textContent === 0) counter.parentElement?.querySelector('.toys-wrapper__img')?.remove();
   }
 
-  incrementToyCount(num: number) {
+  incrementToyCount(num: number): void {
     const counter = document.querySelector(`[data-num="${num}"]`);
     if (!counter) return;
 
@@ -195,7 +195,7 @@ export class Favorites {
     counter.parentElement!.querySelector('.toys-wrapper__img')!.id = `${num}-${+counter.textContent}`;
   }
 
-  drawSavedTrees() {
+  drawSavedTrees(): void {
     document.querySelector('.saved-trees')!.innerHTML = '';
 
     LocalState.savedTrees.forEach((state, i) => {

@@ -59,13 +59,13 @@ export class Decoration {
     }
   }
 
-  controlLights(e: Event) {
+  controlLights(e: Event): void {
     if (!(e.target as HTMLElement).classList.contains('lights__item')) return;
     LocalState.decoration.lights = +(e.target as HTMLElement).dataset.control!;
     this.drawGarland();
   }
 
-  drawGarland() {
+  drawGarland(): void {
     const num = [6, 11, 13, 13, 19];
     const garlands = document.querySelector('.garlands');
     garlands!.innerHTML = '';
@@ -104,13 +104,13 @@ export class Decoration {
     }
   }
 
-  setCSSVGarlandVars(arr: Array<string>) {
+  setCSSVGarlandVars(arr: Array<string>): void {
     arr.forEach((value, index) => {
       document.documentElement.style.setProperty(`--garland-color${index + 1}`, value);
     });
   }
 
-  updateControl() {
+  updateControl(): void {
     this.tree!.src = `./assets/tree/${LocalState.decoration.tree}.webp`;
     this.treeWrapper!.style.backgroundImage = `url(./assets/bg/${LocalState.decoration.background}.webp)`;
 
@@ -128,7 +128,7 @@ export class Decoration {
     return true;
   }
 
-  clearControl() {
+  clearControl(): void {
     Array.from(this.treeBg!.children).forEach((bg) => (bg as HTMLElement).classList.remove('active'));
     Array.from(this.treeType!.children).forEach((type) => (type as HTMLElement).classList.remove('active'));
   }

@@ -50,13 +50,13 @@ export class Tree {
     });
   }
 
-  saveTreeState() {
+  saveTreeState(): void {
     LocalState.savedTrees.unshift(LocalState.decoration);
     this.favorites.drawSavedTrees();
     this.resetTreeState();
   }
 
-  resetTreeState() {
+  resetTreeState(): void {
     LocalState.clearDecorationStorage();
     this.decoration.clearControl();
     this.decoration.updateControl();
@@ -68,14 +68,14 @@ export class Tree {
     this.decoration.drawGarland();
   }
 
-  restoreTreeState(num: number) {
+  restoreTreeState(num: number): void {
     LocalState.decoration = LocalState.savedTrees[num];
     this.decoration.draw();
     this.favorites.draw();
     this.menu.control();
   }
 
-  clearStorage() {
+  clearStorage(): void {
     localStorage.clear();
     window.onbeforeunload = null;
   }

@@ -1,16 +1,23 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import * as path from 'path';
 
-const isProduction = process.env.NODE_ENV == 'production';
+import { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+interface Configuration extends WebpackConfiguration {
+  devServer?: WebpackDevServerConfiguration;
+}
 
-const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-const config = {
+const isProduction: boolean = process.env.NODE_ENV == 'production';
+
+const stylesHandler: string = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
+
+const config: Configuration = {
   entry: path.resolve(__dirname, './src/index.ts'),
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -33,8 +40,6 @@ const config = {
         },
       ],
     }),
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
     rules: [
@@ -63,9 +68,6 @@ const config = {
           },
         ],
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
@@ -73,11 +75,11 @@ const config = {
   },
 };
 
-module.exports = () => {
+module.exports = (): Configuration => {
   if (isProduction) {
     config.mode = 'production';
 
-    config.plugins.push(new MiniCssExtractPlugin());
+    config.plugins!.push(new MiniCssExtractPlugin());
   } else {
     config.mode = 'development';
   }

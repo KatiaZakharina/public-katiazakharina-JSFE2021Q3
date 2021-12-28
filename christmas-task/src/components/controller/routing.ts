@@ -15,7 +15,7 @@ export class Routing {
 
     this.hashObserver();
 
-    window.addEventListener('hashchange', () => {
+    window.addEventListener('hashchange', (): void => {
       this.hashObserver();
     });
   }
@@ -25,7 +25,7 @@ export class Routing {
     render();
 
     document.querySelectorAll('[data-redirection]').forEach((trigger) =>
-      trigger.addEventListener('click', (e: Event) => {
+      trigger.addEventListener('click', (e: Event): void => {
         this.hashChange((e.currentTarget as HTMLElement).dataset.redirection!);
       })
     );
