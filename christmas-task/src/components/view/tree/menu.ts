@@ -32,7 +32,7 @@ export class Menu {
       this.snowBtn?.classList.toggle('active');
       this.controlSnow();
     });
-    this.audioBtn?.addEventListener('click', () => {
+    this.audioBtn?.addEventListener('click', (g) => {
       this.audioBtn?.classList.toggle('active');
       this.controlAudio();
     });

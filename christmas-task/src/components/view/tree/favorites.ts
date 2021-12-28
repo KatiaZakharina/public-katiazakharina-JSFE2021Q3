@@ -58,7 +58,7 @@ export class Favorites {
     this.toysWrapper!.append(toy);
   }
 
-  createToyImg(num: number, count: number, attribute?: string): HTMLImageElement {
+  createToyImg(num: number, count: number): HTMLImageElement {
     const img = document.createElement('img');
     img.classList.add('toys-wrapper__img');
     img.setAttribute('draggable', 'true');
@@ -81,7 +81,7 @@ export class Favorites {
     if (!itemId) return;
 
     const draggedEl = document.getElementById(itemId)!;
-    const [num, count] = draggedEl.id.split('-');
+    const num = draggedEl.id.split('-')[0];
 
     if (draggedEl.getAttribute('dragged')) {
       this.moveAt(draggedEl as HTMLElement, e.pageX, e.pageY);

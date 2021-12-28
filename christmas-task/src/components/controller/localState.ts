@@ -10,9 +10,9 @@ export class LocalState {
     LocalState.decoration = LocalState.getDecorationData();
     LocalState.savedTrees = LocalState.getSavedTrees();
 
-    window.addEventListener('beforeunload', () => {
-      this.setLocalStorage();
-    });
+    window.onbeforeunload = () => {
+      LocalState.setLocalStorage();
+    };
   }
 
   static getToysData(): LocalData {
@@ -49,7 +49,7 @@ export class LocalState {
     return localStorage.getItem('savedTrees') ? JSON.parse(localStorage.getItem('savedTrees')!) : [];
   }
 
-  setLocalStorage(): void {
+  static setLocalStorage(): void {
     localStorage.setItem('data', JSON.stringify(LocalState.data));
     localStorage.setItem('decoration', JSON.stringify(LocalState.decoration));
     localStorage.setItem('savedTrees', JSON.stringify(LocalState.savedTrees));

@@ -15,6 +15,7 @@ export class Tree {
 
   private resetBtn: HTMLElement | null;
   private saveBtn: HTMLElement | null;
+  private storageBtn: HTMLElement | null;
 
   constructor() {
     this.favorites = new Favorites();
@@ -23,6 +24,7 @@ export class Tree {
 
     this.resetBtn = null;
     this.saveBtn = null;
+    this.storageBtn = null;
   }
 
   draw(): void {
@@ -36,9 +38,11 @@ export class Tree {
 
     this.saveBtn = document.querySelector('.tree__save');
     this.resetBtn = document.querySelector('.tree__reset');
+    this.storageBtn = document.querySelector('.tree__storage');
 
     this.saveBtn!.addEventListener('click', this.saveTreeState.bind(this));
     this.resetBtn!.addEventListener('click', this.resetTreeState.bind(this));
+    this.storageBtn!.addEventListener('click', this.clearStorage.bind(this));
 
     document.querySelector('.saved-trees')?.addEventListener('click', (e: Event) => {
       if (!(e.target as HTMLElement).classList.contains('saved-trees__item')) return;
@@ -69,5 +73,10 @@ export class Tree {
     this.decoration.draw();
     this.favorites.draw();
     this.menu.control();
+  }
+
+  clearStorage() {
+    localStorage.clear();
+    window.onbeforeunload = null;
   }
 }
