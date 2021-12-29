@@ -1,6 +1,7 @@
 import { ILoader } from '../classes';
 import { APIOptions, HTTPMethodStrings, Endpoints, SourcesResponse, NewsResponse } from '../constants';
-class Loader implements ILoader {
+
+export class Loader implements ILoader {
     private baseLink: string;
     private options: { [apiKey: string]: string };
     constructor(baseLink: string, options: { [apiKey: string]: string }) {
@@ -54,5 +55,3 @@ class Loader implements ILoader {
             .catch((err: Error) => console.error(err));
     }
 }
-
-export default Loader;

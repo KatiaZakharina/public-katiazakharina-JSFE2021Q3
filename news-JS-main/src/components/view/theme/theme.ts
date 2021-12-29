@@ -2,7 +2,7 @@ import './theme.css';
 import { Theme, ThemeStrings } from '../../constants';
 import { IThemeController } from '../../classes';
 
-class ThemeController implements IThemeController {
+export class ThemeController implements IThemeController {
     private theme: Theme;
     private switcherEl: HTMLElement;
     private themeElements: NodeListOf<Element>;
@@ -155,4 +155,3 @@ class ThemeController implements IThemeController {
         this.animationID = null;
     }
 }
-export default ThemeController;

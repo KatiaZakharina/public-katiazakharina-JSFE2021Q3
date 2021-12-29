@@ -4,7 +4,7 @@ import * as AOS from 'aos';
 import 'aos/dist/aos.css';
 import { INews } from '../../classes';
 
-class News implements INews {
+export class News implements INews {
     constructor() {
         AOS.init({
             delay: 300,
@@ -47,5 +47,3 @@ class News implements INews {
         document.querySelector('.news')!.appendChild(fragment);
     }
 }
-
-export default News;

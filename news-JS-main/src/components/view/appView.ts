@@ -1,6 +1,6 @@
-import News from './news/news';
-import Sources from './sources/sources';
-import ThemeController from './theme/theme';
+import { News } from './news/news';
+import { Sources } from './sources/sources';
+import { ThemeController } from './theme/theme';
 import { NewsResponse, SourcesResponse, NewsObject, SourcesObject } from '../constants';
 import { IAppView } from '../classes';
 
@@ -29,5 +29,3 @@ export class AppView implements IAppView {
         this.sources.draw(values);
     }
 }
-
-export default AppView;
