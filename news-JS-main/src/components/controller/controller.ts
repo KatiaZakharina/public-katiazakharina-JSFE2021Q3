@@ -1,7 +1,8 @@
 import { NewsResponse, SourcesResponse } from '../constants';
+import { IAppController } from '../classes';
 import AppLoader from './appLoader';
 
-class AppController extends AppLoader {
+class AppController extends AppLoader implements IAppController {
     getSources(callback: (data?: SourcesResponse) => void): void {
         super.getResp(
             {

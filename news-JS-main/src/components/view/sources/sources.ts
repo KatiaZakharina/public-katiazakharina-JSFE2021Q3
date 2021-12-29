@@ -1,7 +1,8 @@
 import './sources.css';
 import { SourcesObject } from '../../constants';
+import { ISources } from '../../classes';
 
-class Sources {
+class Sources implements ISources {
     draw(data: Array<SourcesObject>): void {
         const fragment: DocumentFragment = document.createDocumentFragment();
         const sourceItemTemp: Element | null = document.querySelector('#sourceItemTemp');

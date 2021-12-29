@@ -1,9 +1,10 @@
 import { NewsResponse, SourcesResponse } from '../constants';
+import { IApp } from './../classes';
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import '../view/sources/sources';
 
-class App {
+class App implements IApp {
     private controller: AppController;
     private view: AppView;
 
@@ -12,7 +13,7 @@ class App {
         this.view = new AppView();
     }
 
-    public start(): void {
+    start(): void {
         document
             .querySelector('.sources')!
             .addEventListener('click', (e: Event) =>

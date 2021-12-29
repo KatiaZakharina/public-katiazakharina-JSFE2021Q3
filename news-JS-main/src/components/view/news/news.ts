@@ -2,8 +2,9 @@ import './news.css';
 import { NewsObject } from '../../constants';
 import * as AOS from 'aos';
 import 'aos/dist/aos.css';
+import { INews } from '../../classes';
 
-class News {
+class News implements INews {
     constructor() {
         AOS.init({
             delay: 300,

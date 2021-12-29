@@ -1,7 +1,8 @@
 import './theme.css';
 import { Theme, ThemeStrings } from '../../constants';
+import { IThemeController } from '../../classes';
 
-class ThemeController {
+class ThemeController implements IThemeController {
     private theme: Theme;
     private switcherEl: HTMLElement;
     private themeElements: NodeListOf<Element>;
@@ -13,7 +14,7 @@ class ThemeController {
         this.switcherEl = document.querySelector('.theme-switcher')!;
         this.themeElements = this.switcherEl.querySelectorAll('.theme-icon')!;
 
-        this.switcherEl.addEventListener('click', (e) => {
+        this.switcherEl.addEventListener('click', (e: Event) => {
             (document.querySelector('.rs-logo')! as HTMLElement).style.filter = 'invert(1)';
             this.handleThemeChange(e);
         });

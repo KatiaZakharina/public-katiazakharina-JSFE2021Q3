@@ -1,5 +1,6 @@
+import { ILoader } from '../classes';
 import { APIOptions, HTTPMethodStrings, Endpoints, SourcesResponse, NewsResponse } from '../constants';
-class Loader {
+class Loader implements ILoader {
     private baseLink: string;
     private options: { [apiKey: string]: string };
     constructor(baseLink: string, options: { [apiKey: string]: string }) {

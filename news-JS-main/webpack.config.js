@@ -5,11 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const baseConfig = {
-<<<<<<< HEAD
     entry: path.resolve(__dirname, './src/index.ts'),
-=======
-    entry: path.resolve(__dirname, './src/index.js'),
->>>>>>> e892cb23213e6bcb7c22865d39a840bfa20e200b
     devtool: 'inline-source-map',
     mode: 'development',
     module: {

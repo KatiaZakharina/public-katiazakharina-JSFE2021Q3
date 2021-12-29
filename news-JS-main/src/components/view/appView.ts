@@ -2,8 +2,9 @@ import News from './news/news';
 import Sources from './sources/sources';
 import ThemeController from './theme/theme';
 import { NewsResponse, SourcesResponse, NewsObject, SourcesObject } from '../constants';
+import { IAppView } from '../classes';
 
-export class AppView {
+export class AppView implements IAppView {
     private news: News;
     private sources: Sources;
     private themeController: ThemeController;
