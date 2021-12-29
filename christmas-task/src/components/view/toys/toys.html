@@ -3,27 +3,31 @@
     <div class="filter">
       <p class="filter__title">Фильтры по значению</p>
       <ul class="filter__inner" data-filter="value">
-        <li class="filter__field">Форма:
+        <li class="filter__field">
+          Форма:
           <button class="shape__value-btn" type="button" data-btn="shape" data-value="шар"></button>
           <button class="shape__value-btn" type="button" data-btn="shape" data-value="колокольчик"></button>
           <button class="shape__value-btn" type="button" data-btn="shape" data-value="шишка"></button>
           <button class="shape__value-btn" type="button" data-btn="shape" data-value="снежинка"></button>
           <button class="shape__value-btn" type="button" data-btn="shape" data-value="фигурка"></button>
         </li>
-        <li class="filter__field">Цвет:
+        <li class="filter__field">
+          Цвет:
           <button class="color__value-btn" type="button" data-btn="color" data-value="белый"></button>
           <button class="color__value-btn" type="button" data-btn="color" data-value="желтый"></button>
           <button class="color__value-btn" type="button" data-btn="color" data-value="красный"></button>
           <button class="color__value-btn" type="button" data-btn="color" data-value="синий"></button>
           <button class="color__value-btn" type="button" data-btn="color" data-value="зелёный"></button>
         </li>
-        <li class="filter__field">Размер:
+        <li class="filter__field">
+          Размер:
           <button class="size__value-btn" type="button" data-btn="size" data-value="малый"></button>
           <button class="size__value-btn" type="button" data-btn="size" data-value="средний"></button>
           <button class="size__value-btn" type="button" data-btn="size" data-value="большой"></button>
         </li>
-        <li class="filter__field favorite">Только любимые:
-          <input class="favorite__value-btn" type="checkbox" data-btn="favorite" data-value="нет">
+        <li class="filter__field favorite">
+          Только любимые:
+          <input class="favorite__value-btn" type="checkbox" data-btn="favorite" data-value="нет" />
         </li>
       </ul>
     </div>
@@ -33,17 +37,17 @@
         <label class="filter__label">Количество экземпляров:</label>
 
         <div class="filter__range range">
-          <input class="range__value" type="number" readonly>
+          <input class="range__value" type="number" readonly />
           <div id="slider-count" class="double-slider" data-range="count"></div>
-          <input class="range__value" type="number" readonly>
+          <input class="range__value" type="number" readonly />
         </div>
 
         <label class="filter__label">Год приобритения:</label>
 
         <div class="filter__range range">
-          <input class="range__value" type="number" readonly>
-          <div id="slider-year" class="double-slider"  data-range="year"></div>
-          <input class="range__value" type="number" readonly>
+          <input class="range__value" type="number" readonly />
+          <div id="slider-year" class="double-slider" data-range="year"></div>
+          <input class="range__value" type="number" readonly />
         </div>
       </div>
     </div>
@@ -51,10 +55,16 @@
       <p class="filter__title">Сортировка</p>
       <div class="filter__sort" data-filter="sort">
         <select class="filter__sort-types">
-          <option class="filter__sort-type" data-option="name" data-order="increment" selected>По названию от "А" до "Я"</option>
+          <option class="filter__sort-type" data-option="name" data-order="increment" selected>
+            По названию от "А" до "Я"
+          </option>
           <option class="filter__sort-type" data-option="name" data-order="decrement">По названию от "Я" до "А"</option>
-          <option class="filter__sort-type" data-option="year" data-order="increment">По году приобритения: по возрастанию</option>
-          <option class="filter__sort-type" data-option="year" data-order="decrement">По году приобритения: по убыванию</option>
+          <option class="filter__sort-type" data-option="year" data-order="increment">
+            По году приобритения: по возрастанию
+          </option>
+          <option class="filter__sort-type" data-option="year" data-order="decrement">
+            По году приобритения: по убыванию
+          </option>
         </select>
         <button class="filter__reset" type="button">Сброс фильтров</button>
       </div>
@@ -63,5 +73,4 @@
   <div class="toys-cards">
     <div class="toys__message">Извините, по вашему запросу ничего не найдено</div>
   </div>
-
 </div>

@@ -13,7 +13,7 @@ export class Sort {
   }
 
   setSortingForm() {
-    const selectEl=(document.querySelector('.filter__sort-types') as HTMLSelectElement);
+    const selectEl = document.querySelector('.filter__sort-types') as HTMLSelectElement;
     const selectedOptionEl = selectEl.options[selectEl.selectedIndex];
     LocalState.data.filters.sort = LocalState.data.filters.sort || [
       selectedOptionEl!.dataset!.option!,
