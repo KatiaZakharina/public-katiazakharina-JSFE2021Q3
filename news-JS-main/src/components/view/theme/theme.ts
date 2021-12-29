@@ -88,54 +88,7 @@ export class ThemeController implements IThemeController {
 
         document.body.style.backgroundImage = 'url("./assets/bg.jpg")';
 
-        function drawParticle(): void {
-            let starDensity: number;
-
-            if (document.documentElement.scrollHeight > document.documentElement.clientHeight) {
-                starDensity = 20;
-            } else {
-                starDensity = 2;
-            }
-
-            let snow: Array<string> = Array(Math.ceil(Math.random() * 4) + starDensity);
-
-            let getSnowType: () => 'star' | 'snowflake' = () => {
-                return Math.floor(Math.random() * 2) ? 'star' : 'snowflake';
-            };
-
-            snow.fill(
-                `<img class="particle" data-speed='${
-                    Math.floor(Math.random() * 5) + 2
-                }' src="./assets/${getSnowType()}.svg" alt="star">`
-            );
-
-            let snowWrapper: HTMLElement;
-            if (!document.querySelector('.snow-wrapper')) {
-                snowWrapper = document.createElement('div');
-                snowWrapper.classList.add('snow-wrapper');
-                document.body.append(snowWrapper);
-            } else {
-                snowWrapper = document.querySelector('.snow-wrapper')!;
-            }
-
-            snow.forEach((particle) => {
-                snowWrapper.innerHTML += particle;
-            });
-
-            this.stars = document.querySelectorAll('.particle');
-            let starWay: number;
-            if (document.documentElement.scrollHeight > document.documentElement.clientWidth) {
-                starWay = document.documentElement.scrollHeight - 500;
-            } else {
-                starWay = document.documentElement.scrollHeight - 50;
-            }
-            this.stars.forEach((star: HTMLElement) => {
-                star.style.top = ~~(Math.random() * starWay) + 'px';
-                star.style.right = ~~(Math.random() * document.documentElement.clientWidth) + 'px';
-            });
-        }
-
-        drawParticle.call(this);
+        this.drawParticle();
 
         function showFall(): void {
             this.stars.forEach((star: HTMLElement) => {
@@ -146,6 +99,58 @@ export class ThemeController implements IThemeController {
         }
         this.animationID = window.requestAnimationFrame(showFall.bind(this));
     }
+
+    drawParticle(): void {
+        let starDensity: number;
+
+        if (document.documentElement.scrollHeight > document.documentElement.clientHeight) {
+            starDensity = 20;
+        } else {
+            starDensity = 2;
+        }
+
+        let snow: Array<string> = Array(Math.ceil(Math.random() * 4) + starDensity);
+
+        let getSnowType: () => 'star' | 'snowflake' = () => {
+            return Math.floor(Math.random() * 2) ? 'star' : 'snowflake';
+        };
+
+        snow.fill(
+            `<img class="particle" data-speed='${
+                Math.floor(Math.random() * 5) + 2
+            }' src="./assets/${getSnowType()}.svg" alt="star">`
+        );
+
+        let snowWrapper: HTMLElement;
+        if (!document.querySelector('.snow-wrapper')) {
+            snowWrapper = document.createElement('div');
+            snowWrapper.classList.add('snow-wrapper');
+            document.body.append(snowWrapper);
+        } else {
+            snowWrapper = document.querySelector('.snow-wrapper')!;
+        }
+
+        snow.forEach((particle) => {
+            snowWrapper.innerHTML += particle;
+        });
+
+        this.setParticlesLocation();
+    }
+
+    setParticlesLocation(): void {
+        this.stars = document.querySelectorAll('.particle');
+        let starWay: number;
+        if (document.documentElement.scrollHeight > document.documentElement.clientWidth) {
+            starWay = document.documentElement.scrollHeight - 500;
+        } else {
+            starWay = document.documentElement.scrollHeight - 50;
+        }
+        this.stars.forEach((star: HTMLElement) => {
+            star.style.top = ~~(Math.random() * starWay) + 'px';
+            star.style.right = ~~(Math.random() * document.documentElement.clientWidth) + 'px';
+        });
+    }
+
     clearSnow() {
         document.body.style.backgroundImage = '';
         this.stars.forEach((star) => star.remove());
