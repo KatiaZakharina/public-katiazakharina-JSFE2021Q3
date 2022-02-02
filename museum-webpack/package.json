@@ -1,0 +1,33 @@
+{
+  "name": "my-webpack-project",
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@splidejs/splide": "^3.6.12",
+    "@types/mapbox": "^1.6.42",
+    "aos": "^2.3.4",
+    "mapbox.js": "^3.3.1",
+    "webpack": "^5.68.0"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.4",
+    "@webpack-cli/generators": "^2.4.2",
+    "copy-webpack-plugin": "^10.2.4",
+    "css-loader": "^6.6.0",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "webpack-dev-server": "^4.7.4"
+  }
+}
