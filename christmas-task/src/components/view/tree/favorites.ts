@@ -76,9 +76,9 @@ export class Favorites {
     e.dataTransfer?.setData('id', (e.target as HTMLElement).id);
   }
 
-  dropEvent(e: DragEvent): void {
+  dropEvent(e: DragEvent): void | null {
     const itemId = e.dataTransfer?.getData('id');
-    if (!itemId) return;
+    if (!itemId) return null;
 
     const draggedEl = document.getElementById(itemId)!;
     const num = draggedEl.id.split('-')[0];
@@ -151,10 +151,10 @@ export class Favorites {
     }
   }
 
-  decorateTree(): void {
+  decorateTree(): void | null {
     document.querySelectorAll('[dragged].toys-wrapper__img').forEach((toy) => toy.remove());
 
-    if (LocalState.decoration.placedOnTree.length === 0) return;
+    if (LocalState.decoration.placedOnTree.length === 0) return null;
     LocalState.decoration.placedOnTree.forEach((toy) => {
       const toyEl: HTMLImageElement = document.createElement('img');
       toyEl.classList.add('toys-wrapper__img');

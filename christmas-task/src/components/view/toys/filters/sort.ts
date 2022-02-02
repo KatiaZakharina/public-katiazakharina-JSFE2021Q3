@@ -1,5 +1,5 @@
 import { LocalState } from './../../../controller/localState';
-
+import { SortDataType } from '../../../constant';
 export class Sort {
   controlSorting() {
     this.setSortingForm();
@@ -32,19 +32,16 @@ export class Sort {
     const cards = document.querySelectorAll('.card');
 
     const newCards = Array.from(cards).sort((card1: Element, card2: Element) => {
-      let first: number | string = ((card1 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
+      const first: SortDataType = ((card1 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
           option
         ]!,
-        second: number | string = ((card2 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
+        second: SortDataType = ((card2 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
           option
         ]!;
+      const compare = (a: SortDataType, b: SortDataType) => (a > b ? 1 : -1);
 
-      if (!isNaN(+first) && !isNaN(+second)) {
-        first = +first;
-        second = +second;
-      }
+      const result = !isNaN(+first + +second) ? compare(+first, +second) : compare(first, second);
 
-      const result = Number(first > second) - 0.5;
       return order ? result : -result;
     });
     document.querySelector('.toys-cards')!.append(...newCards);

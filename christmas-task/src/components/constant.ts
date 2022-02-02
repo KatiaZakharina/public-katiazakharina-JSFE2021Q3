@@ -44,3 +44,5 @@ export interface rangeFilters {
   count?: [number, number];
   year?: [number, number];
 }
+
+export type SortDataType = number | string;

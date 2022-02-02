@@ -5,18 +5,16 @@ export class Popup {
   showModal(message: string): void {
     App.rootEl.insertAdjacentHTML(
       'beforeend',
-      `
-    <div class="modal">
-    <div class="modal__container">
-      <div class="modal__content">
-        <div class="modal__close">
-          &times;
+      `<div class="modal">
+        <div class="modal__container">
+          <div class="modal__content">
+            <div class="modal__close">
+              &times;
+            </div>
+            <p class="modal__question">${message}</p>
+          </div>
         </div>
-        <p class="modal__question">${message}</p>
-      </div>
-    </div>
-  </div>
-    `
+      </div>`
     );
 
     document.querySelector('.modal__close')?.addEventListener('click', () => {

@@ -48,13 +48,15 @@ export class Menu {
     this.snowBtn?.classList.remove('active');
   }
   startSnow(): void {
+    const ADD_INTERVAL = 50;
     this.snowID = +setInterval(() => {
       this.createSnowFlake();
-    }, 50);
+    }, ADD_INTERVAL);
     LocalState.decoration.menu.snow = true;
   }
 
   createSnowFlake(): void {
+    const REMOVE_TIME = 5000;
     const snow_flake = document.createElement('i');
     snow_flake.classList.add('snowflake');
     snow_flake.style.backgroundImage = 'url("./assets/svg/snowflake.svg")';
@@ -66,7 +68,7 @@ export class Menu {
 
     setTimeout(() => {
       snow_flake.remove();
-    }, 5000);
+    }, REMOVE_TIME);
   }
 
   controlAudio(): void {

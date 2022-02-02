@@ -71,10 +71,9 @@ export class FiltersController {
 
     Object.entries(LocalState.data.filters.range).forEach(([option, [min, max]]) => {
       cards!.forEach((card) => {
-        if (
-          (card.querySelector(`[data-${option}]`) as HTMLElement).dataset[option]! < min ||
-          (card.querySelector(`[data-${option}]`) as HTMLElement).dataset[option]! > max
-        ) {
+        const filteredValue = (card.querySelector(`[data-${option}]`) as HTMLElement).dataset[option]!;
+
+        if (filteredValue < min || filteredValue > max) {
           card.classList.add('hide');
         }
       });
