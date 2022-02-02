@@ -2,6 +2,7 @@ import { LocalData } from '../constant';
 
 export class LocalState {
   static data: LocalData;
+  static defaultData: LocalData = { selected: [], filters: { value: {}, range: {}, sort: ['name', 'increment'] } };
 
   constructor() {
     LocalState.data = LocalState.getData();
@@ -10,10 +11,8 @@ export class LocalState {
     });
   }
   static getData(): LocalData {
-    const localData: LocalData = JSON.parse(
-      localStorage.getItem('data') ??
-        '{"selected":[], "filters": {"value":{}, "range": {}, "sort": ["name", "increment"]}}'
-    );
+    const localData: LocalData =
+      localStorage.getItem('data') !== null ? JSON.parse(localStorage.getItem('data')!) : LocalState.defaultData;
     return localData;
   }
 
@@ -22,12 +21,9 @@ export class LocalState {
   }
 
   static clearLocalStorage() {
-    localStorage.setItem(
-      'data',
-      `{"selected":${JSON.stringify(
-        LocalState.data.selected
-      )}, "filters": {"value":{}, "range": {}, "sort": ["name", "increment"]}}`
-    );
+    const clearedData = LocalState.defaultData;
+    clearedData.selected = LocalState.data.selected;
+    localStorage.setItem('data', JSON.stringify(clearedData));
     LocalState.data = LocalState.getData();
   }
 }

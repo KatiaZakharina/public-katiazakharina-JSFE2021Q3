@@ -29,3 +29,5 @@ export interface rangeFilters {
   count?: [number, number];
   year?: [number, number];
 }
+
+export type Routes = '' | 'toys' | 'tree';

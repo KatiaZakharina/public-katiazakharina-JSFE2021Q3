@@ -13,7 +13,7 @@ export class Header {
     this.headerEl = document.querySelector('.header-bar')!;
     this.counterEl = document.querySelector('.counter')!;
     this.reloadCounter();
-    this.search=new Search();
+    this.search = new Search();
   }
   set num(value: number) {
     this._num = value;
@@ -29,5 +29,4 @@ export class Header {
   reloadCounter(): void {
     this.counterEl.value = String(this.num);
   }
-
 }

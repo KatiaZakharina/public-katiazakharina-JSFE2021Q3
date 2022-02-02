@@ -56,8 +56,6 @@ export class Toys {
 
     const cardNum = +card.dataset.num!;
 
-    console.log(LocalState.data.selected);
-
     if (LocalState.data.selected.includes(cardNum)) {
       AppView.header.num--;
       LocalState.data.selected.splice(LocalState.data.selected.indexOf(cardNum), 1);

@@ -13,7 +13,7 @@ export class Sort {
   }
 
   setSortingForm() {
-    const selectEl=(document.querySelector('.filter__sort-types') as HTMLSelectElement);
+    const selectEl = document.querySelector('.filter__sort-types') as HTMLSelectElement;
     const selectedOptionEl = selectEl.options[selectEl.selectedIndex];
     LocalState.data.filters.sort = LocalState.data.filters.sort || [
       selectedOptionEl!.dataset!.option!,
@@ -32,17 +32,12 @@ export class Sort {
     const cards = document.querySelectorAll('.card');
 
     const newCards = Array.from(cards).sort((card1: Element, card2: Element) => {
-      let first: number | string = ((card1 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
+      const first: number | string = ((card1 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
           option
         ]!,
         second: number | string = ((card2 as HTMLElement).querySelector(`[data-${option}]`) as HTMLElement).dataset[
           option
         ]!;
-
-      if (!isNaN(+first) && !isNaN(+second)) {
-        first = +first;
-        second = +second;
-      }
 
       const result = Number(first > second) - 0.5;
       return order ? result : -result;
