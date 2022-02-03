@@ -248,7 +248,7 @@ button {
 .ripple::active,
 .ripple::visited,
 .ripple:focus {
-  outline: 0;
+  /* outline: 0; */
   border: 0;
 }
 
@@ -295,6 +295,11 @@ button {
   background-image: url('../assets/svg/logo.svg');
   background-repeat: no-repeat;
 }
+.header_theme{
+  background-color: transparent;
+  border: 0;
+}
+
 .header_theme-icon {
   height: 35px;
   width: 35px;
@@ -1051,7 +1056,7 @@ button {
   height: 8px;
   -webkit-appearance: none;
   background: #c4c4c4;
-  outline: none;
+  /* outline: none; */
 }
 .player__range-time::-webkit-slider-thumb {
   margin-top: -3px;
@@ -1068,7 +1073,6 @@ button {
   -webkit-appearance: none;
   height: 8px;
   background: #c4c4c4;
-  outline: none;
 }
 .player__range-time_s_show {
   display: none;
