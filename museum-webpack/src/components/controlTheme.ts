@@ -18,8 +18,4 @@ function lightTheme() {
   theme = 'light';
 }
 
-document
-  .querySelector('.header_theme')
-  .addEventListener('click', () =>
-    theme === 'light' ? darkTheme() : lightTheme()
-  );
+document.querySelector('.header_theme').addEventListener('click', () => (theme === 'light' ? darkTheme() : lightTheme()));

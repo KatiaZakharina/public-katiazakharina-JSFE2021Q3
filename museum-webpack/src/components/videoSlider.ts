@@ -24,15 +24,11 @@ function videoSlider() {
     changeMainVideo();
   });
   function changeMainVideo() {
-    (
-      document.querySelector('.player__video') as HTMLVideoElement
-    ).src = `assets/video/video${currentSlide}.mp4`;
+    (document.querySelector('.player__video') as HTMLVideoElement).src = `assets/video/video${currentSlide}.mp4`;
   }
 
   vslides.forEach((videoSlide) => {
-    videoSlide.addEventListener('click', () => {
-      // console.log('d');
-    });
+    videoSlide.addEventListener('click', () => {});
   });
 }
 

@@ -4,24 +4,27 @@
     "es2021": true
   },
   "extends": [
+    "plugin:import/recommended",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "airbnb-base",
+    "airbnb-typescript/base",
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 13,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json"]
   },
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": ["import", "@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error",
     "no-undef": "off",
     "no-param-reassign": "off",
     "no-use-before-define": "off",
     "import/no-import-module-exports": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "import/default": "off"
   }
 }

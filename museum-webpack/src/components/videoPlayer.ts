@@ -1,21 +1,11 @@
 function videoPlayer() {
   const video = document.querySelector('.player__video') as HTMLVideoElement;
-  const rangeTime = document.querySelectorAll(
-    '.player__range-time'
-  ) as NodeListOf<HTMLInputElement>;
-  const rangeVolume = document.querySelector(
-    '.player__range-volume'
-  ) as HTMLInputElement;
-  const playButton = document.querySelector(
-    '.player__play-button'
-  ) as HTMLImageElement;
+  const rangeTime = document.querySelectorAll('.player__range-time') as NodeListOf<HTMLInputElement>;
+  const rangeVolume = document.querySelector('.player__range-volume') as HTMLInputElement;
+  const playButton = document.querySelector('.player__play-button') as HTMLImageElement;
   const expandButton = document.querySelector('.player__expand-button');
-  const volumeButton = document.querySelector(
-    '.player__volume-button'
-  ) as HTMLImageElement;
-  const playButtonWrapper = document.querySelector(
-    '.player__wrapper'
-  ) as HTMLElement;
+  const volumeButton = document.querySelector('.player__volume-button') as HTMLImageElement;
+  const playButtonWrapper = document.querySelector('.player__wrapper') as HTMLElement;
 
   video.volume = 0.5;
   volumeButton.addEventListener('click', toggleVolume);
@@ -53,12 +43,10 @@ function videoPlayer() {
   function toggleFullScreen() {
     if (!document.fullscreenElement) {
       document.querySelector('.video__player').requestFullscreen();
-      (document.querySelector('.player__video') as HTMLElement).style.height =
-        '83vh';
+      (document.querySelector('.player__video') as HTMLElement).style.height = '83vh';
     } else {
       document.exitFullscreen();
-      (document.querySelector('.player__video') as HTMLElement).style.height =
-        '650px';
+      (document.querySelector('.player__video') as HTMLElement).style.height = '650px';
     }
   }
 
@@ -88,9 +76,7 @@ function videoPlayer() {
   );
 
   function runnableTrack() {
-    const inputs = document.querySelectorAll(
-      'input[type="range"]'
-    ) as NodeListOf<HTMLInputElement>;
+    const inputs = document.querySelectorAll('input[type="range"]') as NodeListOf<HTMLInputElement>;
 
     function getBackgroundSize(input: HTMLInputElement) {
       const min = +input.min || 0;
@@ -103,10 +89,7 @@ function videoPlayer() {
     }
 
     function setBackgroundSize(input: HTMLInputElement) {
-      input.style.setProperty(
-        '--background-size',
-        `${getBackgroundSize(input)}%`
-      );
+      input.style.setProperty('--background-size', `${getBackgroundSize(input)}%`);
     }
     inputs.forEach((input) => {
       setBackgroundSize(input);
@@ -154,16 +137,9 @@ function videoPlayer() {
   );
   function keyboardControl() {
     document.addEventListener('keydown', (event) => {
-      if (
-        +video.getBoundingClientRect().y > 1000 ||
-        +video.getBoundingClientRect().y < -1000
-      )
-        return;
+      if (+video.getBoundingClientRect().y > 1000 || +video.getBoundingClientRect().y < -1000) return;
 
-      if (
-        (document.activeElement as HTMLElement).dataset.playerBtn !== null
-      )
-        return;
+      if ((document.activeElement as HTMLElement).dataset.playerBtn !== null) return;
 
       if (event.code === 'Space') {
         console.dir(video);
@@ -181,12 +157,7 @@ function videoPlayer() {
         video.playbackRate += 0.25;
         showVideoSpeed();
       }
-      if (
-        event.code === 'Period' &&
-        event.shiftKey &&
-        video.playbackRate >= 0.5 &&
-        !video.paused
-      ) {
+      if (event.code === 'Period' && event.shiftKey && video.playbackRate >= 0.5 && !video.paused) {
         video.playbackRate -= 0.25;
         showVideoSpeed();
       }
@@ -202,8 +173,7 @@ function videoPlayer() {
         playButtonWrapper.append(speed);
         setTimeout(() => {
           playButtonWrapper.innerHTML = '';
-          playButtonWrapper.style.backgroundImage =
-            'url(../assets/svg/play-big.svg)';
+          playButtonWrapper.style.backgroundImage = 'url(../assets/svg/play-big.svg)';
           playButtonWrapper.classList.remove('player__wrapper-before');
         }, 1500);
       }

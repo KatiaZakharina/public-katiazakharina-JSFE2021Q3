@@ -1,8 +1,6 @@
 function beforeAfterSlider() {
   const slider = document.querySelector('.compare__slider') as HTMLElement;
-  const before = document.querySelector(
-    '.compare__before-image'
-  ) as HTMLElement;
+  const before = document.querySelector('.compare__before-image') as HTMLElement;
   const beforeImage = before.querySelector('.compare__img') as HTMLElement;
   const after = document.querySelector('.compare__after-image') as HTMLElement;
   const afterImage = after.querySelector('.compare__img') as HTMLElement;
@@ -13,11 +11,9 @@ function beforeAfterSlider() {
   const width = slider.offsetWidth;
   beforeImage.style.width = `${width}px`;
   afterImage.style.width = `${width}px`;
-  // resizer.style.height;
 
   // Adjust width of image on resize
   window.addEventListener('resize', () => {
-    // const width = slider.offsetWidth;
     beforeImage.style.width = `${width}px`;
     afterImage.style.width = `${width}px`;
   });

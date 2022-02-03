@@ -1,27 +1,11 @@
-function createModal(
-  elementName: string,
-  scroolBehavior = false,
-  changeTrigger = false
-) {
-  const modalTrigger = document.querySelectorAll(
-    `[data-${elementName}][data-modal]`
-  );
-  const modal = document.querySelector(
-    `[data-${elementName}][data-modal-window]`
-  );
-  const modalContainer = document.querySelector(
-    `[data-${elementName}].modal__container`
-  );
-  const modalCloseBtn = document.querySelector(
-    `[data-${elementName}][data-close]`
-  );
+function createModal(elementName: string, scroolBehavior = false, changeTrigger = false) {
+  const modalTrigger = document.querySelectorAll(`[data-${elementName}][data-modal]`);
+  const modal = document.querySelector(`[data-${elementName}][data-modal-window]`);
+  const modalContainer = document.querySelector(`[data-${elementName}].modal__container`);
+  const modalCloseBtn = document.querySelector(`[data-${elementName}][data-close]`);
 
   modalTrigger.forEach((btn) => {
-    btn.addEventListener('click', () =>
-      changeTrigger && btn.classList.contains('data-close')
-        ? hideModal()
-        : showModal()
-    );
+    btn.addEventListener('click', () => (changeTrigger && btn.classList.contains('data-close') ? hideModal() : showModal()));
   });
 
   if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
@@ -37,14 +21,10 @@ function createModal(
     }
   });
 
-  // ---------------adaptive nav
+  //adaptive nav
   function changeModalTrigger() {
-    const trigger = document.querySelector(
-      `[data-${elementName}][data-trigger]`
-    );
-    const img = document.querySelector(
-      `[data-${elementName}][data-trigger-image]`
-    ) as HTMLImageElement;
+    const trigger = document.querySelector(`[data-${elementName}][data-trigger]`);
+    const img = document.querySelector(`[data-${elementName}][data-trigger-image]`) as HTMLImageElement;
     if (trigger.classList.contains('data-open')) {
       img.src = 'assets/svg/nav-close.svg';
       trigger.classList.toggle('data-open');
@@ -68,10 +48,7 @@ function createModal(
     modalContainer.classList.remove('fadeOut');
     if (scroolBehavior) document.body.style.overflow = 'hidden';
     if (changeTrigger) changeModalTrigger();
-    // if(elementName=='a-nav')
-    document
-      .querySelector('.welcome__info')
-      .classList.add('welcome__info_md_hide');
+    document.querySelector('.welcome__info').classList.add('welcome__info_md_hide');
   }
 
   function hideModal() {
@@ -83,10 +60,7 @@ function createModal(
     }, 1000);
     if (scroolBehavior) document.body.style.overflow = '';
     if (changeTrigger) changeModalTrigger();
-    // if(elementName=='a-nav')
-    document
-      .querySelector('.welcome__info')
-      .classList.remove('welcome__info_md_hide');
+    document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
   }
 }
 

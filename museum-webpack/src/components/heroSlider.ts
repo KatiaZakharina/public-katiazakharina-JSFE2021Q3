@@ -2,27 +2,18 @@ function heroSlider() {
   let offset = 0;
   let slideIndex = 1;
 
-  const slides = document.querySelectorAll(
-    '.slider__slide'
-  ) as NodeListOf<HTMLElement>;
+  const slides = document.querySelectorAll('.slider__slide') as NodeListOf<HTMLElement>;
   const prev = document.querySelector('.slider__prev');
   const next = document.querySelector('.slider__next');
   const total = document.querySelector('#total');
   const current = document.querySelector('#current');
-  const slidesWrapper = document.querySelector(
-    '.slider__wrapper'
-  ) as HTMLElement;
+  const slidesWrapper = document.querySelector('.slider__wrapper') as HTMLElement;
   const { width } = window.getComputedStyle(slidesWrapper);
   const slidesField = document.querySelector('.slider__inner') as HTMLElement;
   const indicators = document.querySelector('.slider__carousel-indicators');
 
-  if (slides.length < 10) {
-    total.textContent = `0${slides.length}`;
-    current.textContent = `0${slideIndex}`;
-  } else {
-    total.textContent = String(slides.length);
-    current.textContent = String(slideIndex);
-  }
+  total.textContent = String(slides.length).padStart(2, '0');
+  current.textContent = String(slideIndex).padStart(2, '0');
 
   slidesField.style.width = `${100 * slides.length}%`;
   slidesField.style.display = 'flex';
@@ -61,12 +52,7 @@ function heroSlider() {
     } else {
       slideIndex += 1;
     }
-
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = String(slideIndex);
-    }
+    current.textContent = String(slideIndex).padStart(2, '0');
 
     dots.forEach((dot) => {
       dot.style.backgroundColor = '#ffffff';
@@ -93,11 +79,7 @@ function heroSlider() {
       slideIndex -= 1;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = String(slideIndex);
-    }
+    current.textContent = String(slideIndex).padStart(2, '0');
 
     dots.forEach((dot) => {
       dot.style.backgroundColor = '#ffffff';
@@ -116,11 +98,7 @@ function heroSlider() {
 
       slidesField.style.transform = `translateX(-${offset}px)`;
 
-      if (slides.length < 10) {
-        current.textContent = `0${slideIndex}`;
-      } else {
-        current.textContent = String(slideIndex);
-      }
+      current.textContent = String(slideIndex).padStart(2, '0');
 
       dots.forEach((i) => {
         i.style.backgroundColor = '#ffffff';

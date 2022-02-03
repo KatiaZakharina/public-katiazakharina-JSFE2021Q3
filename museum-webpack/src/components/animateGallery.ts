@@ -1,15 +1,19 @@
 import AOS from 'aos';
 
+const ANIMATION_DELAY = 300,
+  ANIMATION_DURATION = 1000,
+  IMG_QUANTITY = 15;
+
 AOS.init({
-  delay: 300,
-  duration: 1000,
+  delay: ANIMATION_DELAY,
+  duration: ANIMATION_DURATION,
 });
 
 function animateGallery() {
   const gallery = document.querySelector('.picture__inner');
-  const random = severalRandom(1, 15, 15);
+  const random = severalRandom(1, IMG_QUANTITY, IMG_QUANTITY);
 
-  for (let i = 0; i < 15; i += 1) {
+  for (let i = 0; i < IMG_QUANTITY; i += 1) {
     const img = document.createElement('img');
     img.classList.add('picture__item');
 
@@ -27,12 +31,12 @@ function animateGallery() {
     const res = [];
 
     for (i = min; i <= max; i += 1) arr.push(i);
-    for (i = 0; i < num; i += 1)
-      res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
+    for (i = 0; i < num; i += 1) res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
     return res;
   }
 }
 
+// aos bug solution
 let scrollRef = 0;
 
 window.addEventListener('scroll', () => {
