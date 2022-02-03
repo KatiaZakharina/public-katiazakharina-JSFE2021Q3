@@ -19,7 +19,7 @@ function lightTheme() {
 }
 
 document
-  .querySelector('.header_theme-icon')
+  .querySelector('.header_theme')
   .addEventListener('click', () =>
     theme === 'light' ? darkTheme() : lightTheme()
   );

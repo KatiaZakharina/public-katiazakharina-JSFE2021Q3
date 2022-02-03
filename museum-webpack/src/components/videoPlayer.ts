@@ -160,6 +160,11 @@ function videoPlayer() {
       )
         return;
 
+      if (
+        (document.activeElement as HTMLElement).dataset.playerBtn !== null
+      )
+        return;
+
       if (event.code === 'Space') {
         console.dir(video);
         event.preventDefault();
