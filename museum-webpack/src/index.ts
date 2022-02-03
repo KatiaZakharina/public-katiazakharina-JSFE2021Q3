@@ -8,10 +8,7 @@ import './css/normalize.css';
 import './css/style.css';
 
 let theme = 'light';
-//--dark theme
-document.querySelector('.header_theme-icon').addEventListener('click', () => {
-  theme == 'light' ? darkTheme() : lightTheme();
-});
+
 function darkTheme() {
   document.documentElement.style.setProperty('--theme-light', '#000');
   document.documentElement.style.setProperty('--theme-dark', '#fff');
@@ -32,19 +29,29 @@ function lightTheme() {
   theme = 'light';
 }
 
-(function slider() {
+document
+  .querySelector('.header_theme-icon')
+  .addEventListener('click', () =>
+    theme === 'light' ? darkTheme() : lightTheme()
+  );
+
+(function sliderFunction() {
   let offset = 0;
   let slideIndex = 1;
 
-  const slides = document.querySelectorAll('.slider__slide') as NodeListOf<HTMLElement>,
-    prev = document.querySelector('.slider__prev'),
-    next = document.querySelector('.slider__next'),
-    total = document.querySelector('#total'),
-    current = document.querySelector('#current'),
-    slidesWrapper = document.querySelector('.slider__wrapper') as HTMLElement,
-    width = window.getComputedStyle(slidesWrapper).width,
-    slidesField = document.querySelector('.slider__inner') as HTMLElement,
-    indicators = document.querySelector('.slider__carousel-indicators');
+  const slides = document.querySelectorAll(
+    '.slider__slide'
+  ) as NodeListOf<HTMLElement>;
+  const prev = document.querySelector('.slider__prev');
+  const next = document.querySelector('.slider__next');
+  const total = document.querySelector('#total');
+  const current = document.querySelector('#current');
+  const slidesWrapper = document.querySelector(
+    '.slider__wrapper'
+  ) as HTMLElement;
+  const { width } = window.getComputedStyle(slidesWrapper);
+  const slidesField = document.querySelector('.slider__inner') as HTMLElement;
+  const indicators = document.querySelector('.slider__carousel-indicators');
 
   if (slides.length < 10) {
     total.textContent = `0${slides.length}`;
@@ -54,32 +61,31 @@ function lightTheme() {
     current.textContent = String(slideIndex);
   }
 
-  slidesField.style.width = 100 * slides.length + '%';
+  slidesField.style.width = `${100 * slides.length}%`;
   slidesField.style.display = 'flex';
   slidesField.style.transition = '0.2s all';
 
   slidesWrapper.style.overflow = 'hidden';
 
-  slides.forEach(slide => {
+  slides.forEach((slide) => {
     slide.style.width = width;
   });
 
   const dots: HTMLElement[] = [];
-  for (let i = 0; i < slides.length; i++) {
+  for (let i = 0; i < slides.length; i += 1) {
     const dot = document.createElement('li');
     dot.setAttribute('data-slide-to', String(i + 1));
     dot.classList.add('slider__carousel-dot');
 
-    if (i == 0) {
+    if (i === 0) {
       dot.style.backgroundColor = '#D2B183';
     }
     indicators.append(dot);
     dots.push(dot);
   }
 
-  next.addEventListener('click', showNext);
   function showNext() {
-    if (offset == parseFloat(slides[0].style.width) * (slides.length - 1)) {
+    if (offset === parseFloat(slides[0].style.width) * (slides.length - 1)) {
       offset = 0;
     } else {
       offset += +width.slice(0, width.length - 2);
@@ -87,10 +93,10 @@ function lightTheme() {
 
     slidesField.style.transform = `translateX(-${offset}px)`;
 
-    if (slideIndex == slides.length) {
+    if (slideIndex === slides.length) {
       slideIndex = 1;
     } else {
-      slideIndex++;
+      slideIndex += 1;
     }
 
     if (slides.length < 10) {
@@ -99,11 +105,14 @@ function lightTheme() {
       current.textContent = String(slideIndex);
     }
 
-    dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
+    dots.forEach((dot) => {
+      dot.style.backgroundColor = '#ffffff';
+    });
     dots[slideIndex - 1].style.backgroundColor = '#D2B183';
   }
 
-  prev.addEventListener('click', showPrev);
+  next.addEventListener('click', showNext);
+
   function showPrev() {
     if (offset <= 0) {
       offset = 0;
@@ -115,10 +124,10 @@ function lightTheme() {
 
     slidesField.style.transform = `translateX(-${offset}px)`;
 
-    if (slideIndex == 1) {
+    if (slideIndex === 1) {
       slideIndex = slides.length;
     } else {
-      slideIndex--;
+      slideIndex -= 1;
     }
 
     if (slides.length < 10) {
@@ -127,12 +136,16 @@ function lightTheme() {
       current.textContent = String(slideIndex);
     }
 
-    dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
+    dots.forEach((dot) => {
+      dot.style.backgroundColor = '#ffffff';
+    });
     dots[slideIndex - 1].style.backgroundColor = '#D2B183';
   }
 
-  dots.forEach(dot => {
-    dot.addEventListener('click', e => {
+  prev.addEventListener('click', showPrev);
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', (e) => {
       const slideTo = (e.target as HTMLElement).getAttribute('data-slide-to');
 
       slideIndex = +slideTo;
@@ -146,7 +159,9 @@ function lightTheme() {
         current.textContent = String(slideIndex);
       }
 
-      dots.forEach(dot => (dot.style.backgroundColor = '#ffffff'));
+      dots.forEach((i) => {
+        i.style.backgroundColor = '#ffffff';
+      });
       dots[slideIndex - 1].style.backgroundColor = '#D2B183';
     });
   });
@@ -154,32 +169,26 @@ function lightTheme() {
   const slider = document.querySelector('.welcome__slider');
 
   type TouchCoordinate = { x: number; y: number } | null;
-  let touchStart: TouchCoordinate = null,
-    touchPosition: TouchCoordinate = null,
-    sensitivity = 10;
+  let touchStart: TouchCoordinate = null;
+  let touchPosition: TouchCoordinate = null;
+  const SENSITIVITY = 10;
 
-  slider.addEventListener('mousedown', e => {
+  slider.addEventListener('mousedown', (e) => {
     mouseStart(e as MouseEvent);
   });
-  slider.addEventListener('mousemove', e => {
+  slider.addEventListener('mousemove', (e) => {
     mouseMove(e as MouseEvent);
   });
-  slider.addEventListener('mouseup', e => {
-    TouchEnd(e as TouchEvent);
-  });
+  slider.addEventListener('mouseup', TouchEnd);
 
-  slider.addEventListener('touchstart', e => {
+  slider.addEventListener('touchstart', (e) => {
     TouchStart(e as TouchEvent);
   });
-  slider.addEventListener('touchmove', e => {
+  slider.addEventListener('touchmove', (e) => {
     TouchMove(e as TouchEvent);
   });
-  slider.addEventListener('touchend', e => {
-    TouchEnd(e as TouchEvent);
-  });
-  slider.addEventListener('touchcancel', e => {
-    TouchEnd(e as TouchEvent);
-  });
+  slider.addEventListener('touchend', TouchEnd);
+  slider.addEventListener('touchcancel', TouchEnd);
 
   function mouseStart(e: MouseEvent) {
     touchStart = { x: e.clientX, y: e.clientY };
@@ -191,28 +200,34 @@ function lightTheme() {
   }
 
   function TouchStart(e: TouchEvent) {
-    touchStart = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+    touchStart = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+    };
     touchPosition = { x: touchStart.x, y: touchStart.y };
   }
 
   function TouchMove(e: TouchEvent) {
-    touchPosition = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+    touchPosition = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY,
+    };
   }
 
-  function TouchEnd(e: TouchEvent) {
+  function TouchEnd() {
     CheckAction();
     touchStart = null;
     touchPosition = null;
   }
 
   function CheckAction() {
-    let diff = {
+    const diff = {
       x: touchStart.x - touchPosition.x,
       y: touchStart.y - touchPosition.y,
     };
 
     if (Math.abs(diff.x) > Math.abs(diff.y)) {
-      if (Math.abs(diff.x) > sensitivity) {
+      if (Math.abs(diff.x) > SENSITIVITY) {
         if (diff.x > 0) {
           showNext();
         } else {
@@ -223,10 +238,12 @@ function lightTheme() {
   }
 })();
 
-//--------------------------before-after
+// --------------------------before-after
 (function compare() {
   const slider = document.querySelector('.compare__slider') as HTMLElement;
-  const before = document.querySelector('.compare__before-image') as HTMLElement;
+  const before = document.querySelector(
+    '.compare__before-image'
+  ) as HTMLElement;
   const beforeImage = before.querySelector('.compare__img') as HTMLElement;
   const after = document.querySelector('.compare__after-image') as HTMLElement;
   const afterImage = after.querySelector('.compare__img') as HTMLElement;
@@ -234,34 +251,34 @@ function lightTheme() {
 
   let active = false;
 
-  let width = slider.offsetWidth;
-  beforeImage.style.width = width + 'px';
-  afterImage.style.width = width + 'px';
-  resizer.style.height;
+  const width = slider.offsetWidth;
+  beforeImage.style.width = `${width}px`;
+  afterImage.style.width = `${width}px`;
+  // resizer.style.height;
 
-  //Adjust width of image on resize
-  window.addEventListener('resize', function () {
-    let width = slider.offsetWidth;
-    beforeImage.style.width = width + 'px';
-    afterImage.style.width = width + 'px';
+  // Adjust width of image on resize
+  window.addEventListener('resize', () => {
+    // const width = slider.offsetWidth;
+    beforeImage.style.width = `${width}px`;
+    afterImage.style.width = `${width}px`;
   });
 
-  resizer.addEventListener('mousedown', function () {
+  resizer.addEventListener('mousedown', () => {
     active = true;
     resizer.classList.add('resize');
   });
 
-  document.body.addEventListener('mouseup', function () {
+  document.body.addEventListener('mouseup', () => {
     active = false;
     resizer.classList.remove('resize');
   });
 
-  document.body.addEventListener('mouseleave', function () {
+  document.body.addEventListener('mouseleave', () => {
     active = false;
     resizer.classList.remove('resize');
   });
 
-  document.body.addEventListener('mousemove', function (e) {
+  document.body.addEventListener('mousemove', (e) => {
     if (!active) return;
     let x = e.pageX;
     x -= slider.getBoundingClientRect().left;
@@ -269,28 +286,28 @@ function lightTheme() {
     pauseEvent(e);
   });
 
-  resizer.addEventListener('touchstart', function () {
+  resizer.addEventListener('touchstart', () => {
     active = true;
     resizer.classList.add('resize');
   });
 
-  document.body.addEventListener('touchend', function () {
+  document.body.addEventListener('touchend', () => {
     active = false;
     resizer.classList.remove('resize');
   });
 
-  document.body.addEventListener('touchcancel', function () {
+  document.body.addEventListener('touchcancel', () => {
     active = false;
     resizer.classList.remove('resize');
   });
 
-  //calculation for dragging on touch devices
-  document.body.addEventListener('touchmove', function (e) {
+  // calculation for dragging on touch devices
+  document.body.addEventListener('touchmove', (e) => {
     if (!active) return;
     let x;
 
     let i;
-    for (i = 0; i < e.changedTouches.length; i++) {
+    for (i = 0; i < e.changedTouches.length; i += 1) {
       x = e.changedTouches[i].pageX;
     }
 
@@ -300,12 +317,12 @@ function lightTheme() {
   });
 
   function slideIt(x: number) {
-    let transform = Math.max(0, Math.min(x, slider.offsetWidth));
-    before.style.width = transform + 'px';
-    resizer.style.left = transform - 0 + 'px';
+    const transform = Math.max(0, Math.min(x, slider.offsetWidth));
+    before.style.width = `${transform}px`;
+    resizer.style.left = `${transform - 0}px`;
   }
 
-  //stop divs being selected.
+  // stop divs being selected.
   function pauseEvent(e: Event) {
     if (e.stopPropagation) e.stopPropagation();
     if (e.preventDefault) e.preventDefault();
@@ -315,15 +332,25 @@ function lightTheme() {
   }
 })();
 
-//----------------------------------------Video
-(function video() {
-  const video = document.querySelector('.player__video') as HTMLVideoElement,
-    rangeTime = document.querySelectorAll('.player__range-time') as NodeListOf<HTMLInputElement>,
-    rangeVolume = document.querySelector('.player__range-volume') as HTMLInputElement,
-    playButton = document.querySelector('.player__play-button') as HTMLImageElement,
-    expandButton = document.querySelector('.player__expand-button'),
-    volumeButton = document.querySelector('.player__volume-button') as HTMLImageElement,
-    playButtonWrapper = document.querySelector('.player__wrapper') as HTMLElement;
+// ----------------------------------------Video
+(function videoFunction() {
+  const video = document.querySelector('.player__video') as HTMLVideoElement;
+  const rangeTime = document.querySelectorAll(
+    '.player__range-time'
+  ) as NodeListOf<HTMLInputElement>;
+  const rangeVolume = document.querySelector(
+    '.player__range-volume'
+  ) as HTMLInputElement;
+  const playButton = document.querySelector(
+    '.player__play-button'
+  ) as HTMLImageElement;
+  const expandButton = document.querySelector('.player__expand-button');
+  const volumeButton = document.querySelector(
+    '.player__volume-button'
+  ) as HTMLImageElement;
+  const playButtonWrapper = document.querySelector(
+    '.player__wrapper'
+  ) as HTMLElement;
 
   video.volume = 0.5;
   volumeButton.addEventListener('click', toggleVolume);
@@ -361,86 +388,96 @@ function lightTheme() {
   function toggleFullScreen() {
     if (!document.fullscreenElement) {
       document.querySelector('.video__player').requestFullscreen();
-      (document.querySelector('.player__video') as HTMLElement).style.height = '83vh';
+      (document.querySelector('.player__video') as HTMLElement).style.height =
+        '83vh';
     } else {
       document.exitFullscreen();
-      (document.querySelector('.player__video') as HTMLElement).style.height = '650px';
+      (document.querySelector('.player__video') as HTMLElement).style.height =
+        '650px';
     }
   }
 
-  rangeTime.forEach(i => i.setAttribute('min', String(0)));
-  video.addEventListener('loadedmetadata', function () {
-    rangeTime.forEach(i => {
+  rangeTime.forEach((i) => i.setAttribute('min', String(0)));
+  video.addEventListener('loadedmetadata', () => {
+    rangeTime.forEach((i) => {
       i.setAttribute('max', String(video.duration));
       i.setAttribute('value', String(video.duration * 0.54));
       runnableTrack();
     });
   });
 
-  rangeTime.forEach(i => {
-    i.addEventListener('input', function () {
+  rangeTime.forEach((i) => {
+    i.addEventListener('input', () => {
       video.currentTime = +i.value;
     });
   });
 
-  rangeTime.forEach(i =>
+  rangeTime.forEach((i) =>
     i.addEventListener(
       'input',
-      function () {
+      () => {
         video.currentTime = +i.value;
       },
-      false,
-    ),
+      false
+    )
   );
 
   function runnableTrack() {
-    const input = document.querySelectorAll('input[type="range"]') as NodeListOf<HTMLInputElement>;
-    input.forEach(input => {
-      function setBackgroundSize(input: HTMLInputElement) {
-        input.style.setProperty('--background-size', `${getBackgroundSize(input)}%`);
-      }
+    const inputs = document.querySelectorAll(
+      'input[type="range"]'
+    ) as NodeListOf<HTMLInputElement>;
 
+    function getBackgroundSize(input: HTMLInputElement) {
+      const min = +input.min || 0;
+      const max = +input.max || 100;
+      const value = +input.value;
+
+      const size = ((value - min) / (max - min)) * 100;
+
+      return size;
+    }
+
+    function setBackgroundSize(input: HTMLInputElement) {
+      input.style.setProperty(
+        '--background-size',
+        `${getBackgroundSize(input)}%`
+      );
+    }
+    inputs.forEach((input) => {
       setBackgroundSize(input);
-
       input.addEventListener('input', () => setBackgroundSize(input));
-
-      function getBackgroundSize(input: HTMLInputElement) {
-        const min = +input.min || 0;
-        const max = +input.max || 100;
-        const value = +input.value;
-
-        const size = ((value - min) / (max - min)) * 100;
-
-        return size;
-      }
     });
   }
   runnableTrack();
 
   video.addEventListener('playing', () => {
     setInterval(() => {
-      rangeTime.forEach(i => (i.value = String(video.currentTime)));
+      rangeTime.forEach((i) => {
+        i.value = String(video.currentTime);
+      });
       runnableTrack();
     }, 10);
   });
 
   video.addEventListener(
     'ended',
-    function () {
+    () => {
       video.currentTime = 0;
-      rangeTime.forEach(i => (i.value = String(0)));
+      rangeTime.forEach((i) => {
+        i.value = String(0);
+      });
       video.load();
       playButton.src = 'assets/svg/play.svg';
     },
-    false,
+    false
   );
 
   rangeVolume.addEventListener(
     'input',
-    function () {
+    () => {
       video.muted = false;
       video.volume = +rangeVolume.value;
-      if (video.volume == 0) {
+      if (video.volume === 0) {
         volumeButton.src = 'assets/svg/novolume.svg';
         video.muted = true;
       } else {
@@ -448,28 +485,28 @@ function lightTheme() {
         video.muted = false;
       }
     },
-    false,
+    false
   );
   function keyboardControl() {
-    document.addEventListener('keydown', function (event) {
+    document.addEventListener('keydown', (event) => {
       if (document.documentElement.getBoundingClientRect().y >= -6140) {
-        if (event.code == 'Space') {
+        if (event.code === 'Space') {
           event.preventDefault();
           toggleBigButton();
         }
-        if (event.code == 'KeyM') {
+        if (event.code === 'KeyM') {
           event.preventDefault();
           toggleVolume();
         }
-        if (event.code == 'KeyF') {
+        if (event.code === 'KeyF') {
           toggleFullScreen();
         }
-        if (event.code == 'Comma' && event.shiftKey && !video.paused) {
+        if (event.code === 'Comma' && event.shiftKey && !video.paused) {
           video.playbackRate += 0.25;
           showVideoSpeed();
         }
         if (
-          event.code == 'Period' &&
+          event.code === 'Period' &&
           event.shiftKey &&
           video.playbackRate >= 0.5 &&
           !video.paused
@@ -483,14 +520,15 @@ function lightTheme() {
         playButtonWrapper.innerHTML = '';
         playButtonWrapper.classList.add('player__wrapper-before');
         playButtonWrapper.style.backgroundImage = 'none';
-        let speed = document.createElement('span');
+        const speed = document.createElement('span');
         speed.classList.add('video__speed');
         speed.classList.add('hiddenAnimation');
         speed.innerText = String(video.playbackRate);
         playButtonWrapper.append(speed);
         setTimeout(() => {
           playButtonWrapper.innerHTML = '';
-          playButtonWrapper.style.backgroundImage = 'url(../assets/svg/play-big.svg)';
+          playButtonWrapper.style.backgroundImage =
+            'url(../assets/svg/play-big.svg)';
           playButtonWrapper.classList.remove('player__wrapper-before');
         }, 1500);
       }
@@ -508,20 +546,20 @@ new Splide('.splide', {
 }).mount();
 
 function videoSlider() {
-  let vslides = document.querySelectorAll('.vslider__video-item'),
-    prev = document.querySelectorAll('.splide__arrow--prev')[0],
-    next = document.querySelectorAll('.splide__arrow--next')[0];
+  const vslides = document.querySelectorAll('.vslider__video-item');
+  const prev = document.querySelectorAll('.splide__arrow--prev')[0];
+  const next = document.querySelectorAll('.splide__arrow--next')[0];
 
   let currentSlide = 0;
 
   prev.addEventListener('click', () => {
-    if (currentSlide == 5) currentSlide = -1;
-    currentSlide++;
+    if (currentSlide === 5) currentSlide = -1;
+    currentSlide += 1;
     changeMainVideo();
   });
   next.addEventListener('click', () => {
-    if (currentSlide == 0) currentSlide = 6;
-    currentSlide--;
+    if (currentSlide === 0) currentSlide = 6;
+    currentSlide -= 1;
     changeMainVideo();
   });
   function changeMainVideo() {
@@ -530,7 +568,7 @@ function videoSlider() {
     ).src = `assets/video/video${currentSlide}.mp4`;
   }
 
-  vslides.forEach(videoSlide => {
+  vslides.forEach((videoSlide) => {
     videoSlide.addEventListener('click', () => {
       // console.log('d');
     });
@@ -539,64 +577,104 @@ function videoSlider() {
 videoSlider();
 
 (function bookTickets() {
-  const SENIOR_BENEFIT = 0.5,
-    BASIC_BENEFIT = 1;
-  const ticketsType = document.querySelectorAll('.booking__radio') as NodeListOf<HTMLInputElement>,
-    basicTickets = document.querySelector('#basic-input') as HTMLInputElement,
-    seniorTickets = document.querySelector('#senior-input') as HTMLInputElement,
-    ticketsTotal = document.querySelector('.booking__data-total'),
-    reservationBasic = document.querySelector('.reservation__basic') as HTMLInputElement,
-    reservationSenior = document.querySelector('.reservation__senior') as HTMLInputElement,
-    overviewBasic = document.querySelector('.tickets-number_basic') as HTMLInputElement,
-    overviewSenior = document.querySelector('.tickets-number_senior') as HTMLInputElement,
-    typeSelect = document.querySelector('.reservation__select') as HTMLSelectElement,
-    reservationDate = document.querySelector('.reservation__date') as HTMLInputElement,
-    reservationTime = document.querySelector('.reservation__time') as HTMLInputElement,
-    overviewDateOutput = document.querySelector('.overview__date-output') as HTMLInputElement,
-    overviewTimeOutput = document.querySelector('.overview__time-output') as HTMLInputElement,
-    overviewTypeOutput = document.querySelector('.overview__type-output') as HTMLInputElement,
-    overviewTotalBasic = document.querySelector('.tickets-cost-basic') as HTMLInputElement,
-    overviewTotalSenior = document.querySelector('.tickets-cost-senior') as HTMLInputElement,
-    overviewTotalSum = document.querySelector('.overview__total-sum') as HTMLInputElement;
+  const SENIOR_BENEFIT = 0.5;
+  const BASIC_BENEFIT = 1;
+  const ticketsType = document.querySelectorAll(
+    '.booking__radio'
+  ) as NodeListOf<HTMLInputElement>;
+  const basicTickets = document.querySelector(
+    '#basic-input'
+  ) as HTMLInputElement;
+  const seniorTickets = document.querySelector(
+    '#senior-input'
+  ) as HTMLInputElement;
+  const ticketsTotal = document.querySelector('.booking__data-total');
+  const reservationBasic = document.querySelector(
+    '.reservation__basic'
+  ) as HTMLInputElement;
+  const reservationSenior = document.querySelector(
+    '.reservation__senior'
+  ) as HTMLInputElement;
+  const overviewBasic = document.querySelector(
+    '.tickets-number_basic'
+  ) as HTMLInputElement;
+  const overviewSenior = document.querySelector(
+    '.tickets-number_senior'
+  ) as HTMLInputElement;
+  const typeSelect = document.querySelector(
+    '.reservation__select'
+  ) as HTMLSelectElement;
+  const reservationDate = document.querySelector(
+    '.reservation__date'
+  ) as HTMLInputElement;
+  const reservationTime = document.querySelector(
+    '.reservation__time'
+  ) as HTMLInputElement;
+  const overviewDateOutput = document.querySelector(
+    '.overview__date-output'
+  ) as HTMLInputElement;
+  const overviewTimeOutput = document.querySelector(
+    '.overview__time-output'
+  ) as HTMLInputElement;
+  const overviewTypeOutput = document.querySelector(
+    '.overview__type-output'
+  ) as HTMLInputElement;
+  const overviewTotalBasic = document.querySelector(
+    '.tickets-cost-basic'
+  ) as HTMLInputElement;
+  const overviewTotalSenior = document.querySelector(
+    '.tickets-cost-senior'
+  ) as HTMLInputElement;
+  const overviewTotalSum = document.querySelector(
+    '.overview__total-sum'
+  ) as HTMLInputElement;
 
-  let radioIndex: number, type: number;
+  let radioIndex: number;
+  let type: number;
 
   if (sessionStorage.length) {
     basicTickets.value = sessionStorage.getItem('basicNumber');
     seniorTickets.value = sessionStorage.getItem('seniorNumber');
-    ticketsType[+sessionStorage.getItem('typeIndex')].setAttribute('checked', 'checked');
+    ticketsType[+sessionStorage.getItem('typeIndex')].setAttribute(
+      'checked',
+      'checked'
+    );
 
     calculateTotal();
     setReservationData();
   }
 
   (function numberInput() {
-    document.querySelectorAll('.number-input__minus').forEach(i =>
-      i.addEventListener('click', e => {
-        ((e.target as HTMLElement).nextElementSibling as HTMLInputElement).stepDown();
+    document.querySelectorAll('.number-input__minus').forEach((i) =>
+      i.addEventListener('click', (e) => {
+        (
+          (e.target as HTMLElement).nextElementSibling as HTMLInputElement
+        ).stepDown();
         calculateTotal();
         if (i.classList.contains('booking__number-value')) {
           setReservationData();
         } else updateData();
-      }),
+      })
     );
 
-    document.querySelectorAll('.number-input__plus').forEach(i =>
-      i.addEventListener('click', e => {
-        ((e.target as HTMLElement).previousElementSibling as HTMLInputElement).stepUp();
+    document.querySelectorAll('.number-input__plus').forEach((i) =>
+      i.addEventListener('click', (e) => {
+        (
+          (e.target as HTMLElement).previousElementSibling as HTMLInputElement
+        ).stepUp();
         calculateTotal();
         if (i.classList.contains('booking__number-value')) {
           setReservationData();
         } else updateData();
-      }),
+      })
     );
   })();
 
-  ticketsType.forEach(i =>
+  ticketsType.forEach((i) =>
     i.addEventListener('click', () => {
       calculateTotal();
       setReservationData();
-    }),
+    })
   );
 
   function calculateTotal() {
@@ -607,8 +685,10 @@ videoSlider();
       }
     });
 
-    let totalSum =
-      (+basicTickets.value * BASIC_BENEFIT + +seniorTickets.value * SENIOR_BENEFIT) * type;
+    const totalSum =
+      (+basicTickets.value * BASIC_BENEFIT +
+        +seniorTickets.value * SENIOR_BENEFIT) *
+      type;
     if (totalSum) (ticketsTotal as HTMLElement).innerText = String(totalSum);
 
     sessionStorage.setItem('typeIndex', String(radioIndex));
@@ -622,62 +702,88 @@ videoSlider();
     overviewBasic.value = reservationBasic.value;
     overviewSenior.value = reservationSenior.value;
     typeSelect.options.selectedIndex = radioIndex + 1;
-    (document.querySelectorAll('.overview__basic-price') as NodeListOf<HTMLElement>).forEach(
-      i => (i.innerText = String(type * BASIC_BENEFIT)),
-    );
-    (document.querySelectorAll('.overview__senior-price') as NodeListOf<HTMLElement>).forEach(
-      i => (i.innerText = String(type * SENIOR_BENEFIT)),
-    );
+    (
+      document.querySelectorAll(
+        '.overview__basic-price'
+      ) as NodeListOf<HTMLElement>
+    ).forEach((i) => {
+      i.innerText = String(type * BASIC_BENEFIT);
+    });
+    (
+      document.querySelectorAll(
+        '.overview__senior-price'
+      ) as NodeListOf<HTMLElement>
+    ).forEach((i) => {
+      i.innerText = String(type * SENIOR_BENEFIT);
+    });
     updateData();
   }
   calculateTotal();
   setReservationData();
 
-  let today = new Date(Date.now()),
-    dd = +String(today.getDate()).padStart(2, '0'),
-    mm = +String(today.getMonth() + 1).padStart(2, '0'),
-    yyyy = today.getFullYear();
+  const today = new Date(Date.now());
+  const dd = +String(today.getDate()).padStart(2, '0');
+  const mm = +String(today.getMonth() + 1).padStart(2, '0');
+  const yyyy = today.getFullYear();
 
-  reservationDate.min = yyyy + '-' + dd + '-' + mm;
+  reservationDate.min = `${yyyy}-${dd}-${mm}`;
 
   reservationDate.addEventListener('input', updateData);
   reservationTime.addEventListener('input', updateData);
   typeSelect.addEventListener('input', updateData);
 
   function updateData() {
-    let date = new Date(reservationDate.value);
-    if (reservationDate.value && +date > Date.now()) overviewDateOutput.value = date.toDateString();
+    const date = new Date(reservationDate.value);
+    if (reservationDate.value && +date > Date.now())
+      overviewDateOutput.value = date.toDateString();
     if (reservationTime.value) overviewTimeOutput.value = reservationTime.value;
     overviewTypeOutput.value = typeSelect.value;
     overviewBasic.value = reservationBasic.value;
     overviewSenior.value = reservationSenior.value;
-    type = +ticketsType[typeSelect.options.selectedIndex - 1].getAttribute('data-cost');
-    overviewTotalBasic.value = +reservationBasic.value * type * BASIC_BENEFIT + ' €';
-    overviewTotalSenior.value = +reservationSenior.value * type * SENIOR_BENEFIT + ' €';
-    overviewTotalSum.value =
-      (BASIC_BENEFIT * +reservationBasic.value + SENIOR_BENEFIT * +reservationSenior.value) * type +
-      ' €';
-    (document.querySelectorAll('.overview__basic-price') as NodeListOf<HTMLElement>).forEach(
-      i => (i.innerText = String(type * BASIC_BENEFIT)),
-    );
-    (document.querySelectorAll('.overview__senior-price') as NodeListOf<HTMLElement>).forEach(
-      i => (i.innerText = String(type * SENIOR_BENEFIT)),
-    );
+    type =
+      +ticketsType[typeSelect.options.selectedIndex - 1].getAttribute(
+        'data-cost'
+      );
+    overviewTotalBasic.value = `${
+      +reservationBasic.value * type * BASIC_BENEFIT
+    } €`;
+    overviewTotalSenior.value = `${
+      +reservationSenior.value * type * SENIOR_BENEFIT
+    } €`;
+    overviewTotalSum.value = `${
+      (BASIC_BENEFIT * +reservationBasic.value +
+        SENIOR_BENEFIT * +reservationSenior.value) *
+      type
+    } €`;
+    (
+      document.querySelectorAll(
+        '.overview__basic-price'
+      ) as NodeListOf<HTMLElement>
+    ).forEach((i) => {
+      i.innerText = String(type * BASIC_BENEFIT);
+    });
+    (
+      document.querySelectorAll(
+        '.overview__senior-price'
+      ) as NodeListOf<HTMLElement>
+    ).forEach((i) => {
+      i.innerText = String(type * SENIOR_BENEFIT);
+    });
   }
 })();
 
-//------ripple effect
+// ------ripple effect
 
 (function buttonClick() {
-  let btn = document.querySelector('.ripple');
-  function ripple(e: MouseEvent) {
+  const btn = document.querySelector('.ripple');
+  function rippleFunction(e: MouseEvent) {
     e.preventDefault();
-    let posX = this.offsetLeft;
-    let posY = this.offsetTop;
+    const posX = this.offsetLeft;
+    const posY = this.offsetTop;
     let buttonWidth = this.offsetWidth;
     let buttonHeight = this.offsetHeight;
 
-    let ripple = document.createElement('span');
+    const ripple = document.createElement('span');
     ripple.classList.add('ripple__span');
 
     this.appendChild(ripple);
@@ -688,8 +794,8 @@ videoSlider();
       buttonWidth = buttonHeight;
     }
 
-    var x = e.pageX - posX - buttonWidth / 2;
-    var y = e.pageY - posY - buttonHeight / 2;
+    const x = e.pageX - posX - buttonWidth / 2;
+    const y = e.pageY - posY - buttonHeight / 2;
 
     ripple.style.width = `${buttonWidth}px`;
     ripple.style.height = `${buttonHeight}px`;
@@ -703,42 +809,60 @@ videoSlider();
     }, 1000);
   }
 
-  btn.addEventListener('click', ripple);
+  btn.addEventListener('click', rippleFunction);
 })();
 
 createModal('a-nav', true, true);
 createModal('reservation');
 
-//-------modal
-function createModal(elementName: string, scroolBehavior = false, changeTrigger = false) {
-  const modalTrigger = document.querySelectorAll(`[data-${elementName}][data-modal]`),
-    modal = document.querySelector(`[data-${elementName}][data-modal-window]`),
-    modalContainer = document.querySelector(`[data-${elementName}].modal__container`),
-    modalCloseBtn = document.querySelector(`[data-${elementName}][data-close]`);
+// -------modal
+function createModal(
+  elementName: string,
+  scroolBehavior = false,
+  changeTrigger = false
+) {
+  const modalTrigger = document.querySelectorAll(
+    `[data-${elementName}][data-modal]`
+  );
+  const modal = document.querySelector(
+    `[data-${elementName}][data-modal-window]`
+  );
+  const modalContainer = document.querySelector(
+    `[data-${elementName}].modal__container`
+  );
+  const modalCloseBtn = document.querySelector(
+    `[data-${elementName}][data-close]`
+  );
 
-  modalTrigger.forEach(btn => {
+  modalTrigger.forEach((btn) => {
     btn.addEventListener('click', () =>
-      changeTrigger && btn.classList.contains('data-close') ? hideModal() : showModal(),
+      changeTrigger && btn.classList.contains('data-close')
+        ? hideModal()
+        : showModal()
     );
   });
 
   if (modalCloseBtn) modalCloseBtn.addEventListener('click', hideModal);
 
-  modal.addEventListener('click', e => {
+  modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       hideModal();
     }
   });
-  document.addEventListener('keydown', e => {
-    if (e.code == 'Escape' && modal.classList.contains('show')) {
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Escape' && modal.classList.contains('show')) {
       hideModal();
     }
   });
 
-  //---------------adaptive nav
+  // ---------------adaptive nav
   function changeModalTrigger() {
-    const trigger = document.querySelector(`[data-${elementName}][data-trigger]`),
-      img = document.querySelector(`[data-${elementName}][data-trigger-image]`) as HTMLImageElement;
+    const trigger = document.querySelector(
+      `[data-${elementName}][data-trigger]`
+    );
+    const img = document.querySelector(
+      `[data-${elementName}][data-trigger-image]`
+    ) as HTMLImageElement;
     if (trigger.classList.contains('data-open')) {
       img.src = 'assets/svg/nav-close.svg';
       trigger.classList.toggle('data-open');
@@ -750,9 +874,9 @@ function createModal(elementName: string, scroolBehavior = false, changeTrigger 
     }
   }
 
-  if (elementName == 'a-nav') {
+  if (elementName === 'a-nav') {
     const navLinks = document.querySelectorAll('.a-nav__item');
-    navLinks.forEach(i => i.addEventListener('click', hideModal));
+    navLinks.forEach((i) => i.addEventListener('click', hideModal));
   }
 
   function showModal() {
@@ -763,7 +887,9 @@ function createModal(elementName: string, scroolBehavior = false, changeTrigger 
     if (scroolBehavior) document.body.style.overflow = 'hidden';
     if (changeTrigger) changeModalTrigger();
     // if(elementName=='a-nav')
-    document.querySelector('.welcome__info').classList.add('welcome__info_md_hide');
+    document
+      .querySelector('.welcome__info')
+      .classList.add('welcome__info_md_hide');
   }
 
   function hideModal() {
@@ -776,11 +902,13 @@ function createModal(elementName: string, scroolBehavior = false, changeTrigger 
     if (scroolBehavior) document.body.style.overflow = '';
     if (changeTrigger) changeModalTrigger();
     // if(elementName=='a-nav')
-    document.querySelector('.welcome__info').classList.remove('welcome__info_md_hide');
+    document
+      .querySelector('.welcome__info')
+      .classList.remove('welcome__info_md_hide');
   }
 }
 
-//----------------------gallery
+// ----------------------gallery
 AOS.init({
   delay: 300,
   duration: 1000,
@@ -789,10 +917,10 @@ AOS.init({
 
 (function appendGalleryImages() {
   const gallery = document.querySelector('.picture__inner');
-  let random = severalRandom(1, 15, 15);
+  const random = severalRandom(1, 15, 15);
 
-  for (let i = 0; i < 15; i++) {
-    let img = document.createElement('img');
+  for (let i = 0; i < 15; i += 1) {
+    const img = document.createElement('img');
     img.classList.add('picture__item');
 
     img.setAttribute('data-aos', 'fade-up');
@@ -804,24 +932,28 @@ AOS.init({
   }
 
   function severalRandom(min: number, max: number, num: number) {
-    let i,
-      arr = [],
-      res = [];
+    let i;
+    const arr = [];
+    const res = [];
 
-    for (i = min; i <= max; i++) arr.push(i);
-    for (i = 0; i < num; i++) res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
+    for (i = min; i <= max; i += 1) arr.push(i);
+    for (i = 0; i < num; i += 1)
+      res.push(arr.splice(Math.floor(Math.random() * arr.length), 1)[0]);
     return res;
   }
 })();
 
 let scrollRef = 0;
 
-window.addEventListener('scroll', function () {
-  //aus bug solution
-  scrollRef <= 10 ? scrollRef++ : AOS.refresh();
+window.addEventListener('scroll', () => {
+  if (scrollRef <= 10) {
+    scrollRef += 1;
+  } else {
+    AOS.refresh();
+  }
 });
 
-//------map
+// ------map
 
 function createMap() {
   const apiKey =
@@ -837,28 +969,31 @@ function createMap() {
       tileSize: 512,
       zoomOffset: -1,
       accessToken: apiKey,
-    },
+    }
   ).addTo(mymap);
 
-  var myIcon = L.icon({
+  const myIcon = L.icon({
     iconUrl: './assets/img/maps-and-flags.png',
     iconSize: [35, 35],
   });
 
-  const mainMarker = L.marker([48.86091, 2.3364], { icon: myIcon }).addTo(mymap);
-  (document.querySelectorAll('.leaflet-marker-icon') as NodeListOf<HTMLElement>).forEach(
-    i => (i.style.opacity = String(0.4)),
-  );
+  L.marker([48.86091, 2.3364], { icon: myIcon }).addTo(mymap);
+
+  (
+    document.querySelectorAll('.leaflet-marker-icon') as NodeListOf<HTMLElement>
+  ).forEach((i) => {
+    i.style.opacity = String(0.4);
+  });
 
   // Adding Marker
-  let mapPopup = [
+  const mapPopup = [
     [48.8602, 2.3333],
     [48.8607, 2.3397],
     [48.8619, 2.333],
     [48.8625, 2.3365],
   ];
-  mapPopup.forEach(point => {
-    const marker = L.marker(point, { icon: myIcon }).addTo(mymap);
+  mapPopup.forEach((point) => {
+    L.marker(point, { icon: myIcon }).addTo(mymap);
   });
 }
 createMap();
