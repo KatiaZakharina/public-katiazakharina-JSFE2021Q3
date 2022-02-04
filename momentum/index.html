@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <title>KatiaZakharina - momentum</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="player" data-element="audio">
+      <div class="player-controls">
+        <button class="play-prev player-icon"></button>
+        <button class="play player-icon"></button>
+        <button class="play-next player-icon"></button>
+      </div>
+      <div class="audio-player">
+        <div class="timeline">
+          <div class="progress"></div>
+        </div>
+        <div class="controls">
+          <div class="song-time">
+            <div class="current">0:00</div>
+            <div class="divider">/</div>
+            <div class="length"></div>
+          </div>
+          <div class="song-name">Aqua Caelestis</div>
+          <div class="volume-container">
+            <div class="volume-button">
+              <div class="volume icono-volumeMedium">
+                <img class="volume-icon" src="assets/svg/volume.svg" alt="volume" />
+              </div>
+            </div>
+
+            <div class="volume-slider">
+              <div class="volume-percentage"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ul class="play-list"></ul>
+    </div>
+
+    <div class="set">
+      <img class="setting-icon" src="assets/svg/settings.svg" alt="setting-icon" data-open />
+      <div class="settings visually-hiddenS">
+        <div class="head">
+          <div class="user-info">
+            <h2 class="user-name">User name</h2>
+            <small class="user-location">Minsk</small>
+          </div>
+          <span class="alink close" data-close>
+            <i class="far fa-times-circle"></i>
+          </span>
+        </div>
+        <div class="body">
+          <dl class="setting">
+            <dd>
+              <li class="setting_item">
+                <i class="fas fa-language"></i>
+                <select class="select input" data-language-select data-select>
+                  <option>en</option>
+                  <option>ru</option>
+                </select>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-images"></i>
+                <select class="select input" data-source-select data-select>
+                  <option>github</option>
+                  <option>unsplash</option>
+                  <option>flickr</option>
+                </select>
+              </li>
+            </dd>
+            <dd>
+              <li class="setting_item">
+                <i class="fas fa-check-double"></i>
+                <span class="item_options">Time</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="time" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-check-double"></i>
+                <span class="item_options">Date</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="date" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-check-double"></i>
+                <span class="item_options">Greeting</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="greeting" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-check-double"></i>
+                <span class="item_options">Quote</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="quote" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-check-double"></i>
+                <span class="item_options">Weather</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="weather" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-check-double"></i>
+                <span class="item_options">Audio</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="audio" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+              <li class="setting_item">
+                <i class="fas fa-user-friends"></i>
+                <span class="item_options">ToDo</span>
+                <label class="label active">
+                  <input type="checkbox" class="label-input" data-input="todolist" />
+                  <div class="label-circle"></div>
+                </label>
+              </li>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="weather" data-element="weather">
+      <input type="text" class="city" />
+      <div class="weather-error"></div>
+      <div class="weather-inner">
+        <i class="weather-icon owf"></i>
+        <div class="description-container">
+          <span class="temperature"></span>
+          <span class="weather-description"></span>
+          <p class="wind-speed"></p>
+          <div class="wind"></div>
+          <div class="humidity"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time" data-element="time"></time>
+    <date class="date" data-element="date"></date>
+    <div class="greeting-container" data-element="greeting">
+      <span class="greeting"></span>
+      <input type="text" class="name" placeholder="name" />
+    </div>
+    <div class="toDo-container" data-element="todolist">
+      <div class="toDo-inputs">
+        <span class="toDo-title">What is your main focus for today?</span>
+        <input type="text" class="toDo-input" data-toDo />
+      </div>
+      <ul class="toDo-list"></ul>
+    </div>
+  </main>
+  <footer class="footer">
+    <button class="change-quote" data-element="quote"></button>
+    <div>
+      <div class="quote" data-element="quote"></div>
+      <div class="author" data-element="quote"></div>
+    </div>
+  </footer>
+  <script src="js/script.js" type="module"></script>
+</body>
+
+</html>
